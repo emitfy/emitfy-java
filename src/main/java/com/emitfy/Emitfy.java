@@ -1,5 +1,7 @@
 package com.emitfy;
 
+import com.emitfy.generated.ApiClient;
+import com.emitfy.generated.api.WebhooksApi;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,6 +20,9 @@ import java.util.StringJoiner;
 
 public final class Emitfy {
     private final HttpTransport transport;
+    private final String apiKey;
+    private final String apiSecret;
+    private final String baseUrl;
     public final Webhooks webhooks;
     public final Companies companies;
 
@@ -29,7 +34,10 @@ public final class Emitfy {
         if (apiKey == null || apiKey.isBlank() || apiSecret == null || apiSecret.isBlank()) {
             throw new EmitfyException("apiKey and apiSecret are required.", null, null, 0);
         }
-        this.transport = new HttpTransport(apiKey.trim(), apiSecret.trim(), baseUrl, maxRetries);
+        this.apiKey = apiKey.trim();
+        this.apiSecret = apiSecret.trim();
+        this.baseUrl = baseUrl.replaceAll("/$", "");
+        this.transport = new HttpTransport(this.apiKey, this.apiSecret, this.baseUrl, maxRetries);
         this.webhooks = new Webhooks(transport);
         this.companies = new Companies(transport);
     }
@@ -39,6 +47,21 @@ public final class Emitfy {
             throw new EmitfyException("companyId is required.", null, null, 0);
         }
         return new CompanyContext(transport, companyId.trim());
+    }
+
+    /** Client OpenAPI tipado (`com.emitfy.generated.*`). */
+    public ApiClient openApiClient() {
+        ApiClient client = new ApiClient();
+        client.updateBaseUri(baseUrl);
+        client.setRequestInterceptor(builder -> {
+            builder.header("X-Api-Key", apiKey);
+            builder.header("X-Api-Secret", apiSecret);
+        });
+        return client;
+    }
+
+    public WebhooksApi webhooksApi() {
+        return new WebhooksApi(openApiClient());
     }
 
     static final class HttpTransport {
