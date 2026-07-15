@@ -1,336 +1,198 @@
 /**
- * Decide se com.emitfy:emitfy (Maven) de
-ve publicar.
- * exit 0 = publish, 10 = skip, 
-1 = erro (mudou sem bump)
+ * Decide se com.emitfy:emitfy (Maven) deve publicar.
+ * exit 0 = publish, 10 = skip, 1 = erro (mudou sem bump)
  */
-import { create
-Hash } from 'node:crypto'
+import { createHash } from 'node:crypto'
 import {
-  existsSy
-nc,
+  existsSync,
   mkdirSync,
   mkdtempSync,
-  readFileSyn
-c,
+  readFileSync,
   readdirSync,
   rmSync,
   statSync,
-  wri
-teFileSync
+  writeFileSync
 } from 'node:fs'
-import { tmpdir }
- from 'node:os'
-import { dirname, join, relat
-ive } from 'node:path'
-import { fileURLToPath
- } from 'node:url'
-import { execSync } from '
-node:child_process'
+import { tmpdir } from 'node:os'
+import { dirname, join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { execSync } from 'node:child_process'
 
-const root = join(dirnam
-e(fileURLToPath(import.meta.url)), '..')
-cons
-t groupId = 'com.emitfy'
-const artifactId = '
-emitfy'
-const userAgent = 'EmitfySDKPublish (
-mailto=dev@emitfy.com)'
+const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+const groupId = 'com.emitfy'
+const artifactId = 'emitfy'
+const userAgent = 'EmitfySDKPublish (mailto=dev@emitfy.com)'
 
-function walkFiles(d
-ir, files = []) {
-  for (const name of readdi
-rSync(dir)) {
-    const path = join(dir, name
-)
+function walkFiles(dir, files = []) {
+  for (const name of readdirSync(dir)) {
+    const path = join(dir, name)
     if (statSync(path).isDirectory()) {
-   
-   walkFiles(path, files)
+      walkFiles(path, files)
     } else {
-      
-files.push(path)
+      files.push(path)
     }
   }
   return files
 }
 
-
 function readLocalVersion() {
-  const text = 
-readFileSync(join(root, 'pom.xml'), 'utf8')
- 
- const match = text.match(/<artifactId>emitfy
-<\/artifactId>\s*<version>([^<]+)<\/version>/
-s)
+  const text = readFileSync(join(root, 'pom.xml'), 'utf8')
+  const match = text.match(/<artifactId>emitfy<\/artifactId>\s*<version>([^<]+)<\/version>/s)
   if (!match) {
-    const fallback = text.
-match(/<version>([0-9][^<]*)<\/version>/)
-   
- if (!fallback) {
-      throw new Error('vers
-ion missing in pom.xml')
+    const fallback = text.match(/<version>([0-9][^<]*)<\/version>/)
+    if (!fallback) {
+      throw new Error('version missing in pom.xml')
     }
-    return fal
-lback[1]
+    return fallback[1]
   }
   return match[1]
 }
 
-function co
-ntentHash(base) {
-  const hash = createHash('
-sha256')
-  const pomPath = join(base, 'pom.xm
-l')
+function contentHash(base) {
+  const hash = createHash('sha256')
+  const pomPath = join(base, 'pom.xml')
   if (existsSync(pomPath)) {
-    const te
-xt = readFileSync(pomPath, 'utf8')
-      .rep
-laceAll('\r\n', '\n')
+    const text = readFileSync(pomPath, 'utf8')
+      .replaceAll('\r\n', '\n')
       .replace(
-       
- /(<artifactId>emitfy<\/artifactId>\s*)<versi
-on>[^<]+<\/version>/s,
-        '$1<version>0.
-0.0</version>'
+        /(<artifactId>emitfy<\/artifactId>\s*)<version>[^<]+<\/version>/s,
+        '$1<version>0.0.0</version>'
       )
-    hash.update('pom.x
-ml\0')
+    hash.update('pom.xml\0')
     hash.update(text)
-    hash.update(
-'\0')
+    hash.update('\0')
   }
 
   const srcDir = join(base, 'src')
-
   if (!existsSync(srcDir)) {
-    throw new E
-rror(`src/ missing in ${base}`)
+    throw new Error(`src/ missing in ${base}`)
   }
 
-  const 
-files = walkFiles(srcDir)
-    .filter((f) => 
-f.endsWith('.java'))
-    .sort((a, b) => rela
-tive(base, a).localeCompare(relative(base, b)
-))
+  const files = walkFiles(srcDir)
+    .filter((f) => f.endsWith('.java'))
+    .sort((a, b) => relative(base, a).localeCompare(relative(base, b)))
 
   for (const file of files) {
-    const r
-el = relative(base, file).replaceAll('\\', '/
-')
+    const rel = relative(base, file).replaceAll('\\', '/')
     hash.update(rel)
     hash.update('\0')
-
-    hash.update(readFileSync(file, 'utf8').r
-eplaceAll('\r\n', '\n'))
-    hash.update('\0'
-)
+    hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
+    hash.update('\0')
   }
   return hash.digest('hex')
 }
 
-async fu
-nction fetchMavenLatest() {
-  const q = encod
-eURIComponent(`g:${groupId} AND a:${artifactI
-d}`)
+async function fetchMavenLatest() {
+  const q = encodeURIComponent(`g:${groupId} AND a:${artifactId}`)
   const response = await fetch(
-    `htt
-ps://search.maven.org/solrsearch/select?q=${q
-}&rows=1&wt=json`,
-    { headers: { 'User-Age
-nt': userAgent } }
+    `https://search.maven.org/solrsearch/select?q=${q}&rows=1&wt=json`,
+    { headers: { 'User-Agent': userAgent } }
   )
   if (!response.ok) {
-
-    throw new Error(`Maven search HTTP ${resp
-onse.status}`)
+    throw new Error(`Maven search HTTP ${response.status}`)
   }
-  const data = await respo
-nse.json()
-  const doc = data?.response?.docs
-?.[0]
+  const data = await response.json()
+  const doc = data?.response?.docs?.[0]
   if (!doc?.latestVersion) {
-    return
- null
+    return null
   }
   return String(doc.latestVersion)
-
 }
 
 const version = readLocalVersion()
-const l
-ocalHash = contentHash(root)
-const remoteVers
-ion = await fetchMavenLatest()
+const localHash = contentHash(root)
+const remoteVersion = await fetchMavenLatest()
 
-if (!remoteVe
-rsion) {
-  console.log(`no remote package —
- publish ${groupId}:${artifactId}:${version}`
-)
+if (!remoteVersion) {
+  console.log(`no remote package — publish ${groupId}:${artifactId}:${version}`)
   process.exit(0)
 }
 
-const pathGroup = grou
-pId.replaceAll('.', '/')
-const sourcesUrl = `
-https://repo1.maven.org/maven2/${pathGroup}/$
-{artifactId}/${remoteVersion}/${artifactId}-$
-{remoteVersion}-sources.jar`
-const work = mkd
-tempSync(join(tmpdir(), 'emitfy-java-cmp-'))
-
+const pathGroup = groupId.replaceAll('.', '/')
+const sourcesUrl = `https://repo1.maven.org/maven2/${pathGroup}/${artifactId}/${remoteVersion}/${artifactId}-${remoteVersion}-sources.jar`
+const work = mkdtempSync(join(tmpdir(), 'emitfy-java-cmp-'))
 
 try {
-  const response = await fetch(sources
-Url, {
-    headers: { 'User-Agent': userAgent
- },
+  const response = await fetch(sourcesUrl, {
+    headers: { 'User-Agent': userAgent },
     redirect: 'follow'
   })
 
-  if (!respo
-nse.ok) {
-    // Sem sources.jar: se versão 
-local já é a latest, trate como "precisa bu
-mp" se hash local ≠ vazio
-    if (remoteVer
-sion === version) {
+  if (!response.ok) {
+    // Sem sources.jar: se versão local já é a latest, trate como "precisa bump" se hash local ≠ vazio
+    if (remoteVersion === version) {
       console.error(
-    
-    `SDK may have changed, but ${groupId}:${a
-rtifactId}:${version} is already latest on Ma
-ven Central. Bump pom.xml version (and publis
-h sources jar).`
+        `SDK may have changed, but ${groupId}:${artifactId}:${version} is already latest on Maven Central. Bump pom.xml version (and publish sources jar).`
       )
-      process.exit(1
-)
+      process.exit(1)
     }
     console.log(
-      `remote ${remo
-teVersion} has no sources.jar — publish ${v
-ersion}`
+      `remote ${remoteVersion} has no sources.jar — publish ${version}`
     )
     process.exit(0)
   }
 
-  con
-st archive = join(work, 'sources.jar')
-  writ
-eFileSync(archive, Buffer.from(await response
-.arrayBuffer()))
-  const extractDir = join(wo
-rk, 'src/main/java')
-  mkdirSync(extractDir, 
-{ recursive: true })
-  execSync(`tar -xf "${a
-rchive}" -C "${extractDir}"`, { stdio: 'pipe'
- })
+  const archive = join(work, 'sources.jar')
+  writeFileSync(archive, Buffer.from(await response.arrayBuffer()))
+  const extractDir = join(work, 'src/main/java')
+  mkdirSync(extractDir, { recursive: true })
+  execSync(`tar -xf "${archive}" -C "${extractDir}"`, { stdio: 'pipe' })
 
-  // Hash só dos .java remotos + pom lo
-cal version-stripped comparado a stub
-  const
- remoteHash = (() => {
-    const hash = creat
-eHash('sha256')
+  // Hash só dos .java remotos + pom local version-stripped comparado a stub
+  const remoteHash = (() => {
+    const hash = createHash('sha256')
     hash.update('pom.xml\0')
-
     hash.update('STUB\0')
-    const files = w
-alkFiles(extractDir)
-      .filter((f) => f.e
-ndsWith('.java'))
-      .sort((a, b) => relat
-ive(extractDir, a).localeCompare(relative(ext
-ractDir, b)))
+    const files = walkFiles(extractDir)
+      .filter((f) => f.endsWith('.java'))
+      .sort((a, b) => relative(extractDir, a).localeCompare(relative(extractDir, b)))
     for (const file of files) {
-
-      const rel = `src/main/java/${relative(
-extractDir, file).replaceAll('\\', '/')}`
-   
-   hash.update(rel)
+      const rel = `src/main/java/${relative(extractDir, file).replaceAll('\\', '/')}`
+      hash.update(rel)
       hash.update('\0')
- 
-     hash.update(readFileSync(file, 'utf8').r
-eplaceAll('\r\n', '\n'))
-      hash.update('\
-0')
+      hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
+      hash.update('\0')
     }
-    return hash.digest('hex')
-  })(
-)
-
-  // Hash local só java (pom stub) para c
-omparar apples-to-apples com sources.jar
-  co
-nst localJavaHash = (() => {
-    const hash =
- createHash('sha256')
-    hash.update('pom.xm
-l\0')
-    hash.update('STUB\0')
-    const src
-Dir = join(root, 'src/main/java')
-    const f
-iles = walkFiles(srcDir)
-      .filter((f) =>
- f.endsWith('.java'))
-      .sort((a, b) => r
-elative(srcDir, a).localeCompare(relative(src
-Dir, b)))
-    for (const file of files) {
-   
-   const rel = `src/main/java/${relative(srcD
-ir, file).replaceAll('\\', '/')}`
-      hash.
-update(rel)
-      hash.update('\0')
-      has
-h.update(readFileSync(file, 'utf8').replaceAl
-l('\r\n', '\n'))
-      hash.update('\0')
-    
-}
     return hash.digest('hex')
   })()
 
-  if 
-(localJavaHash === remoteHash) {
-    console.
-log(
-      `SDK unchanged vs ${groupId}:${art
-ifactId}:${remoteVersion} — skip (${localJa
-vaHash.slice(0, 12)})`
+  // Hash local só java (pom stub) para comparar apples-to-apples com sources.jar
+  const localJavaHash = (() => {
+    const hash = createHash('sha256')
+    hash.update('pom.xml\0')
+    hash.update('STUB\0')
+    const srcDir = join(root, 'src/main/java')
+    const files = walkFiles(srcDir)
+      .filter((f) => f.endsWith('.java'))
+      .sort((a, b) => relative(srcDir, a).localeCompare(relative(srcDir, b)))
+    for (const file of files) {
+      const rel = `src/main/java/${relative(srcDir, file).replaceAll('\\', '/')}`
+      hash.update(rel)
+      hash.update('\0')
+      hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
+      hash.update('\0')
+    }
+    return hash.digest('hex')
+  })()
+
+  if (localJavaHash === remoteHash) {
+    console.log(
+      `SDK unchanged vs ${groupId}:${artifactId}:${remoteVersion} — skip (${localJavaHash.slice(0, 12)})`
     )
-    process.exit
-(10)
+    process.exit(10)
   }
 
   if (remoteVersion === version) {
-
     console.error(
-      `SDK changed, but ${
-groupId}:${artifactId}:${version} already on 
-Maven Central. Bump pom.xml version.`
+      `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central. Bump pom.xml version.`
     )
- 
-   process.exit(1)
+    process.exit(1)
   }
 
   console.log(
-    `S
-DK changed (${localJavaHash.slice(0, 8)} ≠ 
-${remoteHash.slice(0, 8)}) — publish ${vers
-ion}`
+    `SDK changed (${localJavaHash.slice(0, 8)} ≠ ${remoteHash.slice(0, 8)}) — publish ${version}`
   )
   process.exit(0)
 } finally {
-  rmS
-ync(work, { recursive: true, force: true })
+  rmSync(work, { recursive: true, force: true })
 }
-
-
-
