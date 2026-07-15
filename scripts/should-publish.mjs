@@ -22,93 +22,105 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const groupId = 'com.emitfy'
 const artifactId = 'emitfy'
 const userAgent = 'EmitfySDKPublish (mailto=dev@emitfy.com)'
+const pathGroup = groupId.replaceAll('.', '/')
 
 function walkFiles(dir, files = []) {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name)
+
     if (statSync(path).isDirectory()) {
       walkFiles(path, files)
     } else {
       files.push(path)
     }
   }
+
   return files
 }
 
 function readLocalVersion() {
   const text = readFileSync(join(root, 'pom.xml'), 'utf8')
   const match = text.match(/<artifactId>emitfy<\/artifactId>\s*<version>([^<]+)<\/version>/s)
+
   if (!match) {
     const fallback = text.match(/<version>([0-9][^<]*)<\/version>/)
+
     if (!fallback) {
       throw new Error('version missing in pom.xml')
     }
+
     return fallback[1]
   }
+
   return match[1]
 }
 
-function contentHash(base) {
+function hashJavaSources(baseDir) {
   const hash = createHash('sha256')
-  const pomPath = join(base, 'pom.xml')
-  if (existsSync(pomPath)) {
-    const text = readFileSync(pomPath, 'utf8')
-      .replaceAll('\r\n', '\n')
-      .replace(
-        /(<artifactId>emitfy<\/artifactId>\s*)<version>[^<]+<\/version>/s,
-        '$1<version>0.0.0</version>'
-      )
-    hash.update('pom.xml\0')
-    hash.update(text)
-    hash.update('\0')
-  }
+  hash.update('pom.xml\0')
+  hash.update('STUB\0')
 
-  const srcDir = join(base, 'src')
+  const srcDir = join(baseDir, 'src/main/java')
+
   if (!existsSync(srcDir)) {
-    throw new Error(`src/ missing in ${base}`)
+    throw new Error(`src/main/java missing in ${baseDir}`)
   }
 
   const files = walkFiles(srcDir)
-    .filter((f) => f.endsWith('.java'))
-    .sort((a, b) => relative(base, a).localeCompare(relative(base, b)))
+    .filter((file) => file.endsWith('.java'))
+    .sort((a, b) => relative(srcDir, a).localeCompare(relative(srcDir, b)))
 
   for (const file of files) {
-    const rel = relative(base, file).replaceAll('\\', '/')
+    const rel = `src/main/java/${relative(srcDir, file).replaceAll('\\', '/')}`
     hash.update(rel)
     hash.update('\0')
     hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
     hash.update('\0')
   }
+
   return hash.digest('hex')
 }
 
-async function fetchMavenLatest() {
-  const q = encodeURIComponent(`g:${groupId} AND a:${artifactId}`)
-  const response = await fetch(
-    `https://search.maven.org/solrsearch/select?q=${q}&rows=1&wt=json`,
-    { headers: { 'User-Agent': userAgent } }
-  )
+function extractZip(archivePath, destDir) {
+  try {
+    execSync(`unzip -qo "${archivePath}" -d "${destDir}"`, { stdio: 'pipe' })
+    return
+  } catch {
+    execSync(`tar -xf "${archivePath}" -C "${destDir}"`, { stdio: 'pipe' })
+  }
+}
+
+/**
+ * @returns {Promise<string[]>}
+ */
+async function fetchMavenVersions() {
+  const url = `https://repo1.maven.org/maven2/${pathGroup}/${artifactId}/maven-metadata.xml`
+  const response = await fetch(url, { headers: { 'User-Agent': userAgent } })
+
+  if (response.status === 404) {
+    return []
+  }
+
   if (!response.ok) {
-    throw new Error(`Maven search HTTP ${response.status}`)
+    throw new Error(`Maven metadata HTTP ${response.status}`)
   }
-  const data = await response.json()
-  const doc = data?.response?.docs?.[0]
-  if (!doc?.latestVersion) {
-    return null
-  }
-  return String(doc.latestVersion)
+
+  const xml = await response.text()
+  const versions = [...xml.matchAll(/<version>([^<]+)<\/version>/g)].map((match) => match[1])
+
+  return versions
 }
 
 const version = readLocalVersion()
-const localHash = contentHash(root)
-const remoteVersion = await fetchMavenLatest()
+const versions = await fetchMavenVersions()
+const localHash = hashJavaSources(root)
 
-if (!remoteVersion) {
+if (versions.length === 0) {
   console.log(`no remote package — publish ${groupId}:${artifactId}:${version}`)
   process.exit(0)
 }
 
-const pathGroup = groupId.replaceAll('.', '/')
+const remoteVersion = versions.includes(version) ? version : versions[versions.length - 1]
 const sourcesUrl = `https://repo1.maven.org/maven2/${pathGroup}/${artifactId}/${remoteVersion}/${artifactId}-${remoteVersion}-sources.jar`
 const work = mkdtempSync(join(tmpdir(), 'emitfy-java-cmp-'))
 
@@ -119,16 +131,14 @@ try {
   })
 
   if (!response.ok) {
-    // Sem sources.jar: se versão local já é a latest, trate como "precisa bump" se hash local ≠ vazio
-    if (remoteVersion === version) {
-      console.error(
-        `SDK may have changed, but ${groupId}:${artifactId}:${version} is already latest on Maven Central. Bump pom.xml version (and publish sources jar).`
+    if (versions.includes(version)) {
+      console.log(
+        `${groupId}:${artifactId}:${version} already on Maven Central (no sources.jar to compare) — skip`
       )
-      process.exit(1)
+      process.exit(10)
     }
-    console.log(
-      `remote ${remoteVersion} has no sources.jar — publish ${version}`
-    )
+
+    console.log(`remote ${remoteVersion} has no sources.jar — publish ${version}`)
     process.exit(0)
   }
 
@@ -136,53 +146,18 @@ try {
   writeFileSync(archive, Buffer.from(await response.arrayBuffer()))
   const extractDir = join(work, 'src/main/java')
   mkdirSync(extractDir, { recursive: true })
-  execSync(`tar -xf "${archive}" -C "${extractDir}"`, { stdio: 'pipe' })
+  extractZip(archive, extractDir)
 
-  // Hash só dos .java remotos + pom local version-stripped comparado a stub
-  const remoteHash = (() => {
-    const hash = createHash('sha256')
-    hash.update('pom.xml\0')
-    hash.update('STUB\0')
-    const files = walkFiles(extractDir)
-      .filter((f) => f.endsWith('.java'))
-      .sort((a, b) => relative(extractDir, a).localeCompare(relative(extractDir, b)))
-    for (const file of files) {
-      const rel = `src/main/java/${relative(extractDir, file).replaceAll('\\', '/')}`
-      hash.update(rel)
-      hash.update('\0')
-      hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
-      hash.update('\0')
-    }
-    return hash.digest('hex')
-  })()
+  const remoteHash = hashJavaSources(work)
 
-  // Hash local só java (pom stub) para comparar apples-to-apples com sources.jar
-  const localJavaHash = (() => {
-    const hash = createHash('sha256')
-    hash.update('pom.xml\0')
-    hash.update('STUB\0')
-    const srcDir = join(root, 'src/main/java')
-    const files = walkFiles(srcDir)
-      .filter((f) => f.endsWith('.java'))
-      .sort((a, b) => relative(srcDir, a).localeCompare(relative(srcDir, b)))
-    for (const file of files) {
-      const rel = `src/main/java/${relative(srcDir, file).replaceAll('\\', '/')}`
-      hash.update(rel)
-      hash.update('\0')
-      hash.update(readFileSync(file, 'utf8').replaceAll('\r\n', '\n'))
-      hash.update('\0')
-    }
-    return hash.digest('hex')
-  })()
-
-  if (localJavaHash === remoteHash) {
+  if (localHash === remoteHash) {
     console.log(
-      `SDK unchanged vs ${groupId}:${artifactId}:${remoteVersion} — skip (${localJavaHash.slice(0, 12)})`
+      `SDK unchanged vs ${groupId}:${artifactId}:${remoteVersion} — skip (${localHash.slice(0, 12)})`
     )
     process.exit(10)
   }
 
-  if (remoteVersion === version) {
+  if (versions.includes(version)) {
     console.error(
       `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central. Bump pom.xml version.`
     )
@@ -190,7 +165,7 @@ try {
   }
 
   console.log(
-    `SDK changed (${localJavaHash.slice(0, 8)} ≠ ${remoteHash.slice(0, 8)}) — publish ${version}`
+    `SDK changed (${localHash.slice(0, 8)} ≠ ${remoteHash.slice(0, 8)}) — publish ${version}`
   )
   process.exit(0)
 } finally {
