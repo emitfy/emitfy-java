@@ -32,4 +32,5 @@ WebhooksApi api = emitfy.webhooksApi();
 api.webhooksCreate(new WebhookCreate().url("https://seu-sistema.com/webhooks/emitfy"));
 ```
 
-Docs: https://api.emitfy.com/docs/sdks
+Docs: https://api.emitfy.com/docs/sdks  
+OpenAPI: https://api.emitfy.com/openapi.yaml
