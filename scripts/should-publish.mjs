@@ -120,8 +120,13 @@ if (versions.length === 0) {
   process.exit(0)
 }
 
-const remoteVersion = versions.includes(version) ? version : versions[versions.length - 1]
-const sourcesUrl = `https://repo1.maven.org/maven2/${pathGroup}/${artifactId}/${remoteVersion}/${artifactId}-${remoteVersion}-sources.jar`
+// Nova versão ainda não está no Maven → publicar (ex.: README / patch docs).
+if (!versions.includes(version)) {
+  console.log(`${groupId}:${artifactId}:${version} not on Maven Central — publish`)
+  process.exit(0)
+}
+
+const sourcesUrl = `https://repo1.maven.org/maven2/${pathGroup}/${artifactId}/${version}/${artifactId}-${version}-sources.jar`
 const work = mkdtempSync(join(tmpdir(), 'emitfy-java-cmp-'))
 
 try {
@@ -131,15 +136,10 @@ try {
   })
 
   if (!response.ok) {
-    if (versions.includes(version)) {
-      console.log(
-        `${groupId}:${artifactId}:${version} already on Maven Central (no sources.jar to compare) — skip`
-      )
-      process.exit(10)
-    }
-
-    console.log(`remote ${remoteVersion} has no sources.jar — publish ${version}`)
-    process.exit(0)
+    console.log(
+      `${groupId}:${artifactId}:${version} already on Maven Central (no sources.jar to compare) — skip`
+    )
+    process.exit(10)
   }
 
   const archive = join(work, 'sources.jar')
@@ -152,22 +152,15 @@ try {
 
   if (localHash === remoteHash) {
     console.log(
-      `SDK unchanged vs ${groupId}:${artifactId}:${remoteVersion} — skip (${localHash.slice(0, 12)})`
+      `SDK unchanged vs ${groupId}:${artifactId}:${version} — skip (${localHash.slice(0, 12)})`
     )
     process.exit(10)
   }
 
-  if (versions.includes(version)) {
-    console.error(
-      `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central. Bump pom.xml version.`
-    )
-    process.exit(1)
-  }
-
-  console.log(
-    `SDK changed (${localHash.slice(0, 8)} ≠ ${remoteHash.slice(0, 8)}) — publish ${version}`
+  console.error(
+    `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central. Bump pom.xml version.`
   )
-  process.exit(0)
+  process.exit(1)
 } finally {
   rmSync(work, { recursive: true, force: true })
 }

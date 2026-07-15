@@ -8,7 +8,7 @@ Official Emitfy API SDK for Java (OpenAPI-typed).
 <dependency>
   <groupId>com.emitfy</groupId>
   <artifactId>emitfy</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
 </dependency>
 ```
 
