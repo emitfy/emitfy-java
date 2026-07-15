@@ -32,6 +32,4 @@ WebhooksApi api = emitfy.webhooksApi();
 api.webhooksCreate(new WebhookCreate().url("https://seu-sistema.com/webhooks/emitfy"));
 ```
 
-Regenerate in the Emitfy monorepo: `pnpm run sdk:generate` (requires JDK).
-
 Docs: https://api.emitfy.com/docs/sdks
