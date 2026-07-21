@@ -247,7 +247,6 @@ public final class Emitfy {
         public final CompanyResource cte;
         public final CompanyResource customers;
         public final CompanyResource products;
-        public final CompanyResource sales;
         public final CompanyResource invoices;
         public final CompanyResource receivedNfes;
 
@@ -261,7 +260,6 @@ public final class Emitfy {
             this.cte = new CompanyResource(transport, prefix + "/cte");
             this.customers = new CompanyResource(transport, prefix + "/customers");
             this.products = new CompanyResource(transport, prefix + "/products");
-            this.sales = new CompanyResource(transport, prefix + "/sales");
             this.invoices = new CompanyResource(transport, prefix + "/invoices");
             this.receivedNfes = new CompanyResource(transport, prefix + "/received-nfes");
         }
