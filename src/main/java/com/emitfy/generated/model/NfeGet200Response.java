@@ -19,87 +19,120 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeGet200ResponseData;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequestContingency
+ * NfeGet200Response
  */
 @JsonPropertyOrder({
-  NfceCreateRequestContingency.JSON_PROPERTY_STARTED_AT,
-  NfceCreateRequestContingency.JSON_PROPERTY_REASON
+  NfeGet200Response.JSON_PROPERTY_SUCCESS,
+  NfeGet200Response.JSON_PROPERTY_DATA
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
-public class NfceCreateRequestContingency {
-  public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime startedAt;
+public class NfeGet200Response {
+  /**
+   * Gets or Sets success
+   */
+  public enum SuccessEnum {
+    TRUE(Boolean.valueOf("true"));
 
-  public static final String JSON_PROPERTY_REASON = "reason";
-  @javax.annotation.Nullable
-  private String reason;
+    private Boolean value;
 
-  public NfceCreateRequestContingency() { 
+    SuccessEnum(Boolean value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public Boolean getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SuccessEnum fromValue(Boolean value) {
+      for (SuccessEnum b : SuccessEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
   }
 
-  public NfceCreateRequestContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public static final String JSON_PROPERTY_SUCCESS = "success";
+  @javax.annotation.Nullable
+  private SuccessEnum success;
+
+  public static final String JSON_PROPERTY_DATA = "data";
+  @javax.annotation.Nullable
+  private NfeGet200ResponseData data;
+
+  public NfeGet200Response() { 
+  }
+
+  public NfeGet200Response success(@javax.annotation.Nullable SuccessEnum success) {
+    this.success = success;
     return this;
   }
 
   /**
-   * Get startedAt
-   * @return startedAt
+   * Get success
+   * @return success
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getStartedAt() {
-    return startedAt;
+  public SuccessEnum getSuccess() {
+    return success;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public void setSuccess(@javax.annotation.Nullable SuccessEnum success) {
+    this.success = success;
   }
 
 
-  public NfceCreateRequestContingency reason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public NfeGet200Response data(@javax.annotation.Nullable NfeGet200ResponseData data) {
+    this.data = data;
     return this;
   }
 
   /**
-   * Get reason
-   * @return reason
+   * Get data
+   * @return data
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getReason() {
-    return reason;
+  public NfeGet200ResponseData getData() {
+    return data;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public void setData(@javax.annotation.Nullable NfeGet200ResponseData data) {
+    this.data = data;
   }
 
 
   /**
-   * Return true if this nfceCreate_request_contingency object is equal to o.
+   * Return true if this nfeGet_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -109,22 +142,22 @@ public class NfceCreateRequestContingency {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfceCreateRequestContingency nfceCreateRequestContingency = (NfceCreateRequestContingency) o;
-    return Objects.equals(this.startedAt, nfceCreateRequestContingency.startedAt) &&
-        Objects.equals(this.reason, nfceCreateRequestContingency.reason);
+    NfeGet200Response nfeGet200Response = (NfeGet200Response) o;
+    return Objects.equals(this.success, nfeGet200Response.success) &&
+        Objects.equals(this.data, nfeGet200Response.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startedAt, reason);
+    return Objects.hash(success, data);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfceCreateRequestContingency {\n");
-    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("class NfeGet200Response {\n");
+    sb.append("    success: ").append(toIndentedString(success)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,14 +202,14 @@ public class NfceCreateRequestContingency {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `startedAt` to the URL query string
-    if (getStartedAt() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sstartedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
+    // add `success` to the URL query string
+    if (getSuccess() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%ssuccess%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
     }
 
-    // add `reason` to the URL query string
-    if (getReason() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sreason%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
+    // add `data` to the URL query string
+    if (getData() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdata%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getData()))));
     }
 
     return joiner.toString();

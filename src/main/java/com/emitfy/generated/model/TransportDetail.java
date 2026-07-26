@@ -19,87 +19,87 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.TransportCarrier;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequestContingency
+ * Dados de transporte da nota — null quando não informados na emissão
  */
 @JsonPropertyOrder({
-  NfceCreateRequestContingency.JSON_PROPERTY_STARTED_AT,
-  NfceCreateRequestContingency.JSON_PROPERTY_REASON
+  TransportDetail.JSON_PROPERTY_FREIGHT_MODALITY,
+  TransportDetail.JSON_PROPERTY_CARRIER
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
-public class NfceCreateRequestContingency {
-  public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
+public class TransportDetail {
+  public static final String JSON_PROPERTY_FREIGHT_MODALITY = "freightModality";
   @javax.annotation.Nullable
-  private OffsetDateTime startedAt;
+  private String freightModality;
 
-  public static final String JSON_PROPERTY_REASON = "reason";
+  public static final String JSON_PROPERTY_CARRIER = "carrier";
   @javax.annotation.Nullable
-  private String reason;
+  private TransportCarrier carrier;
 
-  public NfceCreateRequestContingency() { 
+  public TransportDetail() { 
   }
 
-  public NfceCreateRequestContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public TransportDetail freightModality(@javax.annotation.Nullable String freightModality) {
+    this.freightModality = freightModality;
     return this;
   }
 
   /**
-   * Get startedAt
-   * @return startedAt
+   * Get freightModality
+   * @return freightModality
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_FREIGHT_MODALITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getStartedAt() {
-    return startedAt;
+  public String getFreightModality() {
+    return freightModality;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_FREIGHT_MODALITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public void setFreightModality(@javax.annotation.Nullable String freightModality) {
+    this.freightModality = freightModality;
   }
 
 
-  public NfceCreateRequestContingency reason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public TransportDetail carrier(@javax.annotation.Nullable TransportCarrier carrier) {
+    this.carrier = carrier;
     return this;
   }
 
   /**
-   * Get reason
-   * @return reason
+   * Get carrier
+   * @return carrier
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_CARRIER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getReason() {
-    return reason;
+  public TransportCarrier getCarrier() {
+    return carrier;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_CARRIER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public void setCarrier(@javax.annotation.Nullable TransportCarrier carrier) {
+    this.carrier = carrier;
   }
 
 
   /**
-   * Return true if this nfceCreate_request_contingency object is equal to o.
+   * Return true if this TransportDetail object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -109,22 +109,22 @@ public class NfceCreateRequestContingency {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfceCreateRequestContingency nfceCreateRequestContingency = (NfceCreateRequestContingency) o;
-    return Objects.equals(this.startedAt, nfceCreateRequestContingency.startedAt) &&
-        Objects.equals(this.reason, nfceCreateRequestContingency.reason);
+    TransportDetail transportDetail = (TransportDetail) o;
+    return Objects.equals(this.freightModality, transportDetail.freightModality) &&
+        Objects.equals(this.carrier, transportDetail.carrier);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startedAt, reason);
+    return Objects.hash(freightModality, carrier);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfceCreateRequestContingency {\n");
-    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("class TransportDetail {\n");
+    sb.append("    freightModality: ").append(toIndentedString(freightModality)).append("\n");
+    sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,14 +169,14 @@ public class NfceCreateRequestContingency {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `startedAt` to the URL query string
-    if (getStartedAt() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sstartedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
+    // add `freightModality` to the URL query string
+    if (getFreightModality() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sfreightModality%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFreightModality()))));
     }
 
-    // add `reason` to the URL query string
-    if (getReason() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sreason%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
+    // add `carrier` to the URL query string
+    if (getCarrier() != null) {
+      joiner.add(getCarrier().toUrlQueryString(prefix + "carrier" + suffix));
     }
 
     return joiner.toString();

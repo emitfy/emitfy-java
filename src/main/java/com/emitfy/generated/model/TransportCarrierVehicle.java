@@ -24,82 +24,110 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequestContingency
+ * TransportCarrierVehicle
  */
 @JsonPropertyOrder({
-  NfceCreateRequestContingency.JSON_PROPERTY_STARTED_AT,
-  NfceCreateRequestContingency.JSON_PROPERTY_REASON
+  TransportCarrierVehicle.JSON_PROPERTY_PLATE,
+  TransportCarrierVehicle.JSON_PROPERTY_STATE,
+  TransportCarrierVehicle.JSON_PROPERTY_RNTC
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
-public class NfceCreateRequestContingency {
-  public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime startedAt;
+public class TransportCarrierVehicle {
+  public static final String JSON_PROPERTY_PLATE = "plate";
+  @javax.annotation.Nonnull
+  private String plate;
 
-  public static final String JSON_PROPERTY_REASON = "reason";
+  public static final String JSON_PROPERTY_STATE = "state";
   @javax.annotation.Nullable
-  private String reason;
+  private String state;
 
-  public NfceCreateRequestContingency() { 
+  public static final String JSON_PROPERTY_RNTC = "rntc";
+  @javax.annotation.Nullable
+  private String rntc;
+
+  public TransportCarrierVehicle() { 
   }
 
-  public NfceCreateRequestContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public TransportCarrierVehicle plate(@javax.annotation.Nonnull String plate) {
+    this.plate = plate;
     return this;
   }
 
   /**
-   * Get startedAt
-   * @return startedAt
+   * Get plate
+   * @return plate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getStartedAt() {
-    return startedAt;
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_PLATE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public String getPlate() {
+    return plate;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  @JsonProperty(value = JSON_PROPERTY_PLATE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPlate(@javax.annotation.Nonnull String plate) {
+    this.plate = plate;
   }
 
 
-  public NfceCreateRequestContingency reason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public TransportCarrierVehicle state(@javax.annotation.Nullable String state) {
+    this.state = state;
     return this;
   }
 
   /**
-   * Get reason
-   * @return reason
+   * Get state
+   * @return state
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getReason() {
-    return reason;
+  public String getState() {
+    return state;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  public void setState(@javax.annotation.Nullable String state) {
+    this.state = state;
+  }
+
+
+  public TransportCarrierVehicle rntc(@javax.annotation.Nullable String rntc) {
+    this.rntc = rntc;
+    return this;
+  }
+
+  /**
+   * Get rntc
+   * @return rntc
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RNTC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getRntc() {
+    return rntc;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RNTC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRntc(@javax.annotation.Nullable String rntc) {
+    this.rntc = rntc;
   }
 
 
   /**
-   * Return true if this nfceCreate_request_contingency object is equal to o.
+   * Return true if this TransportCarrier_vehicle object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -109,22 +137,24 @@ public class NfceCreateRequestContingency {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfceCreateRequestContingency nfceCreateRequestContingency = (NfceCreateRequestContingency) o;
-    return Objects.equals(this.startedAt, nfceCreateRequestContingency.startedAt) &&
-        Objects.equals(this.reason, nfceCreateRequestContingency.reason);
+    TransportCarrierVehicle transportCarrierVehicle = (TransportCarrierVehicle) o;
+    return Objects.equals(this.plate, transportCarrierVehicle.plate) &&
+        Objects.equals(this.state, transportCarrierVehicle.state) &&
+        Objects.equals(this.rntc, transportCarrierVehicle.rntc);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startedAt, reason);
+    return Objects.hash(plate, state, rntc);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfceCreateRequestContingency {\n");
-    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("class TransportCarrierVehicle {\n");
+    sb.append("    plate: ").append(toIndentedString(plate)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    rntc: ").append(toIndentedString(rntc)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,14 +199,19 @@ public class NfceCreateRequestContingency {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `startedAt` to the URL query string
-    if (getStartedAt() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sstartedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
+    // add `plate` to the URL query string
+    if (getPlate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%splate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPlate()))));
     }
 
-    // add `reason` to the URL query string
-    if (getReason() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sreason%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
+    // add `state` to the URL query string
+    if (getState() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getState()))));
+    }
+
+    // add `rntc` to the URL query string
+    if (getRntc() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%srntc%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRntc()))));
     }
 
     return joiner.toString();

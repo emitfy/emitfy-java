@@ -13,93 +13,111 @@
 
 package com.emitfy.generated.model;
 
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.TransportDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequestContingency
+ * NfeGet200ResponseData
  */
 @JsonPropertyOrder({
-  NfceCreateRequestContingency.JSON_PROPERTY_STARTED_AT,
-  NfceCreateRequestContingency.JSON_PROPERTY_REASON
+  NfeGet200ResponseData.JSON_PROPERTY_TRANSPORT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
-public class NfceCreateRequestContingency {
-  public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
+public class NfeGet200ResponseData {
+  public static final String JSON_PROPERTY_TRANSPORT = "transport";
   @javax.annotation.Nullable
-  private OffsetDateTime startedAt;
+  private TransportDetail transport;
 
-  public static final String JSON_PROPERTY_REASON = "reason";
-  @javax.annotation.Nullable
-  private String reason;
-
-  public NfceCreateRequestContingency() { 
+  public NfeGet200ResponseData() { 
   }
 
-  public NfceCreateRequestContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public NfeGet200ResponseData transport(@javax.annotation.Nullable TransportDetail transport) {
+    this.transport = transport;
     return this;
   }
 
   /**
-   * Get startedAt
-   * @return startedAt
+   * Get transport
+   * @return transport
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TRANSPORT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getStartedAt() {
-    return startedAt;
+  public TransportDetail getTransport() {
+    return transport;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TRANSPORT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
-    this.startedAt = startedAt;
+  public void setTransport(@javax.annotation.Nullable TransportDetail transport) {
+    this.transport = transport;
   }
 
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
 
-  public NfceCreateRequestContingency reason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   * @param key the name of the property
+   * @param value the value of the property
+   * @return self reference
+   */
+  @JsonAnySetter
+  public NfeGet200ResponseData putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
     return this;
   }
 
   /**
-   * Get reason
-   * @return reason
+   * Return the additional (undeclared) properties.
+   * @return the additional (undeclared) properties
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getReason() {
-    return reason;
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
   }
-
-
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReason(@javax.annotation.Nullable String reason) {
-    this.reason = reason;
-  }
-
 
   /**
-   * Return true if this nfceCreate_request_contingency object is equal to o.
+   * Return the additional (undeclared) property with the specified name.
+   * @param key the name of the property
+   * @return the additional (undeclared) property with the specified name
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
+  }
+
+  /**
+   * Return true if this nfeGet_200_response_data object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -109,22 +127,22 @@ public class NfceCreateRequestContingency {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfceCreateRequestContingency nfceCreateRequestContingency = (NfceCreateRequestContingency) o;
-    return Objects.equals(this.startedAt, nfceCreateRequestContingency.startedAt) &&
-        Objects.equals(this.reason, nfceCreateRequestContingency.reason);
+    NfeGet200ResponseData nfeGet200ResponseData = (NfeGet200ResponseData) o;
+    return Objects.equals(this.transport, nfeGet200ResponseData.transport)&&
+        Objects.equals(this.additionalProperties, nfeGet200ResponseData.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startedAt, reason);
+    return Objects.hash(transport, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfceCreateRequestContingency {\n");
-    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("class NfeGet200ResponseData {\n");
+    sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,14 +187,9 @@ public class NfceCreateRequestContingency {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `startedAt` to the URL query string
-    if (getStartedAt() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sstartedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
-    }
-
-    // add `reason` to the URL query string
-    if (getReason() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sreason%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
+    // add `transport` to the URL query string
+    if (getTransport() != null) {
+      joiner.add(getTransport().toUrlQueryString(prefix + "transport" + suffix));
     }
 
     return joiner.toString();
