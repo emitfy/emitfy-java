@@ -19,7 +19,14 @@ import com.emitfy.Emitfy;
 
 Emitfy emitfy = new Emitfy(System.getenv("EMITFY_API_KEY"), System.getenv("EMITFY_API_SECRET"));
 Emitfy.CompanyContext company = emitfy.company(System.getenv("EMITFY_COMPANY_ID"));
-company.nfse.create(Map.of("serviceDescription", "Serviço", "amount", 100));
+company.nfse.create(Map.of(
+  "name", "Consultoria",
+  "category", "consulting",
+  "serviceDescription", "Consultoria em tecnologia",
+  "cityServiceCode", "02800",
+  "amount", 100,
+  "borrower", Map.of("name", "Cliente LTDA", "taxId", "12.345.678/0001-90")
+));
 ```
 
 ## Typed OpenAPI layer
