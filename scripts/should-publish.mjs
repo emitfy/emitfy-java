@@ -1,6 +1,6 @@
 /**
  * Decide se com.emitfy:emitfy (Maven) deve publicar.
- * exit 0 = publish, 10 = skip, 1 = erro (mudou sem bump)
+ * exit 0 = publish, 10 = skip (igual ou versão já no Central), 1 = erro inesperado
  */
 import { createHash } from 'node:crypto'
 import {
@@ -157,10 +157,10 @@ try {
     process.exit(10)
   }
 
-  console.error(
-    `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central. Bump pom.xml version.`
+  console.log(
+    `SDK changed, but ${groupId}:${artifactId}:${version} already on Maven Central — skip (bump pom.xml to publish).`
   )
-  process.exit(1)
+  process.exit(10)
 } finally {
   rmSync(work, { recursive: true, force: true })
 }
