@@ -37,7 +37,7 @@ import com.emitfy.generated.ApiClient;
   TransportCarrierAddress.JSON_PROPERTY_CITY,
   TransportCarrierAddress.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class TransportCarrierAddress {
   public static final String JSON_PROPERTY_STREET = "street";
   @javax.annotation.Nullable

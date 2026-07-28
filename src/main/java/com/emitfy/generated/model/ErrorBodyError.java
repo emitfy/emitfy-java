@@ -43,7 +43,7 @@ import com.emitfy.generated.ApiClient;
   ErrorBodyError.JSON_PROPERTY_MESSAGE,
   ErrorBodyError.JSON_PROPERTY_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class ErrorBodyError {
   public static final String JSON_PROPERTY_CODE = "code";
   @javax.annotation.Nonnull

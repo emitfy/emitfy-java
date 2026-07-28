@@ -36,7 +36,7 @@ import com.emitfy.generated.ApiClient;
   ReceivedNfesManifestRequest.JSON_PROPERTY_TYPE,
   ReceivedNfesManifestRequest.JSON_PROPERTY_JUSTIFICATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class ReceivedNfesManifestRequest {
   /**
    * Gets or Sets type

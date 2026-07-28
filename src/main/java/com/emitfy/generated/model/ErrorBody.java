@@ -37,7 +37,7 @@ import com.emitfy.generated.ApiClient;
   ErrorBody.JSON_PROPERTY_SUCCESS,
   ErrorBody.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class ErrorBody {
   /**
    * Gets or Sets success

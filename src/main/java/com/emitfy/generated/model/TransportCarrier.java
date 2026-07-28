@@ -41,7 +41,7 @@ import com.emitfy.generated.ApiClient;
   TransportCarrier.JSON_PROPERTY_ADDRESS,
   TransportCarrier.JSON_PROPERTY_VEHICLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class TransportCarrier {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull

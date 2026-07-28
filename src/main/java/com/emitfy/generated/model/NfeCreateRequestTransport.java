@@ -39,7 +39,7 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestTransport.JSON_PROPERTY_VALUE,
   NfeCreateRequestTransport.JSON_PROPERTY_CARRIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestTransport {
   /**
    * Também aceita os códigos SEFAZ 0/1/2/3/4/9 como alias

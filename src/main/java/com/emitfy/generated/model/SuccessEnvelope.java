@@ -40,7 +40,7 @@ import com.emitfy.generated.ApiClient;
   SuccessEnvelope.JSON_PROPERTY_SUCCESS,
   SuccessEnvelope.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class SuccessEnvelope {
   /**
    * Gets or Sets success

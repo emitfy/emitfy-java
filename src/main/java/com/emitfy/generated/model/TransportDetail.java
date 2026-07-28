@@ -37,7 +37,7 @@ import com.emitfy.generated.ApiClient;
   TransportDetail.JSON_PROPERTY_FREIGHT_MODALITY,
   TransportDetail.JSON_PROPERTY_CARRIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class TransportDetail {
   public static final String JSON_PROPERTY_FREIGHT_MODALITY = "freightModality";
   @javax.annotation.Nullable

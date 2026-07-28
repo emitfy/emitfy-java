@@ -38,7 +38,7 @@ import com.emitfy.generated.ApiClient;
   WebhookCreateEvents.JSON_PROPERTY_INVOICE,
   WebhookCreateEvents.JSON_PROPERTY_CTE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class WebhookCreateEvents {
   public static final String JSON_PROPERTY_INVOICE = "invoice";
   @javax.annotation.Nullable

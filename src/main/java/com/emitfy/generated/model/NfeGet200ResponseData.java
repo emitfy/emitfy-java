@@ -40,7 +40,7 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   NfeGet200ResponseData.JSON_PROPERTY_TRANSPORT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeGet200ResponseData {
   public static final String JSON_PROPERTY_TRANSPORT = "transport";
   @javax.annotation.Nullable

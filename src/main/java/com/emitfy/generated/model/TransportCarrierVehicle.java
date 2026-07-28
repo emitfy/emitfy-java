@@ -37,7 +37,7 @@ import com.emitfy.generated.ApiClient;
   TransportCarrierVehicle.JSON_PROPERTY_STATE,
   TransportCarrierVehicle.JSON_PROPERTY_RNTC
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class TransportCarrierVehicle {
   public static final String JSON_PROPERTY_PLATE = "plate";
   @javax.annotation.Nonnull
