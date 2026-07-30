@@ -18,7 +18,7 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
-import com.emitfy.generated.model.NfeGet200Response;
+import com.emitfy.generated.model.InvoicesGet200Response;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -168,10 +168,10 @@ public class InvoicesApi {
    * 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param id  (required)
-   * @return NfeGet200Response
+   * @return InvoicesGet200Response
    * @throws ApiException if fails to make API call
    */
-  public NfeGet200Response invoicesGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+  public InvoicesGet200Response invoicesGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
     return invoicesGet(companyId, id, null);
   }
 
@@ -181,11 +181,11 @@ public class InvoicesApi {
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
-   * @return NfeGet200Response
+   * @return InvoicesGet200Response
    * @throws ApiException if fails to make API call
    */
-  public NfeGet200Response invoicesGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    ApiResponse<NfeGet200Response> localVarResponse = invoicesGetWithHttpInfo(companyId, id, headers);
+  public InvoicesGet200Response invoicesGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<InvoicesGet200Response> localVarResponse = invoicesGetWithHttpInfo(companyId, id, headers);
     return localVarResponse.getData();
   }
 
@@ -194,10 +194,10 @@ public class InvoicesApi {
    * 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param id  (required)
-   * @return ApiResponse&lt;NfeGet200Response&gt;
+   * @return ApiResponse&lt;InvoicesGet200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<NfeGet200Response> invoicesGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+  public ApiResponse<InvoicesGet200Response> invoicesGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
     return invoicesGetWithHttpInfo(companyId, id, null);
   }
 
@@ -207,10 +207,10 @@ public class InvoicesApi {
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;NfeGet200Response&gt;
+   * @return ApiResponse&lt;InvoicesGet200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<NfeGet200Response> invoicesGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  public ApiResponse<InvoicesGet200Response> invoicesGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = invoicesGetRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -226,7 +226,7 @@ public class InvoicesApi {
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
         if (localVarResponseBody == null) {
-          return new ApiResponse<NfeGet200Response>(
+          return new ApiResponse<InvoicesGet200Response>(
               localVarResponse.statusCode(),
               localVarResponse.headers().map(),
               null
@@ -236,10 +236,10 @@ public class InvoicesApi {
         
         
         String responseBody = new String(localVarResponseBody.readAllBytes());
-        NfeGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NfeGet200Response>() {});
+        InvoicesGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<InvoicesGet200Response>() {});
         
 
-        return new ApiResponse<NfeGet200Response>(
+        return new ApiResponse<InvoicesGet200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
             responseValue
