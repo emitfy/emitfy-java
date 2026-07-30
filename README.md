@@ -24,8 +24,14 @@ company.nfse.create(Map.of(
   "category", "consulting",
   "serviceDescription", "Consultoria em tecnologia",
   "cityServiceCode", "02800",
+  "serviceItemCode", "01.05",
+  "taxes", Map.of("iss", Map.of("rate", 2.9, "isWithheld", false)),
   "amount", 100,
-  "borrower", Map.of("name", "Cliente LTDA", "taxId", "12.345.678/0001-90")
+  "borrower", Map.of(
+    "name", "Cliente LTDA",
+    "taxId", "12.345.678/0001-90",
+    "email", "financeiro@cliente.com.br"
+  )
 ));
 ```
 

@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfseCreateRequestBorrower;
+import com.emitfy.generated.model.NfseCreateRequestTaxes;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,8 +33,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -87,7 +86,7 @@ public class NfseCreateRequest {
   private Integer guarantee;
 
   public static final String JSON_PROPERTY_CITY_SERVICE_CODE = "cityServiceCode";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String cityServiceCode;
 
   public static final String JSON_PROPERTY_SERVICE_CODE = "serviceCode";
@@ -95,7 +94,7 @@ public class NfseCreateRequest {
   private String serviceCode;
 
   public static final String JSON_PROPERTY_SERVICE_ITEM_CODE = "serviceItemCode";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String serviceItemCode;
 
   public static final String JSON_PROPERTY_NBS_CODE = "nbsCode";
@@ -131,8 +130,8 @@ public class NfseCreateRequest {
   private String municipalityOfIncidence;
 
   public static final String JSON_PROPERTY_TAXES = "taxes";
-  @javax.annotation.Nullable
-  private Map<String, Object> taxes = new HashMap<>();
+  @javax.annotation.Nonnull
+  private NfseCreateRequestTaxes taxes;
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   @javax.annotation.Nonnull
@@ -275,26 +274,26 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest cityServiceCode(@javax.annotation.Nullable String cityServiceCode) {
+  public NfseCreateRequest cityServiceCode(@javax.annotation.Nonnull String cityServiceCode) {
     this.cityServiceCode = cityServiceCode;
     return this;
   }
 
   /**
-   * Get cityServiceCode
+   * Código municipal do serviço (obrigatório; alias legado serviceCode ainda aceito na API)
    * @return cityServiceCode
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getCityServiceCode() {
     return cityServiceCode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCityServiceCode(@javax.annotation.Nullable String cityServiceCode) {
+  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCityServiceCode(@javax.annotation.Nonnull String cityServiceCode) {
     this.cityServiceCode = cityServiceCode;
   }
 
@@ -323,26 +322,26 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest serviceItemCode(@javax.annotation.Nullable String serviceItemCode) {
+  public NfseCreateRequest serviceItemCode(@javax.annotation.Nonnull String serviceItemCode) {
     this.serviceItemCode = serviceItemCode;
     return this;
   }
 
   /**
-   * Get serviceItemCode
+   * Item LC 116
    * @return serviceItemCode
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getServiceItemCode() {
     return serviceItemCode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setServiceItemCode(@javax.annotation.Nullable String serviceItemCode) {
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setServiceItemCode(@javax.annotation.Nonnull String serviceItemCode) {
     this.serviceItemCode = serviceItemCode;
   }
 
@@ -539,16 +538,8 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest taxes(@javax.annotation.Nullable Map<String, Object> taxes) {
+  public NfseCreateRequest taxes(@javax.annotation.Nonnull NfseCreateRequestTaxes taxes) {
     this.taxes = taxes;
-    return this;
-  }
-
-  public NfseCreateRequest putTaxesItem(String key, Object taxesItem) {
-    if (this.taxes == null) {
-      this.taxes = new HashMap<>();
-    }
-    this.taxes.put(key, taxesItem);
     return this;
   }
 
@@ -556,17 +547,17 @@ public class NfseCreateRequest {
    * Get taxes
    * @return taxes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TAXES, required = false)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-  public Map<String, Object> getTaxes() {
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_TAXES, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public NfseCreateRequestTaxes getTaxes() {
     return taxes;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TAXES, required = false)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaxes(@javax.annotation.Nullable Map<String, Object> taxes) {
+  @JsonProperty(value = JSON_PROPERTY_TAXES, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTaxes(@javax.annotation.Nonnull NfseCreateRequestTaxes taxes) {
     this.taxes = taxes;
   }
 
@@ -903,11 +894,7 @@ public class NfseCreateRequest {
 
     // add `taxes` to the URL query string
     if (getTaxes() != null) {
-      for (String _key : getTaxes().keySet()) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%staxes%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
-            getTaxes().get(_key), ApiClient.urlEncode(ApiClient.valueToString(getTaxes().get(_key)))));
-      }
+      joiner.add(String.format(java.util.Locale.ROOT, "%staxes%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxes()))));
     }
 
     // add `amount` to the URL query string

@@ -52,7 +52,7 @@ public class NfseCreateRequestBorrower {
   private String name;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String email;
 
   public static final String JSON_PROPERTY_PHONE = "phone";
@@ -114,7 +114,7 @@ public class NfseCreateRequestBorrower {
   }
 
 
-  public NfseCreateRequestBorrower email(@javax.annotation.Nullable String email) {
+  public NfseCreateRequestBorrower email(@javax.annotation.Nonnull String email) {
     this.email = email;
     return this;
   }
@@ -123,17 +123,17 @@ public class NfseCreateRequestBorrower {
    * Get email
    * @return email
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getEmail() {
     return email;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(@javax.annotation.Nullable String email) {
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@javax.annotation.Nonnull String email) {
     this.email = email;
   }
 
