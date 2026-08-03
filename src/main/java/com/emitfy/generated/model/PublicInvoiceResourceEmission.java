@@ -19,40 +19,44 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
-import com.emitfy.generated.model.PublicInvoiceResource;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * InvoicesGet200Response
+ * Política de emissão. &#x60;scheduledFor&#x60; só quando mode&#x3D;scheduled.
  */
 @JsonPropertyOrder({
-  InvoicesGet200Response.JSON_PROPERTY_SUCCESS,
-  InvoicesGet200Response.JSON_PROPERTY_DATA
+  PublicInvoiceResourceEmission.JSON_PROPERTY_MODE,
+  PublicInvoiceResourceEmission.JSON_PROPERTY_SCHEDULED_FOR
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
-public class InvoicesGet200Response {
+public class PublicInvoiceResourceEmission {
   /**
-   * Gets or Sets success
+   * Gets or Sets mode
    */
-  public enum SuccessEnum {
-    TRUE(Boolean.valueOf("true"));
+  public enum ModeEnum {
+    DRAFT(String.valueOf("draft")),
+    
+    IMMEDIATE(String.valueOf("immediate")),
+    
+    SCHEDULED(String.valueOf("scheduled"));
 
-    private Boolean value;
+    private String value;
 
-    SuccessEnum(Boolean value) {
+    ModeEnum(String value) {
       this.value = value;
     }
 
     @JsonValue
-    public Boolean getValue() {
+    public String getValue() {
       return value;
     }
 
@@ -62,8 +66,8 @@ public class InvoicesGet200Response {
     }
 
     @JsonCreator
-    public static SuccessEnum fromValue(Boolean value) {
-      for (SuccessEnum b : SuccessEnum.values()) {
+    public static ModeEnum fromValue(String value) {
+      for (ModeEnum b : ModeEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -72,67 +76,67 @@ public class InvoicesGet200Response {
     }
   }
 
-  public static final String JSON_PROPERTY_SUCCESS = "success";
+  public static final String JSON_PROPERTY_MODE = "mode";
   @javax.annotation.Nullable
-  private SuccessEnum success;
+  private ModeEnum mode;
 
-  public static final String JSON_PROPERTY_DATA = "data";
+  public static final String JSON_PROPERTY_SCHEDULED_FOR = "scheduledFor";
   @javax.annotation.Nullable
-  private PublicInvoiceResource data;
+  private OffsetDateTime scheduledFor;
 
-  public InvoicesGet200Response() { 
+  public PublicInvoiceResourceEmission() { 
   }
 
-  public InvoicesGet200Response success(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
+  public PublicInvoiceResourceEmission mode(@javax.annotation.Nullable ModeEnum mode) {
+    this.mode = mode;
     return this;
   }
 
   /**
-   * Get success
-   * @return success
+   * Get mode
+   * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public SuccessEnum getSuccess() {
-    return success;
+  public ModeEnum getMode() {
+    return mode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuccess(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
+  public void setMode(@javax.annotation.Nullable ModeEnum mode) {
+    this.mode = mode;
   }
 
 
-  public InvoicesGet200Response data(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
+  public PublicInvoiceResourceEmission scheduledFor(@javax.annotation.Nullable OffsetDateTime scheduledFor) {
+    this.scheduledFor = scheduledFor;
     return this;
   }
 
   /**
-   * Get data
-   * @return data
+   * Get scheduledFor
+   * @return scheduledFor
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SCHEDULED_FOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public PublicInvoiceResource getData() {
-    return data;
+  public OffsetDateTime getScheduledFor() {
+    return scheduledFor;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SCHEDULED_FOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
+  public void setScheduledFor(@javax.annotation.Nullable OffsetDateTime scheduledFor) {
+    this.scheduledFor = scheduledFor;
   }
 
 
   /**
-   * Return true if this invoicesGet_200_response object is equal to o.
+   * Return true if this PublicInvoiceResource_emission object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -142,22 +146,22 @@ public class InvoicesGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvoicesGet200Response invoicesGet200Response = (InvoicesGet200Response) o;
-    return Objects.equals(this.success, invoicesGet200Response.success) &&
-        Objects.equals(this.data, invoicesGet200Response.data);
+    PublicInvoiceResourceEmission publicInvoiceResourceEmission = (PublicInvoiceResourceEmission) o;
+    return Objects.equals(this.mode, publicInvoiceResourceEmission.mode) &&
+        Objects.equals(this.scheduledFor, publicInvoiceResourceEmission.scheduledFor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, data);
+    return Objects.hash(mode, scheduledFor);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InvoicesGet200Response {\n");
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class PublicInvoiceResourceEmission {\n");
+    sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
+    sb.append("    scheduledFor: ").append(toIndentedString(scheduledFor)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -202,14 +206,14 @@ public class InvoicesGet200Response {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `success` to the URL query string
-    if (getSuccess() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%ssuccess%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
+    // add `mode` to the URL query string
+    if (getMode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
     }
 
-    // add `data` to the URL query string
-    if (getData() != null) {
-      joiner.add(getData().toUrlQueryString(prefix + "data" + suffix));
+    // add `scheduledFor` to the URL query string
+    if (getScheduledFor() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sscheduledFor%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getScheduledFor()))));
     }
 
     return joiner.toString();

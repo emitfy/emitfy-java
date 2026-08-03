@@ -19,7 +19,6 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
-import com.emitfy.generated.model.PublicInvoiceResource;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,108 +30,75 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * InvoicesGet200Response
+ * PublicInvoiceResourceDocumentRps
  */
 @JsonPropertyOrder({
-  InvoicesGet200Response.JSON_PROPERTY_SUCCESS,
-  InvoicesGet200Response.JSON_PROPERTY_DATA
+  PublicInvoiceResourceDocumentRps.JSON_PROPERTY_NUMBER,
+  PublicInvoiceResourceDocumentRps.JSON_PROPERTY_SERIES
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
-public class InvoicesGet200Response {
-  /**
-   * Gets or Sets success
-   */
-  public enum SuccessEnum {
-    TRUE(Boolean.valueOf("true"));
+public class PublicInvoiceResourceDocumentRps {
+  public static final String JSON_PROPERTY_NUMBER = "number";
+  @javax.annotation.Nullable
+  private String number;
 
-    private Boolean value;
+  public static final String JSON_PROPERTY_SERIES = "series";
+  @javax.annotation.Nullable
+  private String series;
 
-    SuccessEnum(Boolean value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public Boolean getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static SuccessEnum fromValue(Boolean value) {
-      for (SuccessEnum b : SuccessEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
+  public PublicInvoiceResourceDocumentRps() { 
   }
 
-  public static final String JSON_PROPERTY_SUCCESS = "success";
-  @javax.annotation.Nullable
-  private SuccessEnum success;
-
-  public static final String JSON_PROPERTY_DATA = "data";
-  @javax.annotation.Nullable
-  private PublicInvoiceResource data;
-
-  public InvoicesGet200Response() { 
-  }
-
-  public InvoicesGet200Response success(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
+  public PublicInvoiceResourceDocumentRps number(@javax.annotation.Nullable String number) {
+    this.number = number;
     return this;
   }
 
   /**
-   * Get success
-   * @return success
+   * Get number
+   * @return number
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonProperty(value = JSON_PROPERTY_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public SuccessEnum getSuccess() {
-    return success;
+  public String getNumber() {
+    return number;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonProperty(value = JSON_PROPERTY_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuccess(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
+  public void setNumber(@javax.annotation.Nullable String number) {
+    this.number = number;
   }
 
 
-  public InvoicesGet200Response data(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
+  public PublicInvoiceResourceDocumentRps series(@javax.annotation.Nullable String series) {
+    this.series = series;
     return this;
   }
 
   /**
-   * Get data
-   * @return data
+   * Get series
+   * @return series
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SERIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public PublicInvoiceResource getData() {
-    return data;
+  public String getSeries() {
+    return series;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
+  @JsonProperty(value = JSON_PROPERTY_SERIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
+  public void setSeries(@javax.annotation.Nullable String series) {
+    this.series = series;
   }
 
 
   /**
-   * Return true if this invoicesGet_200_response object is equal to o.
+   * Return true if this PublicInvoiceResource_document_rps object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -142,22 +108,22 @@ public class InvoicesGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvoicesGet200Response invoicesGet200Response = (InvoicesGet200Response) o;
-    return Objects.equals(this.success, invoicesGet200Response.success) &&
-        Objects.equals(this.data, invoicesGet200Response.data);
+    PublicInvoiceResourceDocumentRps publicInvoiceResourceDocumentRps = (PublicInvoiceResourceDocumentRps) o;
+    return Objects.equals(this.number, publicInvoiceResourceDocumentRps.number) &&
+        Objects.equals(this.series, publicInvoiceResourceDocumentRps.series);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, data);
+    return Objects.hash(number, series);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InvoicesGet200Response {\n");
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class PublicInvoiceResourceDocumentRps {\n");
+    sb.append("    number: ").append(toIndentedString(number)).append("\n");
+    sb.append("    series: ").append(toIndentedString(series)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -202,14 +168,14 @@ public class InvoicesGet200Response {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `success` to the URL query string
-    if (getSuccess() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%ssuccess%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
+    // add `number` to the URL query string
+    if (getNumber() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snumber%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumber()))));
     }
 
-    // add `data` to the URL query string
-    if (getData() != null) {
-      joiner.add(getData().toUrlQueryString(prefix + "data" + suffix));
+    // add `series` to the URL query string
+    if (getSeries() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sseries%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSeries()))));
     }
 
     return joiner.toString();
