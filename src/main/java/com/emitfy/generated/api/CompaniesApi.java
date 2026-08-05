@@ -1116,7 +1116,7 @@ public class CompaniesApi {
 
   /**
    * Company fiscal status
-   * 
+   * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @throws ApiException if fails to make API call
    */
@@ -1126,7 +1126,7 @@ public class CompaniesApi {
 
   /**
    * Company fiscal status
-   * 
+   * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -1137,7 +1137,7 @@ public class CompaniesApi {
 
   /**
    * Company fiscal status
-   * 
+   * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -1148,7 +1148,7 @@ public class CompaniesApi {
 
   /**
    * Company fiscal status
-   * 
+   * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
    * @param companyId ID da empresa (CNPJ operacional) no path (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
