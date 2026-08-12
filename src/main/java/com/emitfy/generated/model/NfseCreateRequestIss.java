@@ -31,14 +31,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfseCreateRequestTaxesIss
+ * NfseCreateRequestIss
  */
 @JsonPropertyOrder({
-  NfseCreateRequestTaxesIss.JSON_PROPERTY_RATE,
-  NfseCreateRequestTaxesIss.JSON_PROPERTY_IS_WITHHELD
+  NfseCreateRequestIss.JSON_PROPERTY_RATE,
+  NfseCreateRequestIss.JSON_PROPERTY_IS_WITHHELD
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
-public class NfseCreateRequestTaxesIss {
+public class NfseCreateRequestIss {
   public static final String JSON_PROPERTY_RATE = "rate";
   @javax.annotation.Nonnull
   private BigDecimal rate;
@@ -47,10 +47,10 @@ public class NfseCreateRequestTaxesIss {
   @javax.annotation.Nullable
   private Boolean isWithheld;
 
-  public NfseCreateRequestTaxesIss() { 
+  public NfseCreateRequestIss() { 
   }
 
-  public NfseCreateRequestTaxesIss rate(@javax.annotation.Nonnull BigDecimal rate) {
+  public NfseCreateRequestIss rate(@javax.annotation.Nonnull BigDecimal rate) {
     this.rate = rate;
     return this;
   }
@@ -76,7 +76,7 @@ public class NfseCreateRequestTaxesIss {
   }
 
 
-  public NfseCreateRequestTaxesIss isWithheld(@javax.annotation.Nullable Boolean isWithheld) {
+  public NfseCreateRequestIss isWithheld(@javax.annotation.Nullable Boolean isWithheld) {
     this.isWithheld = isWithheld;
     return this;
   }
@@ -101,7 +101,7 @@ public class NfseCreateRequestTaxesIss {
 
 
   /**
-   * Return true if this NfseCreateRequest_taxes_iss object is equal to o.
+   * Return true if this NfseCreateRequest_iss object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -111,9 +111,9 @@ public class NfseCreateRequestTaxesIss {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfseCreateRequestTaxesIss nfseCreateRequestTaxesIss = (NfseCreateRequestTaxesIss) o;
-    return Objects.equals(this.rate, nfseCreateRequestTaxesIss.rate) &&
-        Objects.equals(this.isWithheld, nfseCreateRequestTaxesIss.isWithheld);
+    NfseCreateRequestIss nfseCreateRequestIss = (NfseCreateRequestIss) o;
+    return Objects.equals(this.rate, nfseCreateRequestIss.rate) &&
+        Objects.equals(this.isWithheld, nfseCreateRequestIss.isWithheld);
   }
 
   @Override
@@ -124,7 +124,7 @@ public class NfseCreateRequestTaxesIss {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfseCreateRequestTaxesIss {\n");
+    sb.append("class NfseCreateRequestIss {\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("    isWithheld: ").append(toIndentedString(isWithheld)).append("\n");
     sb.append("}");

@@ -24,7 +24,8 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfseCreateRequestBorrower;
-import com.emitfy.generated.model.NfseCreateRequestTaxes;
+import com.emitfy.generated.model.NfseCreateRequestIbsCbs;
+import com.emitfy.generated.model.NfseCreateRequestIss;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,6 +34,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -47,13 +50,11 @@ import com.emitfy.generated.ApiClient;
   NfseCreateRequest.JSON_PROPERTY_CATEGORY,
   NfseCreateRequest.JSON_PROPERTY_GUARANTEE,
   NfseCreateRequest.JSON_PROPERTY_CITY_SERVICE_CODE,
-  NfseCreateRequest.JSON_PROPERTY_SERVICE_CODE,
-  NfseCreateRequest.JSON_PROPERTY_SERVICE_ITEM_CODE,
-  NfseCreateRequest.JSON_PROPERTY_NBS_CODE,
+  NfseCreateRequest.JSON_PROPERTY_FEDERAL_SERVICE_CODE,
+  NfseCreateRequest.JSON_PROPERTY_NBS,
   NfseCreateRequest.JSON_PROPERTY_CNAE_CODE,
-  NfseCreateRequest.JSON_PROPERTY_TAX_CLASSIFICATION,
-  NfseCreateRequest.JSON_PROPERTY_IBS_CST,
-  NfseCreateRequest.JSON_PROPERTY_IBS_OPERATION_INDICATOR,
+  NfseCreateRequest.JSON_PROPERTY_ISS,
+  NfseCreateRequest.JSON_PROPERTY_IBS_CBS,
   NfseCreateRequest.JSON_PROPERTY_NATURE_OF_OPERATION,
   NfseCreateRequest.JSON_PROPERTY_SERVICE_LOCATION,
   NfseCreateRequest.JSON_PROPERTY_MUNICIPALITY_OF_INCIDENCE,
@@ -61,7 +62,13 @@ import com.emitfy.generated.ApiClient;
   NfseCreateRequest.JSON_PROPERTY_AMOUNT,
   NfseCreateRequest.JSON_PROPERTY_ISSUE_DATE,
   NfseCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
-  NfseCreateRequest.JSON_PROPERTY_BORROWER
+  NfseCreateRequest.JSON_PROPERTY_BORROWER,
+  NfseCreateRequest.JSON_PROPERTY_SERVICE_CODE,
+  NfseCreateRequest.JSON_PROPERTY_SERVICE_ITEM_CODE,
+  NfseCreateRequest.JSON_PROPERTY_NBS_CODE,
+  NfseCreateRequest.JSON_PROPERTY_TAX_CLASSIFICATION,
+  NfseCreateRequest.JSON_PROPERTY_IBS_CST,
+  NfseCreateRequest.JSON_PROPERTY_IBS_OPERATION_INDICATOR
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfseCreateRequest {
@@ -89,33 +96,25 @@ public class NfseCreateRequest {
   @javax.annotation.Nonnull
   private String cityServiceCode;
 
-  public static final String JSON_PROPERTY_SERVICE_CODE = "serviceCode";
-  @javax.annotation.Nullable
-  private String serviceCode;
-
-  public static final String JSON_PROPERTY_SERVICE_ITEM_CODE = "serviceItemCode";
+  public static final String JSON_PROPERTY_FEDERAL_SERVICE_CODE = "federalServiceCode";
   @javax.annotation.Nonnull
-  private String serviceItemCode;
+  private String federalServiceCode;
 
-  public static final String JSON_PROPERTY_NBS_CODE = "nbsCode";
+  public static final String JSON_PROPERTY_NBS = "nbs";
   @javax.annotation.Nullable
-  private String nbsCode;
+  private String nbs;
 
   public static final String JSON_PROPERTY_CNAE_CODE = "cnaeCode";
   @javax.annotation.Nullable
   private String cnaeCode;
 
-  public static final String JSON_PROPERTY_TAX_CLASSIFICATION = "taxClassification";
-  @javax.annotation.Nullable
-  private String taxClassification;
+  public static final String JSON_PROPERTY_ISS = "iss";
+  @javax.annotation.Nonnull
+  private NfseCreateRequestIss iss;
 
-  public static final String JSON_PROPERTY_IBS_CST = "ibsCst";
+  public static final String JSON_PROPERTY_IBS_CBS = "ibsCbs";
   @javax.annotation.Nullable
-  private String ibsCst;
-
-  public static final String JSON_PROPERTY_IBS_OPERATION_INDICATOR = "ibsOperationIndicator";
-  @javax.annotation.Nullable
-  private String ibsOperationIndicator;
+  private NfseCreateRequestIbsCbs ibsCbs;
 
   public static final String JSON_PROPERTY_NATURE_OF_OPERATION = "natureOfOperation";
   @javax.annotation.Nullable
@@ -130,8 +129,8 @@ public class NfseCreateRequest {
   private String municipalityOfIncidence;
 
   public static final String JSON_PROPERTY_TAXES = "taxes";
-  @javax.annotation.Nonnull
-  private NfseCreateRequestTaxes taxes;
+  @javax.annotation.Nullable
+  private Map<String, Object> taxes = new HashMap<>();
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   @javax.annotation.Nonnull
@@ -148,6 +147,30 @@ public class NfseCreateRequest {
   public static final String JSON_PROPERTY_BORROWER = "borrower";
   @javax.annotation.Nonnull
   private NfseCreateRequestBorrower borrower;
+
+  public static final String JSON_PROPERTY_SERVICE_CODE = "serviceCode";
+  @javax.annotation.Nullable
+  private String serviceCode;
+
+  public static final String JSON_PROPERTY_SERVICE_ITEM_CODE = "serviceItemCode";
+  @javax.annotation.Nullable
+  private String serviceItemCode;
+
+  public static final String JSON_PROPERTY_NBS_CODE = "nbsCode";
+  @javax.annotation.Nullable
+  private String nbsCode;
+
+  public static final String JSON_PROPERTY_TAX_CLASSIFICATION = "taxClassification";
+  @javax.annotation.Nullable
+  private String taxClassification;
+
+  public static final String JSON_PROPERTY_IBS_CST = "ibsCst";
+  @javax.annotation.Nullable
+  private String ibsCst;
+
+  public static final String JSON_PROPERTY_IBS_OPERATION_INDICATOR = "ibsOperationIndicator";
+  @javax.annotation.Nullable
+  private String ibsOperationIndicator;
 
   public NfseCreateRequest() { 
   }
@@ -280,7 +303,7 @@ public class NfseCreateRequest {
   }
 
   /**
-   * Código municipal do serviço (obrigatório; alias legado serviceCode ainda aceito na API)
+   * Código municipal do serviço
    * @return cityServiceCode
    */
   @javax.annotation.Nonnull
@@ -298,75 +321,51 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest serviceCode(@javax.annotation.Nullable String serviceCode) {
-    this.serviceCode = serviceCode;
+  public NfseCreateRequest federalServiceCode(@javax.annotation.Nonnull String federalServiceCode) {
+    this.federalServiceCode = federalServiceCode;
     return this;
   }
 
   /**
-   * Alias legado de cityServiceCode
-   * @return serviceCode
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getServiceCode() {
-    return serviceCode;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setServiceCode(@javax.annotation.Nullable String serviceCode) {
-    this.serviceCode = serviceCode;
-  }
-
-
-  public NfseCreateRequest serviceItemCode(@javax.annotation.Nonnull String serviceItemCode) {
-    this.serviceItemCode = serviceItemCode;
-    return this;
-  }
-
-  /**
-   * Item LC 116
-   * @return serviceItemCode
+   * Item LC 116 (cTribNac)
+   * @return federalServiceCode
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = true)
+  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public String getServiceItemCode() {
-    return serviceItemCode;
+  public String getFederalServiceCode() {
+    return federalServiceCode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = true)
+  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServiceItemCode(@javax.annotation.Nonnull String serviceItemCode) {
-    this.serviceItemCode = serviceItemCode;
+  public void setFederalServiceCode(@javax.annotation.Nonnull String federalServiceCode) {
+    this.federalServiceCode = federalServiceCode;
   }
 
 
-  public NfseCreateRequest nbsCode(@javax.annotation.Nullable String nbsCode) {
-    this.nbsCode = nbsCode;
+  public NfseCreateRequest nbs(@javax.annotation.Nullable String nbs) {
+    this.nbs = nbs;
     return this;
   }
 
   /**
-   * Get nbsCode
-   * @return nbsCode
+   * Código NBS (reforma)
+   * @return nbs
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NBS_CODE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_NBS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getNbsCode() {
-    return nbsCode;
+  public String getNbs() {
+    return nbs;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NBS_CODE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_NBS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNbsCode(@javax.annotation.Nullable String nbsCode) {
-    this.nbsCode = nbsCode;
+  public void setNbs(@javax.annotation.Nullable String nbs) {
+    this.nbs = nbs;
   }
 
 
@@ -394,75 +393,51 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest taxClassification(@javax.annotation.Nullable String taxClassification) {
-    this.taxClassification = taxClassification;
+  public NfseCreateRequest iss(@javax.annotation.Nonnull NfseCreateRequestIss iss) {
+    this.iss = iss;
     return this;
   }
 
   /**
-   * Get taxClassification
-   * @return taxClassification
+   * Get iss
+   * @return iss
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TAX_CLASSIFICATION, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getTaxClassification() {
-    return taxClassification;
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_ISS, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public NfseCreateRequestIss getIss() {
+    return iss;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TAX_CLASSIFICATION, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaxClassification(@javax.annotation.Nullable String taxClassification) {
-    this.taxClassification = taxClassification;
+  @JsonProperty(value = JSON_PROPERTY_ISS, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIss(@javax.annotation.Nonnull NfseCreateRequestIss iss) {
+    this.iss = iss;
   }
 
 
-  public NfseCreateRequest ibsCst(@javax.annotation.Nullable String ibsCst) {
-    this.ibsCst = ibsCst;
+  public NfseCreateRequest ibsCbs(@javax.annotation.Nullable NfseCreateRequestIbsCbs ibsCbs) {
+    this.ibsCbs = ibsCbs;
     return this;
   }
 
   /**
-   * Get ibsCst
-   * @return ibsCst
+   * Get ibsCbs
+   * @return ibsCbs
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IBS_CST, required = false)
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getIbsCst() {
-    return ibsCst;
+  public NfseCreateRequestIbsCbs getIbsCbs() {
+    return ibsCbs;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_IBS_CST, required = false)
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIbsCst(@javax.annotation.Nullable String ibsCst) {
-    this.ibsCst = ibsCst;
-  }
-
-
-  public NfseCreateRequest ibsOperationIndicator(@javax.annotation.Nullable String ibsOperationIndicator) {
-    this.ibsOperationIndicator = ibsOperationIndicator;
-    return this;
-  }
-
-  /**
-   * Get ibsOperationIndicator
-   * @return ibsOperationIndicator
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IBS_OPERATION_INDICATOR, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getIbsOperationIndicator() {
-    return ibsOperationIndicator;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_IBS_OPERATION_INDICATOR, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIbsOperationIndicator(@javax.annotation.Nullable String ibsOperationIndicator) {
-    this.ibsOperationIndicator = ibsOperationIndicator;
+  public void setIbsCbs(@javax.annotation.Nullable NfseCreateRequestIbsCbs ibsCbs) {
+    this.ibsCbs = ibsCbs;
   }
 
 
@@ -538,26 +513,34 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest taxes(@javax.annotation.Nonnull NfseCreateRequestTaxes taxes) {
+  public NfseCreateRequest taxes(@javax.annotation.Nullable Map<String, Object> taxes) {
     this.taxes = taxes;
     return this;
   }
 
+  public NfseCreateRequest putTaxesItem(String key, Object taxesItem) {
+    if (this.taxes == null) {
+      this.taxes = new HashMap<>();
+    }
+    this.taxes.put(key, taxesItem);
+    return this;
+  }
+
   /**
-   * Get taxes
+   * Retenções federais opcionais (pis/cofins/csll/ir/inss). ISS canônico é iss no topo.
    * @return taxes
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TAXES, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public NfseCreateRequestTaxes getTaxes() {
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAXES, required = false)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, Object> getTaxes() {
     return taxes;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TAXES, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaxes(@javax.annotation.Nonnull NfseCreateRequestTaxes taxes) {
+  @JsonProperty(value = JSON_PROPERTY_TAXES, required = false)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaxes(@javax.annotation.Nullable Map<String, Object> taxes) {
     this.taxes = taxes;
   }
 
@@ -657,6 +640,162 @@ public class NfseCreateRequest {
     this.borrower = borrower;
   }
 
+
+  public NfseCreateRequest serviceCode(@javax.annotation.Nullable String serviceCode) {
+    this.serviceCode = serviceCode;
+    return this;
+  }
+
+  /**
+   * Alias legado de cityServiceCode
+   * @return serviceCode
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getServiceCode() {
+    return serviceCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceCode(@javax.annotation.Nullable String serviceCode) {
+    this.serviceCode = serviceCode;
+  }
+
+
+  public NfseCreateRequest serviceItemCode(@javax.annotation.Nullable String serviceItemCode) {
+    this.serviceItemCode = serviceItemCode;
+    return this;
+  }
+
+  /**
+   * Alias legado de federalServiceCode
+   * @return serviceItemCode
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getServiceItemCode() {
+    return serviceItemCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_ITEM_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceItemCode(@javax.annotation.Nullable String serviceItemCode) {
+    this.serviceItemCode = serviceItemCode;
+  }
+
+
+  public NfseCreateRequest nbsCode(@javax.annotation.Nullable String nbsCode) {
+    this.nbsCode = nbsCode;
+    return this;
+  }
+
+  /**
+   * Alias legado de nbs
+   * @return nbsCode
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NBS_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getNbsCode() {
+    return nbsCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NBS_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNbsCode(@javax.annotation.Nullable String nbsCode) {
+    this.nbsCode = nbsCode;
+  }
+
+
+  public NfseCreateRequest taxClassification(@javax.annotation.Nullable String taxClassification) {
+    this.taxClassification = taxClassification;
+    return this;
+  }
+
+  /**
+   * Alias legado de ibsCbs.taxClassCode
+   * @return taxClassification
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAX_CLASSIFICATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTaxClassification() {
+    return taxClassification;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TAX_CLASSIFICATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaxClassification(@javax.annotation.Nullable String taxClassification) {
+    this.taxClassification = taxClassification;
+  }
+
+
+  public NfseCreateRequest ibsCst(@javax.annotation.Nullable String ibsCst) {
+    this.ibsCst = ibsCst;
+    return this;
+  }
+
+  /**
+   * Alias legado de ibsCbs.cst
+   * @return ibsCst
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IBS_CST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIbsCst() {
+    return ibsCst;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IBS_CST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIbsCst(@javax.annotation.Nullable String ibsCst) {
+    this.ibsCst = ibsCst;
+  }
+
+
+  public NfseCreateRequest ibsOperationIndicator(@javax.annotation.Nullable String ibsOperationIndicator) {
+    this.ibsOperationIndicator = ibsOperationIndicator;
+    return this;
+  }
+
+  /**
+   * Alias legado de ibsCbs.operationIndicator
+   * @return ibsOperationIndicator
+   * @deprecated
+   */
+  @Deprecated
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IBS_OPERATION_INDICATOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIbsOperationIndicator() {
+    return ibsOperationIndicator;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IBS_OPERATION_INDICATOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIbsOperationIndicator(@javax.annotation.Nullable String ibsOperationIndicator) {
+    this.ibsOperationIndicator = ibsOperationIndicator;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -719,13 +858,11 @@ public class NfseCreateRequest {
         Objects.equals(this.category, nfseCreateRequest.category) &&
         Objects.equals(this.guarantee, nfseCreateRequest.guarantee) &&
         Objects.equals(this.cityServiceCode, nfseCreateRequest.cityServiceCode) &&
-        Objects.equals(this.serviceCode, nfseCreateRequest.serviceCode) &&
-        Objects.equals(this.serviceItemCode, nfseCreateRequest.serviceItemCode) &&
-        Objects.equals(this.nbsCode, nfseCreateRequest.nbsCode) &&
+        Objects.equals(this.federalServiceCode, nfseCreateRequest.federalServiceCode) &&
+        Objects.equals(this.nbs, nfseCreateRequest.nbs) &&
         Objects.equals(this.cnaeCode, nfseCreateRequest.cnaeCode) &&
-        Objects.equals(this.taxClassification, nfseCreateRequest.taxClassification) &&
-        Objects.equals(this.ibsCst, nfseCreateRequest.ibsCst) &&
-        Objects.equals(this.ibsOperationIndicator, nfseCreateRequest.ibsOperationIndicator) &&
+        Objects.equals(this.iss, nfseCreateRequest.iss) &&
+        Objects.equals(this.ibsCbs, nfseCreateRequest.ibsCbs) &&
         Objects.equals(this.natureOfOperation, nfseCreateRequest.natureOfOperation) &&
         Objects.equals(this.serviceLocation, nfseCreateRequest.serviceLocation) &&
         Objects.equals(this.municipalityOfIncidence, nfseCreateRequest.municipalityOfIncidence) &&
@@ -733,13 +870,19 @@ public class NfseCreateRequest {
         Objects.equals(this.amount, nfseCreateRequest.amount) &&
         Objects.equals(this.issueDate, nfseCreateRequest.issueDate) &&
         Objects.equals(this.externalId, nfseCreateRequest.externalId) &&
-        Objects.equals(this.borrower, nfseCreateRequest.borrower)&&
+        Objects.equals(this.borrower, nfseCreateRequest.borrower) &&
+        Objects.equals(this.serviceCode, nfseCreateRequest.serviceCode) &&
+        Objects.equals(this.serviceItemCode, nfseCreateRequest.serviceItemCode) &&
+        Objects.equals(this.nbsCode, nfseCreateRequest.nbsCode) &&
+        Objects.equals(this.taxClassification, nfseCreateRequest.taxClassification) &&
+        Objects.equals(this.ibsCst, nfseCreateRequest.ibsCst) &&
+        Objects.equals(this.ibsOperationIndicator, nfseCreateRequest.ibsOperationIndicator)&&
         Objects.equals(this.additionalProperties, nfseCreateRequest.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(serviceDescription, name, sku, category, guarantee, cityServiceCode, serviceCode, serviceItemCode, nbsCode, cnaeCode, taxClassification, ibsCst, ibsOperationIndicator, natureOfOperation, serviceLocation, municipalityOfIncidence, taxes, amount, issueDate, externalId, borrower, additionalProperties);
+    return Objects.hash(serviceDescription, name, sku, category, guarantee, cityServiceCode, federalServiceCode, nbs, cnaeCode, iss, ibsCbs, natureOfOperation, serviceLocation, municipalityOfIncidence, taxes, amount, issueDate, externalId, borrower, serviceCode, serviceItemCode, nbsCode, taxClassification, ibsCst, ibsOperationIndicator, additionalProperties);
   }
 
   @Override
@@ -752,13 +895,11 @@ public class NfseCreateRequest {
     sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    guarantee: ").append(toIndentedString(guarantee)).append("\n");
     sb.append("    cityServiceCode: ").append(toIndentedString(cityServiceCode)).append("\n");
-    sb.append("    serviceCode: ").append(toIndentedString(serviceCode)).append("\n");
-    sb.append("    serviceItemCode: ").append(toIndentedString(serviceItemCode)).append("\n");
-    sb.append("    nbsCode: ").append(toIndentedString(nbsCode)).append("\n");
+    sb.append("    federalServiceCode: ").append(toIndentedString(federalServiceCode)).append("\n");
+    sb.append("    nbs: ").append(toIndentedString(nbs)).append("\n");
     sb.append("    cnaeCode: ").append(toIndentedString(cnaeCode)).append("\n");
-    sb.append("    taxClassification: ").append(toIndentedString(taxClassification)).append("\n");
-    sb.append("    ibsCst: ").append(toIndentedString(ibsCst)).append("\n");
-    sb.append("    ibsOperationIndicator: ").append(toIndentedString(ibsOperationIndicator)).append("\n");
+    sb.append("    iss: ").append(toIndentedString(iss)).append("\n");
+    sb.append("    ibsCbs: ").append(toIndentedString(ibsCbs)).append("\n");
     sb.append("    natureOfOperation: ").append(toIndentedString(natureOfOperation)).append("\n");
     sb.append("    serviceLocation: ").append(toIndentedString(serviceLocation)).append("\n");
     sb.append("    municipalityOfIncidence: ").append(toIndentedString(municipalityOfIncidence)).append("\n");
@@ -767,6 +908,12 @@ public class NfseCreateRequest {
     sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
     sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    borrower: ").append(toIndentedString(borrower)).append("\n");
+    sb.append("    serviceCode: ").append(toIndentedString(serviceCode)).append("\n");
+    sb.append("    serviceItemCode: ").append(toIndentedString(serviceItemCode)).append("\n");
+    sb.append("    nbsCode: ").append(toIndentedString(nbsCode)).append("\n");
+    sb.append("    taxClassification: ").append(toIndentedString(taxClassification)).append("\n");
+    sb.append("    ibsCst: ").append(toIndentedString(ibsCst)).append("\n");
+    sb.append("    ibsOperationIndicator: ").append(toIndentedString(ibsOperationIndicator)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -842,19 +989,14 @@ public class NfseCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%scityServiceCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCityServiceCode()))));
     }
 
-    // add `serviceCode` to the URL query string
-    if (getServiceCode() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceCode()))));
+    // add `federalServiceCode` to the URL query string
+    if (getFederalServiceCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sfederalServiceCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFederalServiceCode()))));
     }
 
-    // add `serviceItemCode` to the URL query string
-    if (getServiceItemCode() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceItemCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceItemCode()))));
-    }
-
-    // add `nbsCode` to the URL query string
-    if (getNbsCode() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%snbsCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNbsCode()))));
+    // add `nbs` to the URL query string
+    if (getNbs() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snbs%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNbs()))));
     }
 
     // add `cnaeCode` to the URL query string
@@ -862,19 +1004,14 @@ public class NfseCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%scnaeCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCnaeCode()))));
     }
 
-    // add `taxClassification` to the URL query string
-    if (getTaxClassification() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%staxClassification%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxClassification()))));
+    // add `iss` to the URL query string
+    if (getIss() != null) {
+      joiner.add(getIss().toUrlQueryString(prefix + "iss" + suffix));
     }
 
-    // add `ibsCst` to the URL query string
-    if (getIbsCst() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sibsCst%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsCst()))));
-    }
-
-    // add `ibsOperationIndicator` to the URL query string
-    if (getIbsOperationIndicator() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sibsOperationIndicator%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsOperationIndicator()))));
+    // add `ibsCbs` to the URL query string
+    if (getIbsCbs() != null) {
+      joiner.add(getIbsCbs().toUrlQueryString(prefix + "ibsCbs" + suffix));
     }
 
     // add `natureOfOperation` to the URL query string
@@ -894,7 +1031,11 @@ public class NfseCreateRequest {
 
     // add `taxes` to the URL query string
     if (getTaxes() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%staxes%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxes()))));
+      for (String _key : getTaxes().keySet()) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%staxes%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+            getTaxes().get(_key), ApiClient.urlEncode(ApiClient.valueToString(getTaxes().get(_key)))));
+      }
     }
 
     // add `amount` to the URL query string
@@ -915,6 +1056,36 @@ public class NfseCreateRequest {
     // add `borrower` to the URL query string
     if (getBorrower() != null) {
       joiner.add(getBorrower().toUrlQueryString(prefix + "borrower" + suffix));
+    }
+
+    // add `serviceCode` to the URL query string
+    if (getServiceCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceCode()))));
+    }
+
+    // add `serviceItemCode` to the URL query string
+    if (getServiceItemCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceItemCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceItemCode()))));
+    }
+
+    // add `nbsCode` to the URL query string
+    if (getNbsCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snbsCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNbsCode()))));
+    }
+
+    // add `taxClassification` to the URL query string
+    if (getTaxClassification() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%staxClassification%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxClassification()))));
+    }
+
+    // add `ibsCst` to the URL query string
+    if (getIbsCst() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sibsCst%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsCst()))));
+    }
+
+    // add `ibsOperationIndicator` to the URL query string
+    if (getIbsOperationIndicator() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sibsOperationIndicator%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsOperationIndicator()))));
     }
 
     return joiner.toString();
