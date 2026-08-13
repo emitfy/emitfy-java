@@ -187,6 +187,18 @@ public final class Emitfy {
         public JsonElement create(Object payload) {
             return transport.request("POST", "/companies", payload, null);
         }
+
+        public JsonElement get(String companyId) {
+            return transport.request("GET", "/companies/" + enc(companyId), null, null);
+        }
+
+        public JsonElement update(String companyId, Object payload) {
+            return transport.request("PUT", "/companies/" + enc(companyId), payload, null);
+        }
+
+        public JsonElement delete(String companyId) {
+            return transport.request("DELETE", "/companies/" + enc(companyId), null, null);
+        }
     }
 
     public static final class CompanyResource {
@@ -236,6 +248,64 @@ public final class Emitfy {
         public JsonElement post(String suffix, Object payload, String idempotencyKey) {
             return transport.request("POST", basePath.replaceAll("/$", "") + "/" + suffix.replaceAll("^/", ""), payload, idempotencyKey);
         }
+
+        public JsonElement xml(String id) {
+            return transport.request("GET", basePath + "/" + enc(id) + "/xml", null, null);
+        }
+
+        public JsonElement pdf(String id) {
+            return transport.request("GET", basePath + "/" + enc(id) + "/pdf", null, null);
+        }
+    }
+
+    public static final class InvoicesResource {
+        private final HttpTransport transport;
+        private final String basePath;
+
+        InvoicesResource(HttpTransport transport, String basePath) {
+            this.transport = transport;
+            this.basePath = basePath;
+        }
+
+        public JsonElement list() {
+            return transport.request("GET", basePath, null, null);
+        }
+
+        public JsonElement get(String id) {
+            return transport.request("GET", basePath + "/" + enc(id), null, null);
+        }
+
+        public JsonElement update(String id, Object payload) {
+            return transport.request("PATCH", basePath + "/" + enc(id), payload, null);
+        }
+
+        public JsonElement emit(String id) {
+            return transport.request("POST", basePath + "/" + enc(id) + "/emit", Map.of(), null);
+        }
+
+        public JsonElement cancel(String id) {
+            return cancel(id, Map.of());
+        }
+
+        public JsonElement cancel(String id, Object payload) {
+            return transport.request("POST", basePath + "/" + enc(id) + "/cancel", payload, null);
+        }
+
+        public JsonElement consult(String id) {
+            return transport.request("GET", basePath + "/" + enc(id) + "/consult", null, null);
+        }
+
+        public JsonElement events(String id) {
+            return transport.request("GET", basePath + "/" + enc(id) + "/events", null, null);
+        }
+
+        public JsonElement sendEmail(String id) {
+            return sendEmail(id, Map.of());
+        }
+
+        public JsonElement sendEmail(String id, Object payload) {
+            return transport.request("POST", basePath + "/" + enc(id) + "/send-borrower-email", payload, null);
+        }
     }
 
     public static final class CompanyContext {
@@ -247,7 +317,7 @@ public final class Emitfy {
         public final CompanyResource cte;
         public final CompanyResource customers;
         public final CompanyResource products;
-        public final CompanyResource invoices;
+        public final InvoicesResource invoices;
         public final CompanyResource receivedNfes;
 
         CompanyContext(HttpTransport transport, String companyId) {
@@ -260,7 +330,7 @@ public final class Emitfy {
             this.cte = new CompanyResource(transport, prefix + "/cte");
             this.customers = new CompanyResource(transport, prefix + "/customers");
             this.products = new CompanyResource(transport, prefix + "/products");
-            this.invoices = new CompanyResource(transport, prefix + "/invoices");
+            this.invoices = new InvoicesResource(transport, prefix + "/invoices");
             this.receivedNfes = new CompanyResource(transport, prefix + "/received-nfes");
         }
 
@@ -270,6 +340,42 @@ public final class Emitfy {
 
         public JsonElement createCteOs(Object payload, String idempotencyKey) {
             return transport.request("POST", "/companies/" + enc(companyId) + "/cte-os", payload, idempotencyKey);
+        }
+
+        public JsonElement status() {
+            return transport.request("GET", "/companies/" + enc(companyId) + "/status", null, null);
+        }
+
+        public JsonElement setEnvironment(String environment) {
+            return transport.request("PATCH", "/companies/" + enc(companyId) + "/environment", Map.of("environment", environment), null);
+        }
+
+        public JsonElement certificateStatus() {
+            return transport.request("GET", "/companies/" + enc(companyId) + "/certificate", null, null);
+        }
+
+        public JsonElement uploadCertificate(Object payload) {
+            return transport.request("POST", "/companies/" + enc(companyId) + "/certificate", payload, null);
+        }
+
+        public JsonElement deleteCertificate() {
+            return transport.request("DELETE", "/companies/" + enc(companyId) + "/certificate", null, null);
+        }
+
+        public JsonElement createCorrectionLetter(String id, Object payload) {
+            return transport.request("POST", "/companies/" + enc(companyId) + "/nfe/" + enc(id) + "/correction", payload, null);
+        }
+
+        public JsonElement inutilizeNfe(Object payload) {
+            return transport.request("POST", "/companies/" + enc(companyId) + "/nfe/inutilizations", payload, null);
+        }
+
+        public JsonElement transmitNfce(String id) {
+            return transport.request("POST", "/companies/" + enc(companyId) + "/nfce/" + enc(id) + "/transmit", Map.of(), null);
+        }
+
+        public JsonElement inutilizeNfce(Object payload) {
+            return transport.request("POST", "/companies/" + enc(companyId) + "/nfce/inutilizations", payload, null);
         }
     }
 

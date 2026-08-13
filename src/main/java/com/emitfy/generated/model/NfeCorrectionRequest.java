@@ -19,7 +19,6 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
-import com.emitfy.generated.model.PublicInvoiceResource;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,108 +30,46 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * InvoicesGet200Response
+ * NfeCorrectionRequest
  */
 @JsonPropertyOrder({
-  InvoicesGet200Response.JSON_PROPERTY_SUCCESS,
-  InvoicesGet200Response.JSON_PROPERTY_DATA
+  NfeCorrectionRequest.JSON_PROPERTY_CORRECTION
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
-public class InvoicesGet200Response {
-  /**
-   * Gets or Sets success
-   */
-  public enum SuccessEnum {
-    TRUE(Boolean.valueOf("true"));
+public class NfeCorrectionRequest {
+  public static final String JSON_PROPERTY_CORRECTION = "correction";
+  @javax.annotation.Nonnull
+  private String correction;
 
-    private Boolean value;
-
-    SuccessEnum(Boolean value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public Boolean getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static SuccessEnum fromValue(Boolean value) {
-      for (SuccessEnum b : SuccessEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
+  public NfeCorrectionRequest() { 
   }
 
-  public static final String JSON_PROPERTY_SUCCESS = "success";
-  @javax.annotation.Nullable
-  private SuccessEnum success;
-
-  public static final String JSON_PROPERTY_DATA = "data";
-  @javax.annotation.Nullable
-  private PublicInvoiceResource data;
-
-  public InvoicesGet200Response() { 
-  }
-
-  public InvoicesGet200Response success(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
+  public NfeCorrectionRequest correction(@javax.annotation.Nonnull String correction) {
+    this.correction = correction;
     return this;
   }
 
   /**
-   * Get success
-   * @return success
+   * Texto da CC-e (NF-e autorizada). Não reprocessa rejeição.
+   * @return correction
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public SuccessEnum getSuccess() {
-    return success;
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_CORRECTION, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public String getCorrection() {
+    return correction;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuccess(@javax.annotation.Nullable SuccessEnum success) {
-    this.success = success;
-  }
-
-
-  public InvoicesGet200Response data(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
-    return this;
-  }
-
-  /**
-   * Get data
-   * @return data
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public PublicInvoiceResource getData() {
-    return data;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(@javax.annotation.Nullable PublicInvoiceResource data) {
-    this.data = data;
+  @JsonProperty(value = JSON_PROPERTY_CORRECTION, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCorrection(@javax.annotation.Nonnull String correction) {
+    this.correction = correction;
   }
 
 
   /**
-   * Return true if this invoicesGet_200_response object is equal to o.
+   * Return true if this NfeCorrectionRequest object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -142,22 +79,20 @@ public class InvoicesGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvoicesGet200Response invoicesGet200Response = (InvoicesGet200Response) o;
-    return Objects.equals(this.success, invoicesGet200Response.success) &&
-        Objects.equals(this.data, invoicesGet200Response.data);
+    NfeCorrectionRequest nfeCorrectionRequest = (NfeCorrectionRequest) o;
+    return Objects.equals(this.correction, nfeCorrectionRequest.correction);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, data);
+    return Objects.hash(correction);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InvoicesGet200Response {\n");
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class NfeCorrectionRequest {\n");
+    sb.append("    correction: ").append(toIndentedString(correction)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -202,14 +137,9 @@ public class InvoicesGet200Response {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `success` to the URL query string
-    if (getSuccess() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%ssuccess%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
-    }
-
-    // add `data` to the URL query string
-    if (getData() != null) {
-      joiner.add(getData().toUrlQueryString(prefix + "data" + suffix));
+    // add `correction` to the URL query string
+    if (getCorrection() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scorrection%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCorrection()))));
     }
 
     return joiner.toString();
