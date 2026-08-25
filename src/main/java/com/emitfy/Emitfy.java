@@ -245,6 +245,10 @@ public final class Emitfy {
             return transport.request("DELETE", basePath + "/" + enc(id), null, null);
         }
 
+        public JsonElement cancel(String id, Object payload) {
+            return transport.request("DELETE", basePath + "/" + enc(id), payload, null);
+        }
+
         public JsonElement post(String suffix, Object payload, String idempotencyKey) {
             return transport.request("POST", basePath.replaceAll("/$", "") + "/" + suffix.replaceAll("^/", ""), payload, idempotencyKey);
         }
@@ -315,6 +319,7 @@ public final class Emitfy {
         public final CompanyResource nfe;
         public final CompanyResource nfce;
         public final CompanyResource cte;
+        public final CompanyResource mdfe;
         public final CompanyResource customers;
         public final CompanyResource products;
         public final InvoicesResource invoices;
@@ -328,6 +333,7 @@ public final class Emitfy {
             this.nfe = new CompanyResource(transport, prefix + "/nfe");
             this.nfce = new CompanyResource(transport, prefix + "/nfce");
             this.cte = new CompanyResource(transport, prefix + "/cte");
+            this.mdfe = new CompanyResource(transport, prefix + "/mdfe");
             this.customers = new CompanyResource(transport, prefix + "/customers");
             this.products = new CompanyResource(transport, prefix + "/products");
             this.invoices = new InvoicesResource(transport, prefix + "/invoices");
@@ -346,6 +352,7 @@ public final class Emitfy {
             return transport.request("GET", "/companies/" + enc(companyId) + "/status", null, null);
         }
 
+        @Deprecated
         public JsonElement setEnvironment(String environment) {
             return transport.request("PATCH", "/companies/" + enc(companyId) + "/environment", Map.of("environment", environment), null);
         }
