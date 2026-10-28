@@ -352,11 +352,6 @@ public final class Emitfy {
             return transport.request("GET", "/companies/" + enc(companyId) + "/status", null, null);
         }
 
-        @Deprecated
-        public JsonElement setEnvironment(String environment) {
-            return transport.request("PATCH", "/companies/" + enc(companyId) + "/environment", Map.of("environment", environment), null);
-        }
-
         public JsonElement certificateStatus() {
             return transport.request("GET", "/companies/" + enc(companyId) + "/certificate", null, null);
         }
