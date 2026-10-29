@@ -392,6 +392,124 @@ public class WebhooksApi {
   }
 
   /**
+   * Get webhook (with signing secret)
+   * 
+   * @param id  (required)
+   * @return SuccessEnvelope
+   * @throws ApiException if fails to make API call
+   */
+  public SuccessEnvelope webhooksGet(@javax.annotation.Nonnull String id) throws ApiException {
+    return webhooksGet(id, null);
+  }
+
+  /**
+   * Get webhook (with signing secret)
+   * 
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return SuccessEnvelope
+   * @throws ApiException if fails to make API call
+   */
+  public SuccessEnvelope webhooksGet(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<SuccessEnvelope> localVarResponse = webhooksGetWithHttpInfo(id, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Get webhook (with signing secret)
+   * 
+   * @param id  (required)
+   * @return ApiResponse&lt;SuccessEnvelope&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<SuccessEnvelope> webhooksGetWithHttpInfo(@javax.annotation.Nonnull String id) throws ApiException {
+    return webhooksGetWithHttpInfo(id, null);
+  }
+
+  /**
+   * Get webhook (with signing secret)
+   * 
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;SuccessEnvelope&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<SuccessEnvelope> webhooksGetWithHttpInfo(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = webhooksGetRequestBuilder(id, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("webhooksGet", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<SuccessEnvelope>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        SuccessEnvelope responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<SuccessEnvelope>() {});
+        
+
+        return new ApiResponse<SuccessEnvelope>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder webhooksGetRequestBuilder(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling webhooksGet");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/webhooks/{id}"
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
    * List subscription webhooks
    * 
    * @return SuccessEnvelope
@@ -489,6 +607,124 @@ public class WebhooksApi {
     localVarRequestBuilder.header("Accept", "application/json");
 
     localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Rotate webhook signing secret
+   * Gera um novo segredo de assinatura; o anterior deixa de valer imediatamente.
+   * @param id  (required)
+   * @return SuccessEnvelope
+   * @throws ApiException if fails to make API call
+   */
+  public SuccessEnvelope webhooksRotateSigningSecret(@javax.annotation.Nonnull String id) throws ApiException {
+    return webhooksRotateSigningSecret(id, null);
+  }
+
+  /**
+   * Rotate webhook signing secret
+   * Gera um novo segredo de assinatura; o anterior deixa de valer imediatamente.
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return SuccessEnvelope
+   * @throws ApiException if fails to make API call
+   */
+  public SuccessEnvelope webhooksRotateSigningSecret(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<SuccessEnvelope> localVarResponse = webhooksRotateSigningSecretWithHttpInfo(id, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Rotate webhook signing secret
+   * Gera um novo segredo de assinatura; o anterior deixa de valer imediatamente.
+   * @param id  (required)
+   * @return ApiResponse&lt;SuccessEnvelope&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<SuccessEnvelope> webhooksRotateSigningSecretWithHttpInfo(@javax.annotation.Nonnull String id) throws ApiException {
+    return webhooksRotateSigningSecretWithHttpInfo(id, null);
+  }
+
+  /**
+   * Rotate webhook signing secret
+   * Gera um novo segredo de assinatura; o anterior deixa de valer imediatamente.
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;SuccessEnvelope&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<SuccessEnvelope> webhooksRotateSigningSecretWithHttpInfo(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = webhooksRotateSigningSecretRequestBuilder(id, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("webhooksRotateSigningSecret", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<SuccessEnvelope>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        SuccessEnvelope responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<SuccessEnvelope>() {});
+        
+
+        return new ApiResponse<SuccessEnvelope>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder webhooksRotateSigningSecretRequestBuilder(@javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling webhooksRotateSigningSecret");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/webhooks/{id}/signing-secret"
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
