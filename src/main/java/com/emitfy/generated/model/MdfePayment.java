@@ -19,13 +19,16 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.MdfePaymentComponentsInner;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -36,6 +39,7 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   MdfePayment.JSON_PROPERTY_RESPONSIBLE_TAX_ID,
   MdfePayment.JSON_PROPERTY_RESPONSIBLE_NAME,
+  MdfePayment.JSON_PROPERTY_COMPONENTS,
   MdfePayment.JSON_PROPERTY_AMOUNT,
   MdfePayment.JSON_PROPERTY_METHOD
 })
@@ -48,6 +52,10 @@ public class MdfePayment {
   public static final String JSON_PROPERTY_RESPONSIBLE_NAME = "responsibleName";
   @javax.annotation.Nullable
   private String responsibleName;
+
+  public static final String JSON_PROPERTY_COMPONENTS = "components";
+  @javax.annotation.Nullable
+  private List<MdfePaymentComponentsInner> components = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   @javax.annotation.Nullable
@@ -105,6 +113,38 @@ public class MdfePayment {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResponsibleName(@javax.annotation.Nullable String responsibleName) {
     this.responsibleName = responsibleName;
+  }
+
+
+  public MdfePayment components(@javax.annotation.Nullable List<MdfePaymentComponentsInner> components) {
+    this.components = components;
+    return this;
+  }
+
+  public MdfePayment addComponentsItem(MdfePaymentComponentsInner componentsItem) {
+    if (this.components == null) {
+      this.components = new ArrayList<>();
+    }
+    this.components.add(componentsItem);
+    return this;
+  }
+
+  /**
+   * Get components
+   * @return components
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<MdfePaymentComponentsInner> getComponents() {
+    return components;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setComponents(@javax.annotation.Nullable List<MdfePaymentComponentsInner> components) {
+    this.components = components;
   }
 
 
@@ -171,13 +211,14 @@ public class MdfePayment {
     MdfePayment mdfePayment = (MdfePayment) o;
     return Objects.equals(this.responsibleTaxId, mdfePayment.responsibleTaxId) &&
         Objects.equals(this.responsibleName, mdfePayment.responsibleName) &&
+        Objects.equals(this.components, mdfePayment.components) &&
         Objects.equals(this.amount, mdfePayment.amount) &&
         Objects.equals(this.method, mdfePayment.method);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(responsibleTaxId, responsibleName, amount, method);
+    return Objects.hash(responsibleTaxId, responsibleName, components, amount, method);
   }
 
   @Override
@@ -186,6 +227,7 @@ public class MdfePayment {
     sb.append("class MdfePayment {\n");
     sb.append("    responsibleTaxId: ").append(toIndentedString(responsibleTaxId)).append("\n");
     sb.append("    responsibleName: ").append(toIndentedString(responsibleName)).append("\n");
+    sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    method: ").append(toIndentedString(method)).append("\n");
     sb.append("}");
@@ -240,6 +282,16 @@ public class MdfePayment {
     // add `responsibleName` to the URL query string
     if (getResponsibleName() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sresponsibleName%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getResponsibleName()))));
+    }
+
+    // add `components` to the URL query string
+    if (getComponents() != null) {
+      for (int i = 0; i < getComponents().size(); i++) {
+        if (getComponents().get(i) != null) {
+          joiner.add(getComponents().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%scomponents%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
     }
 
     // add `amount` to the URL query string

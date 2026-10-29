@@ -19,7 +19,11 @@ import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
 import com.emitfy.generated.model.CteCreateRequest;
+import com.emitfy.generated.model.CteEmitAccepted;
+import com.emitfy.generated.model.CteList200Response;
 import com.emitfy.generated.model.CteOsCreateRequest;
+import com.emitfy.generated.model.ErrorBody;
+import com.emitfy.generated.model.TransportDocumentAccepted;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -166,49 +170,52 @@ public class CteApi {
 
   /**
    * Cancel CT-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Cancela CT-e ou CT-e OS autorizado (enfileirado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    cteCancel(companyId, id, null);
+  public TransportDocumentAccepted cteCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return cteCancel(companyId, id, null);
   }
 
   /**
    * Cancel CT-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Cancela CT-e ou CT-e OS autorizado (enfileirado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    cteCancelWithHttpInfo(companyId, id, headers);
+  public TransportDocumentAccepted cteCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = cteCancelWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Cancel CT-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Cancela CT-e ou CT-e OS autorizado (enfileirado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> cteCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
     return cteCancelWithHttpInfo(companyId, id, null);
   }
 
   /**
    * Cancel CT-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Cancela CT-e ou CT-e OS autorizado (enfileirado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> cteCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = cteCancelRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -223,13 +230,24 @@ public class CteApi {
           throw getApiException("cteCancel", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -280,7 +298,7 @@ public class CteApi {
   /**
    * Consult CT-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -291,7 +309,7 @@ public class CteApi {
   /**
    * Consult CT-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -303,7 +321,7 @@ public class CteApi {
   /**
    * Consult CT-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -315,7 +333,7 @@ public class CteApi {
   /**
    * Consult CT-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -393,52 +411,55 @@ public class CteApi {
   /**
    * Emit CT-e (modelo 57)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteCreateRequest  (required)
    * @param idempotencyKey  (optional)
+   * @return CteEmitAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
-    cteCreate(companyId, cteCreateRequest, idempotencyKey, null);
+  public CteEmitAccepted cteCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+    return cteCreate(companyId, cteCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit CT-e (modelo 57)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
+   * @return CteEmitAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
-    cteCreateWithHttpInfo(companyId, cteCreateRequest, idempotencyKey, headers);
+  public CteEmitAccepted cteCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+    ApiResponse<CteEmitAccepted> localVarResponse = cteCreateWithHttpInfo(companyId, cteCreateRequest, idempotencyKey, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Emit CT-e (modelo 57)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteCreateRequest  (required)
    * @param idempotencyKey  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;CteEmitAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+  public ApiResponse<CteEmitAccepted> cteCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
     return cteCreateWithHttpInfo(companyId, cteCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit CT-e (modelo 57)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;CteEmitAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+  public ApiResponse<CteEmitAccepted> cteCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteCreateRequest cteCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = cteCreateRequestBuilder(companyId, cteCreateRequest, idempotencyKey, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -453,13 +474,24 @@ public class CteApi {
           throw getApiException("cteCreate", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<CteEmitAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        CteEmitAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<CteEmitAccepted>() {});
+        
+
+        return new ApiResponse<CteEmitAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -518,7 +550,7 @@ public class CteApi {
   /**
    * Get CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -529,7 +561,7 @@ public class CteApi {
   /**
    * Get CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -541,7 +573,7 @@ public class CteApi {
   /**
    * Get CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -553,7 +585,7 @@ public class CteApi {
   /**
    * Get CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -631,57 +663,72 @@ public class CteApi {
   /**
    * List CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param model &#x60;57&#x60; &#x3D; CT-e (padrão), &#x60;67&#x60; &#x3D; CT-e OS. Sem &#x60;model&#x3D;67&#x60; a lista não traz CT-e OS. (optional, default to 57)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return CteList200Response
    * @throws ApiException if fails to make API call
    */
-  public void cteList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
-    cteList(companyId, page, pageSize, status, null);
+  public CteList200Response cteList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable String model, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return cteList(companyId, page, pageSize, status, model, startDate, endDate, null);
   }
 
   /**
    * List CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param model &#x60;57&#x60; &#x3D; CT-e (padrão), &#x60;67&#x60; &#x3D; CT-e OS. Sem &#x60;model&#x3D;67&#x60; a lista não traz CT-e OS. (optional, default to 57)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
+   * @return CteList200Response
    * @throws ApiException if fails to make API call
    */
-  public void cteList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    cteListWithHttpInfo(companyId, page, pageSize, status, headers);
+  public CteList200Response cteList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable String model, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    ApiResponse<CteList200Response> localVarResponse = cteListWithHttpInfo(companyId, page, pageSize, status, model, startDate, endDate, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * List CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @param model &#x60;57&#x60; &#x3D; CT-e (padrão), &#x60;67&#x60; &#x3D; CT-e OS. Sem &#x60;model&#x3D;67&#x60; a lista não traz CT-e OS. (optional, default to 57)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return ApiResponse&lt;CteList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
-    return cteListWithHttpInfo(companyId, page, pageSize, status, null);
+  public ApiResponse<CteList200Response> cteListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable String model, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return cteListWithHttpInfo(companyId, page, pageSize, status, model, startDate, endDate, null);
   }
 
   /**
    * List CT-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param model &#x60;57&#x60; &#x3D; CT-e (padrão), &#x60;67&#x60; &#x3D; CT-e OS. Sem &#x60;model&#x3D;67&#x60; a lista não traz CT-e OS. (optional, default to 57)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;CteList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = cteListRequestBuilder(companyId, page, pageSize, status, headers);
+  public ApiResponse<CteList200Response> cteListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable String model, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = cteListRequestBuilder(companyId, page, pageSize, status, model, startDate, endDate, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -695,13 +742,24 @@ public class CteApi {
           throw getApiException("cteList", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<CteList200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        CteList200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<CteList200Response>() {});
+        
+
+        return new ApiResponse<CteList200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -717,7 +775,7 @@ public class CteApi {
     }
   }
 
-  private HttpRequest.Builder cteListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder cteListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable String model, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling cteList");
@@ -737,6 +795,12 @@ public class CteApi {
     localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
     localVarQueryParameterBaseName = "status";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+    localVarQueryParameterBaseName = "model";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("model", model));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");
@@ -765,53 +829,56 @@ public class CteApi {
 
   /**
    * Emit CT-e OS (modelo 67)
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Validação adicional: &#x60;takerParty&#x60; obrigatório exceto &#x60;serviceType&#x60; &#x60;8&#x60; (excesso de bagagem); &#x60;taf&#x60; (12 dígitos) ou &#x60;stateAgencyRegistration&#x60; (25 dígitos) obrigatório. Falha → 422. Consulta, cancelamento e listagem usam as rotas &#x60;/cte&#x60; (lista com &#x60;model&#x3D;67&#x60;). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteOsCreateRequest  (required)
    * @param idempotencyKey  (optional)
+   * @return CteEmitAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteOsCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
-    cteOsCreate(companyId, cteOsCreateRequest, idempotencyKey, null);
+  public CteEmitAccepted cteOsCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+    return cteOsCreate(companyId, cteOsCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit CT-e OS (modelo 67)
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Validação adicional: &#x60;takerParty&#x60; obrigatório exceto &#x60;serviceType&#x60; &#x60;8&#x60; (excesso de bagagem); &#x60;taf&#x60; (12 dígitos) ou &#x60;stateAgencyRegistration&#x60; (25 dígitos) obrigatório. Falha → 422. Consulta, cancelamento e listagem usam as rotas &#x60;/cte&#x60; (lista com &#x60;model&#x3D;67&#x60;). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteOsCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
+   * @return CteEmitAccepted
    * @throws ApiException if fails to make API call
    */
-  public void cteOsCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
-    cteOsCreateWithHttpInfo(companyId, cteOsCreateRequest, idempotencyKey, headers);
+  public CteEmitAccepted cteOsCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+    ApiResponse<CteEmitAccepted> localVarResponse = cteOsCreateWithHttpInfo(companyId, cteOsCreateRequest, idempotencyKey, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Emit CT-e OS (modelo 67)
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Validação adicional: &#x60;takerParty&#x60; obrigatório exceto &#x60;serviceType&#x60; &#x60;8&#x60; (excesso de bagagem); &#x60;taf&#x60; (12 dígitos) ou &#x60;stateAgencyRegistration&#x60; (25 dígitos) obrigatório. Falha → 422. Consulta, cancelamento e listagem usam as rotas &#x60;/cte&#x60; (lista com &#x60;model&#x3D;67&#x60;). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteOsCreateRequest  (required)
    * @param idempotencyKey  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;CteEmitAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteOsCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+  public ApiResponse<CteEmitAccepted> cteOsCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
     return cteOsCreateWithHttpInfo(companyId, cteOsCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit CT-e OS (modelo 67)
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Validação adicional: &#x60;takerParty&#x60; obrigatório exceto &#x60;serviceType&#x60; &#x60;8&#x60; (excesso de bagagem); &#x60;taf&#x60; (12 dígitos) ou &#x60;stateAgencyRegistration&#x60; (25 dígitos) obrigatório. Falha → 422. Consulta, cancelamento e listagem usam as rotas &#x60;/cte&#x60; (lista com &#x60;model&#x3D;67&#x60;). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param cteOsCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;CteEmitAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cteOsCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+  public ApiResponse<CteEmitAccepted> cteOsCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteOsCreateRequest cteOsCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = cteOsCreateRequestBuilder(companyId, cteOsCreateRequest, idempotencyKey, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -826,13 +893,24 @@ public class CteApi {
           throw getApiException("cteOsCreate", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<CteEmitAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        CteEmitAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<CteEmitAccepted>() {});
+        
+
+        return new ApiResponse<CteEmitAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {

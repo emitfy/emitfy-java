@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeAddress;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,13 +31,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequestRecipient
+ * Opcional (padrão consumidor final); todos os campos opcionais.
  */
 @JsonPropertyOrder({
   NfceCreateRequestRecipient.JSON_PROPERTY_TAX_ID,
   NfceCreateRequestRecipient.JSON_PROPERTY_NAME,
   NfceCreateRequestRecipient.JSON_PROPERTY_EMAIL,
-  NfceCreateRequestRecipient.JSON_PROPERTY_PHONE
+  NfceCreateRequestRecipient.JSON_PROPERTY_PHONE,
+  NfceCreateRequestRecipient.JSON_PROPERTY_ADDRESS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfceCreateRequestRecipient {
@@ -55,6 +57,10 @@ public class NfceCreateRequestRecipient {
   public static final String JSON_PROPERTY_PHONE = "phone";
   @javax.annotation.Nullable
   private String phone;
+
+  public static final String JSON_PROPERTY_ADDRESS = "address";
+  @javax.annotation.Nullable
+  private NfeAddress address;
 
   public NfceCreateRequestRecipient() { 
   }
@@ -155,6 +161,30 @@ public class NfceCreateRequestRecipient {
   }
 
 
+  public NfceCreateRequestRecipient address(@javax.annotation.Nullable NfeAddress address) {
+    this.address = address;
+    return this;
+  }
+
+  /**
+   * Get address
+   * @return address
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeAddress getAddress() {
+    return address;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAddress(@javax.annotation.Nullable NfeAddress address) {
+    this.address = address;
+  }
+
+
   /**
    * Return true if this nfceCreate_request_recipient object is equal to o.
    */
@@ -170,12 +200,13 @@ public class NfceCreateRequestRecipient {
     return Objects.equals(this.taxId, nfceCreateRequestRecipient.taxId) &&
         Objects.equals(this.name, nfceCreateRequestRecipient.name) &&
         Objects.equals(this.email, nfceCreateRequestRecipient.email) &&
-        Objects.equals(this.phone, nfceCreateRequestRecipient.phone);
+        Objects.equals(this.phone, nfceCreateRequestRecipient.phone) &&
+        Objects.equals(this.address, nfceCreateRequestRecipient.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taxId, name, email, phone);
+    return Objects.hash(taxId, name, email, phone, address);
   }
 
   @Override
@@ -186,6 +217,7 @@ public class NfceCreateRequestRecipient {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -248,6 +280,11 @@ public class NfceCreateRequestRecipient {
     // add `phone` to the URL query string
     if (getPhone() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sphone%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPhone()))));
+    }
+
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(getAddress().toUrlQueryString(prefix + "address" + suffix));
     }
 
     return joiner.toString();

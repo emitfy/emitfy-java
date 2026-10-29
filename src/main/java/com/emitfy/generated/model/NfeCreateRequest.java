@@ -19,7 +19,11 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeAutXml;
+import com.emitfy.generated.model.DfeTechResponsible;
+import com.emitfy.generated.model.NfeCreateRequestEntrega;
 import com.emitfy.generated.model.NfeCreateRequestRecipient;
+import com.emitfy.generated.model.NfeCreateRequestRetirada;
 import com.emitfy.generated.model.NfeCreateRequestTransport;
 import com.emitfy.generated.model.ProductEmitItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,9 +31,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -44,18 +51,31 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
   NfeCreateRequest.JSON_PROPERTY_OPERATION_NATURE,
   NfeCreateRequest.JSON_PROPERTY_NATURE,
-  NfeCreateRequest.JSON_PROPERTY_BILLING,
-  NfeCreateRequest.JSON_PROPERTY_ADDITIONAL,
-  NfeCreateRequest.JSON_PROPERTY_TECH_RESPONSIBLE,
-  NfeCreateRequest.JSON_PROPERTY_INTERMEDIARY,
-  NfeCreateRequest.JSON_PROPERTY_AUT_XML,
+  NfeCreateRequest.JSON_PROPERTY_OPERATION_TYPE,
+  NfeCreateRequest.JSON_PROPERTY_PRINT_TYPE,
+  NfeCreateRequest.JSON_PROPERTY_CONSUMER_TYPE,
+  NfeCreateRequest.JSON_PROPERTY_PRESENCE_TYPE,
+  NfeCreateRequest.JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE,
+  NfeCreateRequest.JSON_PROPERTY_STATE_REGISTRATION_ID,
+  NfeCreateRequest.JSON_PROPERTY_CFOP,
+  NfeCreateRequest.JSON_PROPERTY_ISSUE_DATE,
+  NfeCreateRequest.JSON_PROPERTY_IDE,
+  NfeCreateRequest.JSON_PROPERTY_AVULSA,
   NfeCreateRequest.JSON_PROPERTY_RETIRADA,
   NfeCreateRequest.JSON_PROPERTY_ENTREGA,
+  NfeCreateRequest.JSON_PROPERTY_AUT_XML,
+  NfeCreateRequest.JSON_PROPERTY_BILLING,
+  NfeCreateRequest.JSON_PROPERTY_PAYMENTS,
+  NfeCreateRequest.JSON_PROPERTY_CHANGE,
+  NfeCreateRequest.JSON_PROPERTY_INTERMEDIARY,
+  NfeCreateRequest.JSON_PROPERTY_ADDITIONAL,
   NfeCreateRequest.JSON_PROPERTY_EXPORT,
   NfeCreateRequest.JSON_PROPERTY_PURCHASE,
   NfeCreateRequest.JSON_PROPERTY_SUGARCANE,
+  NfeCreateRequest.JSON_PROPERTY_TECH_RESPONSIBLE,
+  NfeCreateRequest.JSON_PROPERTY_NFF_REQUEST,
   NfeCreateRequest.JSON_PROPERTY_FARMING,
-  NfeCreateRequest.JSON_PROPERTY_NFF_REQUEST
+  NfeCreateRequest.JSON_PROPERTY_TOTALS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequest {
@@ -83,33 +103,225 @@ public class NfeCreateRequest {
   @javax.annotation.Nullable
   private String nature;
 
+  /**
+   * Gets or Sets operationType
+   */
+  public enum OperationTypeEnum {
+    OUTGOING(String.valueOf("outgoing")),
+    
+    INCOMING(String.valueOf("incoming"));
+
+    private String value;
+
+    OperationTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static OperationTypeEnum fromValue(String value) {
+      for (OperationTypeEnum b : OperationTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_OPERATION_TYPE = "operationType";
+  @javax.annotation.Nullable
+  private OperationTypeEnum operationType;
+
+  /**
+   * Gets or Sets printType
+   */
+  public enum PrintTypeEnum {
+    NFE_NORMAL_PORTRAIT(String.valueOf("nfeNormalPortrait")),
+    
+    NFE_NORMAL_LANDSCAPE(String.valueOf("nfeNormalLandscape")),
+    
+    NFE_SIMPLIFIED(String.valueOf("nfeSimplified"));
+
+    private String value;
+
+    PrintTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PrintTypeEnum fromValue(String value) {
+      for (PrintTypeEnum b : PrintTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PRINT_TYPE = "printType";
+  @javax.annotation.Nullable
+  private PrintTypeEnum printType;
+
+  /**
+   * Gets or Sets consumerType
+   */
+  public enum ConsumerTypeEnum {
+    NORMAL(String.valueOf("normal")),
+    
+    FINAL_CONSUMER(String.valueOf("finalConsumer"));
+
+    private String value;
+
+    ConsumerTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ConsumerTypeEnum fromValue(String value) {
+      for (ConsumerTypeEnum b : ConsumerTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_CONSUMER_TYPE = "consumerType";
+  @javax.annotation.Nullable
+  private ConsumerTypeEnum consumerType;
+
+  /**
+   * Gets or Sets presenceType
+   */
+  public enum PresenceTypeEnum {
+    PRESENTIAL(String.valueOf("presential")),
+    
+    INTERNET(String.valueOf("internet")),
+    
+    TELEPHONE(String.valueOf("telephone")),
+    
+    DELIVERY(String.valueOf("delivery")),
+    
+    OTHERS(String.valueOf("others"));
+
+    private String value;
+
+    PresenceTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PresenceTypeEnum fromValue(String value) {
+      for (PresenceTypeEnum b : PresenceTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PRESENCE_TYPE = "presenceType";
+  @javax.annotation.Nullable
+  private PresenceTypeEnum presenceType;
+
+  public static final String JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE = "ibsConsumptionCityCode";
+  @javax.annotation.Nullable
+  private String ibsConsumptionCityCode;
+
+  public static final String JSON_PROPERTY_STATE_REGISTRATION_ID = "stateRegistrationId";
+  @javax.annotation.Nullable
+  private UUID stateRegistrationId;
+
+  public static final String JSON_PROPERTY_CFOP = "cfop";
+  @javax.annotation.Nullable
+  private String cfop;
+
+  public static final String JSON_PROPERTY_ISSUE_DATE = "issueDate";
+  @javax.annotation.Nullable
+  private OffsetDateTime issueDate;
+
+  public static final String JSON_PROPERTY_IDE = "ide";
+  @javax.annotation.Nullable
+  private Object ide;
+
+  public static final String JSON_PROPERTY_AVULSA = "avulsa";
+  @javax.annotation.Nullable
+  private Object avulsa;
+
+  public static final String JSON_PROPERTY_RETIRADA = "retirada";
+  @javax.annotation.Nullable
+  private NfeCreateRequestRetirada retirada;
+
+  public static final String JSON_PROPERTY_ENTREGA = "entrega";
+  @javax.annotation.Nullable
+  private NfeCreateRequestEntrega entrega;
+
+  public static final String JSON_PROPERTY_AUT_XML = "autXml";
+  @javax.annotation.Nullable
+  private List<DfeAutXml> autXml = new ArrayList<>();
+
   public static final String JSON_PROPERTY_BILLING = "billing";
   @javax.annotation.Nullable
   private Object billing;
 
-  public static final String JSON_PROPERTY_ADDITIONAL = "additional";
+  public static final String JSON_PROPERTY_PAYMENTS = "payments";
   @javax.annotation.Nullable
-  private Object additional;
+  private List<Object> payments = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_TECH_RESPONSIBLE = "techResponsible";
+  public static final String JSON_PROPERTY_CHANGE = "change";
   @javax.annotation.Nullable
-  private Object techResponsible;
+  private BigDecimal change;
 
   public static final String JSON_PROPERTY_INTERMEDIARY = "intermediary";
   @javax.annotation.Nullable
   private Object intermediary;
 
-  public static final String JSON_PROPERTY_AUT_XML = "autXml";
+  public static final String JSON_PROPERTY_ADDITIONAL = "additional";
   @javax.annotation.Nullable
-  private List<Object> autXml = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_RETIRADA = "retirada";
-  @javax.annotation.Nullable
-  private Object retirada;
-
-  public static final String JSON_PROPERTY_ENTREGA = "entrega";
-  @javax.annotation.Nullable
-  private Object entrega;
+  private Object additional;
 
   public static final String JSON_PROPERTY_EXPORT = "export";
   @javax.annotation.Nullable
@@ -123,13 +335,21 @@ public class NfeCreateRequest {
   @javax.annotation.Nullable
   private Object sugarcane;
 
-  public static final String JSON_PROPERTY_FARMING = "farming";
+  public static final String JSON_PROPERTY_TECH_RESPONSIBLE = "techResponsible";
   @javax.annotation.Nullable
-  private Object farming;
+  private DfeTechResponsible techResponsible;
 
   public static final String JSON_PROPERTY_NFF_REQUEST = "nffRequest";
   @javax.annotation.Nullable
   private String nffRequest;
+
+  public static final String JSON_PROPERTY_FARMING = "farming";
+  @javax.annotation.Nullable
+  private Object farming;
+
+  public static final String JSON_PROPERTY_TOTALS = "totals";
+  @javax.annotation.Nullable
+  private Object totals;
 
   public NfeCreateRequest() { 
   }
@@ -220,7 +440,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get externalId
+   * Idempotência (o header &#x60;Idempotency-Key&#x60; tem prioridade)
    * @return externalId
    */
   @javax.annotation.Nullable
@@ -268,7 +488,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get nature
+   * Alias legado de operationNature
    * @return nature
    * @deprecated
    */
@@ -285,6 +505,326 @@ public class NfeCreateRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNature(@javax.annotation.Nullable String nature) {
     this.nature = nature;
+  }
+
+
+  public NfeCreateRequest operationType(@javax.annotation.Nullable OperationTypeEnum operationType) {
+    this.operationType = operationType;
+    return this;
+  }
+
+  /**
+   * Get operationType
+   * @return operationType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_OPERATION_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OperationTypeEnum getOperationType() {
+    return operationType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_OPERATION_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOperationType(@javax.annotation.Nullable OperationTypeEnum operationType) {
+    this.operationType = operationType;
+  }
+
+
+  public NfeCreateRequest printType(@javax.annotation.Nullable PrintTypeEnum printType) {
+    this.printType = printType;
+    return this;
+  }
+
+  /**
+   * Get printType
+   * @return printType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PRINT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public PrintTypeEnum getPrintType() {
+    return printType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PRINT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPrintType(@javax.annotation.Nullable PrintTypeEnum printType) {
+    this.printType = printType;
+  }
+
+
+  public NfeCreateRequest consumerType(@javax.annotation.Nullable ConsumerTypeEnum consumerType) {
+    this.consumerType = consumerType;
+    return this;
+  }
+
+  /**
+   * Get consumerType
+   * @return consumerType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CONSUMER_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ConsumerTypeEnum getConsumerType() {
+    return consumerType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CONSUMER_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConsumerType(@javax.annotation.Nullable ConsumerTypeEnum consumerType) {
+    this.consumerType = consumerType;
+  }
+
+
+  public NfeCreateRequest presenceType(@javax.annotation.Nullable PresenceTypeEnum presenceType) {
+    this.presenceType = presenceType;
+    return this;
+  }
+
+  /**
+   * Get presenceType
+   * @return presenceType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PRESENCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public PresenceTypeEnum getPresenceType() {
+    return presenceType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PRESENCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPresenceType(@javax.annotation.Nullable PresenceTypeEnum presenceType) {
+    this.presenceType = presenceType;
+  }
+
+
+  public NfeCreateRequest ibsConsumptionCityCode(@javax.annotation.Nullable String ibsConsumptionCityCode) {
+    this.ibsConsumptionCityCode = ibsConsumptionCityCode;
+    return this;
+  }
+
+  /**
+   * Get ibsConsumptionCityCode
+   * @return ibsConsumptionCityCode
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIbsConsumptionCityCode() {
+    return ibsConsumptionCityCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIbsConsumptionCityCode(@javax.annotation.Nullable String ibsConsumptionCityCode) {
+    this.ibsConsumptionCityCode = ibsConsumptionCityCode;
+  }
+
+
+  public NfeCreateRequest stateRegistrationId(@javax.annotation.Nullable UUID stateRegistrationId) {
+    this.stateRegistrationId = stateRegistrationId;
+    return this;
+  }
+
+  /**
+   * Inscrição estadual da empresa (multi-IE) usada na emissão
+   * @return stateRegistrationId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE_REGISTRATION_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public UUID getStateRegistrationId() {
+    return stateRegistrationId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_STATE_REGISTRATION_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStateRegistrationId(@javax.annotation.Nullable UUID stateRegistrationId) {
+    this.stateRegistrationId = stateRegistrationId;
+  }
+
+
+  public NfeCreateRequest cfop(@javax.annotation.Nullable String cfop) {
+    this.cfop = cfop;
+    return this;
+  }
+
+  /**
+   * Get cfop
+   * @return cfop
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CFOP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCfop() {
+    return cfop;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CFOP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCfop(@javax.annotation.Nullable String cfop) {
+    this.cfop = cfop;
+  }
+
+
+  public NfeCreateRequest issueDate(@javax.annotation.Nullable OffsetDateTime issueDate) {
+    this.issueDate = issueDate;
+    return this;
+  }
+
+  /**
+   * Get issueDate
+   * @return issueDate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ISSUE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getIssueDate() {
+    return issueDate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ISSUE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIssueDate(@javax.annotation.Nullable OffsetDateTime issueDate) {
+    this.issueDate = issueDate;
+  }
+
+
+  public NfeCreateRequest ide(@javax.annotation.Nullable Object ide) {
+    this.ide = ide;
+    return this;
+  }
+
+  /**
+   * Grupo ide (campos avançados)
+   * @return ide
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IDE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Object getIde() {
+    return ide;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IDE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIde(@javax.annotation.Nullable Object ide) {
+    this.ide = ide;
+  }
+
+
+  public NfeCreateRequest avulsa(@javax.annotation.Nullable Object avulsa) {
+    this.avulsa = avulsa;
+    return this;
+  }
+
+  /**
+   * Get avulsa
+   * @return avulsa
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AVULSA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Object getAvulsa() {
+    return avulsa;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_AVULSA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAvulsa(@javax.annotation.Nullable Object avulsa) {
+    this.avulsa = avulsa;
+  }
+
+
+  public NfeCreateRequest retirada(@javax.annotation.Nullable NfeCreateRequestRetirada retirada) {
+    this.retirada = retirada;
+    return this;
+  }
+
+  /**
+   * Get retirada
+   * @return retirada
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RETIRADA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeCreateRequestRetirada getRetirada() {
+    return retirada;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RETIRADA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRetirada(@javax.annotation.Nullable NfeCreateRequestRetirada retirada) {
+    this.retirada = retirada;
+  }
+
+
+  public NfeCreateRequest entrega(@javax.annotation.Nullable NfeCreateRequestEntrega entrega) {
+    this.entrega = entrega;
+    return this;
+  }
+
+  /**
+   * Get entrega
+   * @return entrega
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ENTREGA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeCreateRequestEntrega getEntrega() {
+    return entrega;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ENTREGA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEntrega(@javax.annotation.Nullable NfeCreateRequestEntrega entrega) {
+    this.entrega = entrega;
+  }
+
+
+  public NfeCreateRequest autXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
+    return this;
+  }
+
+  public NfeCreateRequest addAutXmlItem(DfeAutXml autXmlItem) {
+    if (this.autXml == null) {
+      this.autXml = new ArrayList<>();
+    }
+    this.autXml.add(autXmlItem);
+    return this;
+  }
+
+  /**
+   * Get autXml
+   * @return autXml
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<DfeAutXml> getAutXml() {
+    return autXml;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAutXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
   }
 
 
@@ -312,51 +852,60 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest additional(@javax.annotation.Nullable Object additional) {
-    this.additional = additional;
+  public NfeCreateRequest payments(@javax.annotation.Nullable List<Object> payments) {
+    this.payments = payments;
+    return this;
+  }
+
+  public NfeCreateRequest addPaymentsItem(Object paymentsItem) {
+    if (this.payments == null) {
+      this.payments = new ArrayList<>();
+    }
+    this.payments.add(paymentsItem);
     return this;
   }
 
   /**
-   * Get additional
-   * @return additional
+   * Get payments
+   * @return payments
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
+  @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getAdditional() {
-    return additional;
+  public List<Object> getPayments() {
+    return payments;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
+  @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdditional(@javax.annotation.Nullable Object additional) {
-    this.additional = additional;
+  public void setPayments(@javax.annotation.Nullable List<Object> payments) {
+    this.payments = payments;
   }
 
 
-  public NfeCreateRequest techResponsible(@javax.annotation.Nullable Object techResponsible) {
-    this.techResponsible = techResponsible;
+  public NfeCreateRequest change(@javax.annotation.Nullable BigDecimal change) {
+    this.change = change;
     return this;
   }
 
   /**
-   * Get techResponsible
-   * @return techResponsible
+   * Troco
+   * minimum: 0
+   * @return change
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_CHANGE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getTechResponsible() {
-    return techResponsible;
+  public BigDecimal getChange() {
+    return change;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_CHANGE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTechResponsible(@javax.annotation.Nullable Object techResponsible) {
-    this.techResponsible = techResponsible;
+  public void setChange(@javax.annotation.Nullable BigDecimal change) {
+    this.change = change;
   }
 
 
@@ -384,83 +933,27 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest autXml(@javax.annotation.Nullable List<Object> autXml) {
-    this.autXml = autXml;
-    return this;
-  }
-
-  public NfeCreateRequest addAutXmlItem(Object autXmlItem) {
-    if (this.autXml == null) {
-      this.autXml = new ArrayList<>();
-    }
-    this.autXml.add(autXmlItem);
+  public NfeCreateRequest additional(@javax.annotation.Nullable Object additional) {
+    this.additional = additional;
     return this;
   }
 
   /**
-   * Get autXml
-   * @return autXml
+   * Get additional
+   * @return additional
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getAutXml() {
-    return autXml;
+  public Object getAdditional() {
+    return additional;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAutXml(@javax.annotation.Nullable List<Object> autXml) {
-    this.autXml = autXml;
-  }
-
-
-  public NfeCreateRequest retirada(@javax.annotation.Nullable Object retirada) {
-    this.retirada = retirada;
-    return this;
-  }
-
-  /**
-   * Get retirada
-   * @return retirada
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RETIRADA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getRetirada() {
-    return retirada;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_RETIRADA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRetirada(@javax.annotation.Nullable Object retirada) {
-    this.retirada = retirada;
-  }
-
-
-  public NfeCreateRequest entrega(@javax.annotation.Nullable Object entrega) {
-    this.entrega = entrega;
-    return this;
-  }
-
-  /**
-   * Get entrega
-   * @return entrega
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ENTREGA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getEntrega() {
-    return entrega;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_ENTREGA, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEntrega(@javax.annotation.Nullable Object entrega) {
-    this.entrega = entrega;
+  public void setAdditional(@javax.annotation.Nullable Object additional) {
+    this.additional = additional;
   }
 
 
@@ -536,27 +1029,27 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest farming(@javax.annotation.Nullable Object farming) {
-    this.farming = farming;
+  public NfeCreateRequest techResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
+    this.techResponsible = techResponsible;
     return this;
   }
 
   /**
-   * Get farming
-   * @return farming
+   * Get techResponsible
+   * @return techResponsible
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FARMING, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getFarming() {
-    return farming;
+  public DfeTechResponsible getTechResponsible() {
+    return techResponsible;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FARMING, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFarming(@javax.annotation.Nullable Object farming) {
-    this.farming = farming;
+  public void setTechResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
+    this.techResponsible = techResponsible;
   }
 
 
@@ -584,6 +1077,54 @@ public class NfeCreateRequest {
   }
 
 
+  public NfeCreateRequest farming(@javax.annotation.Nullable Object farming) {
+    this.farming = farming;
+    return this;
+  }
+
+  /**
+   * Get farming
+   * @return farming
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FARMING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Object getFarming() {
+    return farming;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FARMING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFarming(@javax.annotation.Nullable Object farming) {
+    this.farming = farming;
+  }
+
+
+  public NfeCreateRequest totals(@javax.annotation.Nullable Object totals) {
+    this.totals = totals;
+    return this;
+  }
+
+  /**
+   * Override de totais
+   * @return totals
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Object getTotals() {
+    return totals;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotals(@javax.annotation.Nullable Object totals) {
+    this.totals = totals;
+  }
+
+
   /**
    * Return true if this nfeCreate_request object is equal to o.
    */
@@ -602,23 +1143,36 @@ public class NfeCreateRequest {
         Objects.equals(this.externalId, nfeCreateRequest.externalId) &&
         Objects.equals(this.operationNature, nfeCreateRequest.operationNature) &&
         Objects.equals(this.nature, nfeCreateRequest.nature) &&
-        Objects.equals(this.billing, nfeCreateRequest.billing) &&
-        Objects.equals(this.additional, nfeCreateRequest.additional) &&
-        Objects.equals(this.techResponsible, nfeCreateRequest.techResponsible) &&
-        Objects.equals(this.intermediary, nfeCreateRequest.intermediary) &&
-        Objects.equals(this.autXml, nfeCreateRequest.autXml) &&
+        Objects.equals(this.operationType, nfeCreateRequest.operationType) &&
+        Objects.equals(this.printType, nfeCreateRequest.printType) &&
+        Objects.equals(this.consumerType, nfeCreateRequest.consumerType) &&
+        Objects.equals(this.presenceType, nfeCreateRequest.presenceType) &&
+        Objects.equals(this.ibsConsumptionCityCode, nfeCreateRequest.ibsConsumptionCityCode) &&
+        Objects.equals(this.stateRegistrationId, nfeCreateRequest.stateRegistrationId) &&
+        Objects.equals(this.cfop, nfeCreateRequest.cfop) &&
+        Objects.equals(this.issueDate, nfeCreateRequest.issueDate) &&
+        Objects.equals(this.ide, nfeCreateRequest.ide) &&
+        Objects.equals(this.avulsa, nfeCreateRequest.avulsa) &&
         Objects.equals(this.retirada, nfeCreateRequest.retirada) &&
         Objects.equals(this.entrega, nfeCreateRequest.entrega) &&
+        Objects.equals(this.autXml, nfeCreateRequest.autXml) &&
+        Objects.equals(this.billing, nfeCreateRequest.billing) &&
+        Objects.equals(this.payments, nfeCreateRequest.payments) &&
+        Objects.equals(this.change, nfeCreateRequest.change) &&
+        Objects.equals(this.intermediary, nfeCreateRequest.intermediary) &&
+        Objects.equals(this.additional, nfeCreateRequest.additional) &&
         Objects.equals(this.export, nfeCreateRequest.export) &&
         Objects.equals(this.purchase, nfeCreateRequest.purchase) &&
         Objects.equals(this.sugarcane, nfeCreateRequest.sugarcane) &&
+        Objects.equals(this.techResponsible, nfeCreateRequest.techResponsible) &&
+        Objects.equals(this.nffRequest, nfeCreateRequest.nffRequest) &&
         Objects.equals(this.farming, nfeCreateRequest.farming) &&
-        Objects.equals(this.nffRequest, nfeCreateRequest.nffRequest);
+        Objects.equals(this.totals, nfeCreateRequest.totals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, recipient, transport, externalId, operationNature, nature, billing, additional, techResponsible, intermediary, autXml, retirada, entrega, export, purchase, sugarcane, farming, nffRequest);
+    return Objects.hash(items, recipient, transport, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
   }
 
   @Override
@@ -631,18 +1185,31 @@ public class NfeCreateRequest {
     sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    operationNature: ").append(toIndentedString(operationNature)).append("\n");
     sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
-    sb.append("    billing: ").append(toIndentedString(billing)).append("\n");
-    sb.append("    additional: ").append(toIndentedString(additional)).append("\n");
-    sb.append("    techResponsible: ").append(toIndentedString(techResponsible)).append("\n");
-    sb.append("    intermediary: ").append(toIndentedString(intermediary)).append("\n");
-    sb.append("    autXml: ").append(toIndentedString(autXml)).append("\n");
+    sb.append("    operationType: ").append(toIndentedString(operationType)).append("\n");
+    sb.append("    printType: ").append(toIndentedString(printType)).append("\n");
+    sb.append("    consumerType: ").append(toIndentedString(consumerType)).append("\n");
+    sb.append("    presenceType: ").append(toIndentedString(presenceType)).append("\n");
+    sb.append("    ibsConsumptionCityCode: ").append(toIndentedString(ibsConsumptionCityCode)).append("\n");
+    sb.append("    stateRegistrationId: ").append(toIndentedString(stateRegistrationId)).append("\n");
+    sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
+    sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
+    sb.append("    ide: ").append(toIndentedString(ide)).append("\n");
+    sb.append("    avulsa: ").append(toIndentedString(avulsa)).append("\n");
     sb.append("    retirada: ").append(toIndentedString(retirada)).append("\n");
     sb.append("    entrega: ").append(toIndentedString(entrega)).append("\n");
+    sb.append("    autXml: ").append(toIndentedString(autXml)).append("\n");
+    sb.append("    billing: ").append(toIndentedString(billing)).append("\n");
+    sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
+    sb.append("    change: ").append(toIndentedString(change)).append("\n");
+    sb.append("    intermediary: ").append(toIndentedString(intermediary)).append("\n");
+    sb.append("    additional: ").append(toIndentedString(additional)).append("\n");
     sb.append("    export: ").append(toIndentedString(export)).append("\n");
     sb.append("    purchase: ").append(toIndentedString(purchase)).append("\n");
     sb.append("    sugarcane: ").append(toIndentedString(sugarcane)).append("\n");
-    sb.append("    farming: ").append(toIndentedString(farming)).append("\n");
+    sb.append("    techResponsible: ").append(toIndentedString(techResponsible)).append("\n");
     sb.append("    nffRequest: ").append(toIndentedString(nffRequest)).append("\n");
+    sb.append("    farming: ").append(toIndentedString(farming)).append("\n");
+    sb.append("    totals: ").append(toIndentedString(totals)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -722,19 +1289,93 @@ public class NfeCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%snature%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNature()))));
     }
 
+    // add `operationType` to the URL query string
+    if (getOperationType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%soperationType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOperationType()))));
+    }
+
+    // add `printType` to the URL query string
+    if (getPrintType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sprintType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPrintType()))));
+    }
+
+    // add `consumerType` to the URL query string
+    if (getConsumerType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sconsumerType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getConsumerType()))));
+    }
+
+    // add `presenceType` to the URL query string
+    if (getPresenceType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spresenceType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPresenceType()))));
+    }
+
+    // add `ibsConsumptionCityCode` to the URL query string
+    if (getIbsConsumptionCityCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sibsConsumptionCityCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsConsumptionCityCode()))));
+    }
+
+    // add `stateRegistrationId` to the URL query string
+    if (getStateRegistrationId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstateRegistrationId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStateRegistrationId()))));
+    }
+
+    // add `cfop` to the URL query string
+    if (getCfop() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scfop%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfop()))));
+    }
+
+    // add `issueDate` to the URL query string
+    if (getIssueDate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sissueDate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIssueDate()))));
+    }
+
+    // add `ide` to the URL query string
+    if (getIde() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%side%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIde()))));
+    }
+
+    // add `avulsa` to the URL query string
+    if (getAvulsa() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%savulsa%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAvulsa()))));
+    }
+
+    // add `retirada` to the URL query string
+    if (getRetirada() != null) {
+      joiner.add(getRetirada().toUrlQueryString(prefix + "retirada" + suffix));
+    }
+
+    // add `entrega` to the URL query string
+    if (getEntrega() != null) {
+      joiner.add(getEntrega().toUrlQueryString(prefix + "entrega" + suffix));
+    }
+
+    // add `autXml` to the URL query string
+    if (getAutXml() != null) {
+      for (int i = 0; i < getAutXml().size(); i++) {
+        if (getAutXml().get(i) != null) {
+          joiner.add(getAutXml().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sautXml%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
     // add `billing` to the URL query string
     if (getBilling() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sbilling%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getBilling()))));
     }
 
-    // add `additional` to the URL query string
-    if (getAdditional() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sadditional%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditional()))));
+    // add `payments` to the URL query string
+    if (getPayments() != null) {
+      for (int i = 0; i < getPayments().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%spayments%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getPayments().get(i)))));
+      }
     }
 
-    // add `techResponsible` to the URL query string
-    if (getTechResponsible() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%stechResponsible%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTechResponsible()))));
+    // add `change` to the URL query string
+    if (getChange() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%schange%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getChange()))));
     }
 
     // add `intermediary` to the URL query string
@@ -742,23 +1383,9 @@ public class NfeCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%sintermediary%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIntermediary()))));
     }
 
-    // add `autXml` to the URL query string
-    if (getAutXml() != null) {
-      for (int i = 0; i < getAutXml().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%sautXml%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getAutXml().get(i)))));
-      }
-    }
-
-    // add `retirada` to the URL query string
-    if (getRetirada() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sretirada%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRetirada()))));
-    }
-
-    // add `entrega` to the URL query string
-    if (getEntrega() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sentrega%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getEntrega()))));
+    // add `additional` to the URL query string
+    if (getAdditional() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sadditional%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditional()))));
     }
 
     // add `export` to the URL query string
@@ -776,14 +1403,24 @@ public class NfeCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%ssugarcane%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSugarcane()))));
     }
 
-    // add `farming` to the URL query string
-    if (getFarming() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sfarming%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFarming()))));
+    // add `techResponsible` to the URL query string
+    if (getTechResponsible() != null) {
+      joiner.add(getTechResponsible().toUrlQueryString(prefix + "techResponsible" + suffix));
     }
 
     // add `nffRequest` to the URL query string
     if (getNffRequest() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%snffRequest%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNffRequest()))));
+    }
+
+    // add `farming` to the URL query string
+    if (getFarming() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sfarming%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFarming()))));
+    }
+
+    // add `totals` to the URL query string
+    if (getTotals() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%stotals%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTotals()))));
     }
 
     return joiner.toString();

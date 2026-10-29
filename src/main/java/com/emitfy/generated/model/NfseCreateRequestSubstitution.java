@@ -40,7 +40,7 @@ import com.emitfy.generated.ApiClient;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfseCreateRequestSubstitution {
   public static final String JSON_PROPERTY_REPLACED_KEY = "replacedKey";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String replacedKey;
 
   public static final String JSON_PROPERTY_REASON_CODE = "reasonCode";
@@ -54,7 +54,7 @@ public class NfseCreateRequestSubstitution {
   public NfseCreateRequestSubstitution() { 
   }
 
-  public NfseCreateRequestSubstitution replacedKey(@javax.annotation.Nullable String replacedKey) {
+  public NfseCreateRequestSubstitution replacedKey(@javax.annotation.Nonnull String replacedKey) {
     this.replacedKey = replacedKey;
     return this;
   }
@@ -63,17 +63,17 @@ public class NfseCreateRequestSubstitution {
    * Get replacedKey
    * @return replacedKey
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REPLACED_KEY, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_REPLACED_KEY, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getReplacedKey() {
     return replacedKey;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REPLACED_KEY, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReplacedKey(@javax.annotation.Nullable String replacedKey) {
+  @JsonProperty(value = JSON_PROPERTY_REPLACED_KEY, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setReplacedKey(@javax.annotation.Nonnull String replacedKey) {
     this.replacedKey = replacedKey;
   }
 

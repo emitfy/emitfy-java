@@ -19,6 +19,9 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.CteIcms;
+import com.emitfy.generated.model.CteParty;
+import com.emitfy.generated.model.DfeComponent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,15 +39,28 @@ import com.emitfy.generated.ApiClient;
  * CteOsCreateRequest
  */
 @JsonPropertyOrder({
+  CteOsCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
   CteOsCreateRequest.JSON_PROPERTY_CFOP,
   CteOsCreateRequest.JSON_PROPERTY_NATURE,
+  CteOsCreateRequest.JSON_PROPERTY_SERVICE_TYPE,
+  CteOsCreateRequest.JSON_PROPERTY_TAKER_PARTY,
+  CteOsCreateRequest.JSON_PROPERTY_MUNICIPALITY_START_IBGE,
+  CteOsCreateRequest.JSON_PROPERTY_MUNICIPALITY_END_IBGE,
+  CteOsCreateRequest.JSON_PROPERTY_ROUTE_UFS,
   CteOsCreateRequest.JSON_PROPERTY_SERVICE_DESCRIPTION,
+  CteOsCreateRequest.JSON_PROPERTY_SERVICE_QUANTITY,
   CteOsCreateRequest.JSON_PROPERTY_SERVICE_AMOUNT,
   CteOsCreateRequest.JSON_PROPERTY_ICMS,
+  CteOsCreateRequest.JSON_PROPERTY_TAF,
+  CteOsCreateRequest.JSON_PROPERTY_STATE_AGENCY_REGISTRATION,
   CteOsCreateRequest.JSON_PROPERTY_COMPONENTS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class CteOsCreateRequest {
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @javax.annotation.Nullable
+  private String externalId;
+
   public static final String JSON_PROPERTY_CFOP = "cfop";
   @javax.annotation.Nonnull
   private String cfop;
@@ -53,9 +69,70 @@ public class CteOsCreateRequest {
   @javax.annotation.Nonnull
   private String nature;
 
+  /**
+   * &#x60;6&#x60; transporte de pessoas, &#x60;7&#x60; de valores, &#x60;8&#x60; excesso de bagagem
+   */
+  public enum ServiceTypeEnum {
+    _6(String.valueOf("6")),
+    
+    _7(String.valueOf("7")),
+    
+    _8(String.valueOf("8"));
+
+    private String value;
+
+    ServiceTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ServiceTypeEnum fromValue(String value) {
+      for (ServiceTypeEnum b : ServiceTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SERVICE_TYPE = "serviceType";
+  @javax.annotation.Nullable
+  private ServiceTypeEnum serviceType = ServiceTypeEnum._6;
+
+  public static final String JSON_PROPERTY_TAKER_PARTY = "takerParty";
+  @javax.annotation.Nullable
+  private CteParty takerParty;
+
+  public static final String JSON_PROPERTY_MUNICIPALITY_START_IBGE = "municipalityStartIbge";
+  @javax.annotation.Nullable
+  private String municipalityStartIbge;
+
+  public static final String JSON_PROPERTY_MUNICIPALITY_END_IBGE = "municipalityEndIbge";
+  @javax.annotation.Nullable
+  private String municipalityEndIbge;
+
+  public static final String JSON_PROPERTY_ROUTE_UFS = "routeUfs";
+  @javax.annotation.Nullable
+  private List<String> routeUfs = new ArrayList<>();
+
   public static final String JSON_PROPERTY_SERVICE_DESCRIPTION = "serviceDescription";
   @javax.annotation.Nonnull
   private String serviceDescription;
+
+  public static final String JSON_PROPERTY_SERVICE_QUANTITY = "serviceQuantity";
+  @javax.annotation.Nullable
+  private BigDecimal serviceQuantity;
 
   public static final String JSON_PROPERTY_SERVICE_AMOUNT = "serviceAmount";
   @javax.annotation.Nonnull
@@ -63,14 +140,46 @@ public class CteOsCreateRequest {
 
   public static final String JSON_PROPERTY_ICMS = "icms";
   @javax.annotation.Nonnull
-  private Object icms;
+  private CteIcms icms;
+
+  public static final String JSON_PROPERTY_TAF = "taf";
+  @javax.annotation.Nullable
+  private String taf;
+
+  public static final String JSON_PROPERTY_STATE_AGENCY_REGISTRATION = "stateAgencyRegistration";
+  @javax.annotation.Nullable
+  private String stateAgencyRegistration;
 
   public static final String JSON_PROPERTY_COMPONENTS = "components";
   @javax.annotation.Nullable
-  private List<Object> components = new ArrayList<>();
+  private List<DfeComponent> components = new ArrayList<>();
 
   public CteOsCreateRequest() { 
   }
+
+  public CteOsCreateRequest externalId(@javax.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Idempotência. Obrigatório se não enviar o header &#x60;Idempotency-Key&#x60; (400 &#x60;CTE_EXTERNAL_ID_REQUIRED&#x60;).
+   * @return externalId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@javax.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
 
   public CteOsCreateRequest cfop(@javax.annotation.Nonnull String cfop) {
     this.cfop = cfop;
@@ -120,6 +229,134 @@ public class CteOsCreateRequest {
   }
 
 
+  public CteOsCreateRequest serviceType(@javax.annotation.Nullable ServiceTypeEnum serviceType) {
+    this.serviceType = serviceType;
+    return this;
+  }
+
+  /**
+   * &#x60;6&#x60; transporte de pessoas, &#x60;7&#x60; de valores, &#x60;8&#x60; excesso de bagagem
+   * @return serviceType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ServiceTypeEnum getServiceType() {
+    return serviceType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceType(@javax.annotation.Nullable ServiceTypeEnum serviceType) {
+    this.serviceType = serviceType;
+  }
+
+
+  public CteOsCreateRequest takerParty(@javax.annotation.Nullable CteParty takerParty) {
+    this.takerParty = takerParty;
+    return this;
+  }
+
+  /**
+   * Tomador do serviço (obrigatório exceto &#x60;serviceType&#x60; &#x60;8&#x60;)
+   * @return takerParty
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAKER_PARTY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public CteParty getTakerParty() {
+    return takerParty;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TAKER_PARTY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTakerParty(@javax.annotation.Nullable CteParty takerParty) {
+    this.takerParty = takerParty;
+  }
+
+
+  public CteOsCreateRequest municipalityStartIbge(@javax.annotation.Nullable String municipalityStartIbge) {
+    this.municipalityStartIbge = municipalityStartIbge;
+    return this;
+  }
+
+  /**
+   * Get municipalityStartIbge
+   * @return municipalityStartIbge
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_START_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getMunicipalityStartIbge() {
+    return municipalityStartIbge;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_START_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMunicipalityStartIbge(@javax.annotation.Nullable String municipalityStartIbge) {
+    this.municipalityStartIbge = municipalityStartIbge;
+  }
+
+
+  public CteOsCreateRequest municipalityEndIbge(@javax.annotation.Nullable String municipalityEndIbge) {
+    this.municipalityEndIbge = municipalityEndIbge;
+    return this;
+  }
+
+  /**
+   * Get municipalityEndIbge
+   * @return municipalityEndIbge
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_END_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getMunicipalityEndIbge() {
+    return municipalityEndIbge;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_END_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMunicipalityEndIbge(@javax.annotation.Nullable String municipalityEndIbge) {
+    this.municipalityEndIbge = municipalityEndIbge;
+  }
+
+
+  public CteOsCreateRequest routeUfs(@javax.annotation.Nullable List<String> routeUfs) {
+    this.routeUfs = routeUfs;
+    return this;
+  }
+
+  public CteOsCreateRequest addRouteUfsItem(String routeUfsItem) {
+    if (this.routeUfs == null) {
+      this.routeUfs = new ArrayList<>();
+    }
+    this.routeUfs.add(routeUfsItem);
+    return this;
+  }
+
+  /**
+   * Get routeUfs
+   * @return routeUfs
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ROUTE_UFS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getRouteUfs() {
+    return routeUfs;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ROUTE_UFS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRouteUfs(@javax.annotation.Nullable List<String> routeUfs) {
+    this.routeUfs = routeUfs;
+  }
+
+
   public CteOsCreateRequest serviceDescription(@javax.annotation.Nonnull String serviceDescription) {
     this.serviceDescription = serviceDescription;
     return this;
@@ -144,6 +381,31 @@ public class CteOsCreateRequest {
   }
 
 
+  public CteOsCreateRequest serviceQuantity(@javax.annotation.Nullable BigDecimal serviceQuantity) {
+    this.serviceQuantity = serviceQuantity;
+    return this;
+  }
+
+  /**
+   * Get serviceQuantity
+   * minimum: 0
+   * @return serviceQuantity
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_QUANTITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getServiceQuantity() {
+    return serviceQuantity;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_QUANTITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceQuantity(@javax.annotation.Nullable BigDecimal serviceQuantity) {
+    this.serviceQuantity = serviceQuantity;
+  }
+
+
   public CteOsCreateRequest serviceAmount(@javax.annotation.Nonnull BigDecimal serviceAmount) {
     this.serviceAmount = serviceAmount;
     return this;
@@ -151,6 +413,7 @@ public class CteOsCreateRequest {
 
   /**
    * Get serviceAmount
+   * minimum: 0
    * @return serviceAmount
    */
   @javax.annotation.Nonnull
@@ -168,7 +431,7 @@ public class CteOsCreateRequest {
   }
 
 
-  public CteOsCreateRequest icms(@javax.annotation.Nonnull Object icms) {
+  public CteOsCreateRequest icms(@javax.annotation.Nonnull CteIcms icms) {
     this.icms = icms;
     return this;
   }
@@ -180,24 +443,72 @@ public class CteOsCreateRequest {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_ICMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public Object getIcms() {
+  public CteIcms getIcms() {
     return icms;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_ICMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIcms(@javax.annotation.Nonnull Object icms) {
+  public void setIcms(@javax.annotation.Nonnull CteIcms icms) {
     this.icms = icms;
   }
 
 
-  public CteOsCreateRequest components(@javax.annotation.Nullable List<Object> components) {
+  public CteOsCreateRequest taf(@javax.annotation.Nullable String taf) {
+    this.taf = taf;
+    return this;
+  }
+
+  /**
+   * Termo de Autorização de Fretamento (12 dígitos)
+   * @return taf
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAF, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTaf() {
+    return taf;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TAF, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaf(@javax.annotation.Nullable String taf) {
+    this.taf = taf;
+  }
+
+
+  public CteOsCreateRequest stateAgencyRegistration(@javax.annotation.Nullable String stateAgencyRegistration) {
+    this.stateAgencyRegistration = stateAgencyRegistration;
+    return this;
+  }
+
+  /**
+   * Registro estadual (25 dígitos) — alternativa ao &#x60;taf&#x60;
+   * @return stateAgencyRegistration
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE_AGENCY_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getStateAgencyRegistration() {
+    return stateAgencyRegistration;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_STATE_AGENCY_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStateAgencyRegistration(@javax.annotation.Nullable String stateAgencyRegistration) {
+    this.stateAgencyRegistration = stateAgencyRegistration;
+  }
+
+
+  public CteOsCreateRequest components(@javax.annotation.Nullable List<DfeComponent> components) {
     this.components = components;
     return this;
   }
 
-  public CteOsCreateRequest addComponentsItem(Object componentsItem) {
+  public CteOsCreateRequest addComponentsItem(DfeComponent componentsItem) {
     if (this.components == null) {
       this.components = new ArrayList<>();
     }
@@ -212,14 +523,14 @@ public class CteOsCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getComponents() {
+  public List<DfeComponent> getComponents() {
     return components;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComponents(@javax.annotation.Nullable List<Object> components) {
+  public void setComponents(@javax.annotation.Nullable List<DfeComponent> components) {
     this.components = components;
   }
 
@@ -236,28 +547,46 @@ public class CteOsCreateRequest {
       return false;
     }
     CteOsCreateRequest cteOsCreateRequest = (CteOsCreateRequest) o;
-    return Objects.equals(this.cfop, cteOsCreateRequest.cfop) &&
+    return Objects.equals(this.externalId, cteOsCreateRequest.externalId) &&
+        Objects.equals(this.cfop, cteOsCreateRequest.cfop) &&
         Objects.equals(this.nature, cteOsCreateRequest.nature) &&
+        Objects.equals(this.serviceType, cteOsCreateRequest.serviceType) &&
+        Objects.equals(this.takerParty, cteOsCreateRequest.takerParty) &&
+        Objects.equals(this.municipalityStartIbge, cteOsCreateRequest.municipalityStartIbge) &&
+        Objects.equals(this.municipalityEndIbge, cteOsCreateRequest.municipalityEndIbge) &&
+        Objects.equals(this.routeUfs, cteOsCreateRequest.routeUfs) &&
         Objects.equals(this.serviceDescription, cteOsCreateRequest.serviceDescription) &&
+        Objects.equals(this.serviceQuantity, cteOsCreateRequest.serviceQuantity) &&
         Objects.equals(this.serviceAmount, cteOsCreateRequest.serviceAmount) &&
         Objects.equals(this.icms, cteOsCreateRequest.icms) &&
+        Objects.equals(this.taf, cteOsCreateRequest.taf) &&
+        Objects.equals(this.stateAgencyRegistration, cteOsCreateRequest.stateAgencyRegistration) &&
         Objects.equals(this.components, cteOsCreateRequest.components);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cfop, nature, serviceDescription, serviceAmount, icms, components);
+    return Objects.hash(externalId, cfop, nature, serviceType, takerParty, municipalityStartIbge, municipalityEndIbge, routeUfs, serviceDescription, serviceQuantity, serviceAmount, icms, taf, stateAgencyRegistration, components);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CteOsCreateRequest {\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
     sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
+    sb.append("    serviceType: ").append(toIndentedString(serviceType)).append("\n");
+    sb.append("    takerParty: ").append(toIndentedString(takerParty)).append("\n");
+    sb.append("    municipalityStartIbge: ").append(toIndentedString(municipalityStartIbge)).append("\n");
+    sb.append("    municipalityEndIbge: ").append(toIndentedString(municipalityEndIbge)).append("\n");
+    sb.append("    routeUfs: ").append(toIndentedString(routeUfs)).append("\n");
     sb.append("    serviceDescription: ").append(toIndentedString(serviceDescription)).append("\n");
+    sb.append("    serviceQuantity: ").append(toIndentedString(serviceQuantity)).append("\n");
     sb.append("    serviceAmount: ").append(toIndentedString(serviceAmount)).append("\n");
     sb.append("    icms: ").append(toIndentedString(icms)).append("\n");
+    sb.append("    taf: ").append(toIndentedString(taf)).append("\n");
+    sb.append("    stateAgencyRegistration: ").append(toIndentedString(stateAgencyRegistration)).append("\n");
     sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -303,6 +632,11 @@ public class CteOsCreateRequest {
 
     StringJoiner joiner = new StringJoiner("&");
 
+    // add `externalId` to the URL query string
+    if (getExternalId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sexternalId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
+    }
+
     // add `cfop` to the URL query string
     if (getCfop() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scfop%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfop()))));
@@ -313,9 +647,43 @@ public class CteOsCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%snature%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNature()))));
     }
 
+    // add `serviceType` to the URL query string
+    if (getServiceType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceType()))));
+    }
+
+    // add `takerParty` to the URL query string
+    if (getTakerParty() != null) {
+      joiner.add(getTakerParty().toUrlQueryString(prefix + "takerParty" + suffix));
+    }
+
+    // add `municipalityStartIbge` to the URL query string
+    if (getMunicipalityStartIbge() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalityStartIbge%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalityStartIbge()))));
+    }
+
+    // add `municipalityEndIbge` to the URL query string
+    if (getMunicipalityEndIbge() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalityEndIbge%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalityEndIbge()))));
+    }
+
+    // add `routeUfs` to the URL query string
+    if (getRouteUfs() != null) {
+      for (int i = 0; i < getRouteUfs().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%srouteUfs%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getRouteUfs().get(i)))));
+      }
+    }
+
     // add `serviceDescription` to the URL query string
     if (getServiceDescription() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sserviceDescription%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceDescription()))));
+    }
+
+    // add `serviceQuantity` to the URL query string
+    if (getServiceQuantity() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceQuantity%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceQuantity()))));
     }
 
     // add `serviceAmount` to the URL query string
@@ -325,15 +693,26 @@ public class CteOsCreateRequest {
 
     // add `icms` to the URL query string
     if (getIcms() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sicms%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIcms()))));
+      joiner.add(getIcms().toUrlQueryString(prefix + "icms" + suffix));
+    }
+
+    // add `taf` to the URL query string
+    if (getTaf() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%staf%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaf()))));
+    }
+
+    // add `stateAgencyRegistration` to the URL query string
+    if (getStateAgencyRegistration() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstateAgencyRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStateAgencyRegistration()))));
     }
 
     // add `components` to the URL query string
     if (getComponents() != null) {
       for (int i = 0; i < getComponents().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%scomponents%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getComponents().get(i)))));
+        if (getComponents().get(i) != null) {
+          joiner.add(getComponents().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%scomponents%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

@@ -166,7 +166,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -177,7 +177,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -189,7 +189,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -201,7 +201,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -279,7 +279,7 @@ public class ReceivedNfesApi {
   /**
    * List received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
    * @param limit  (optional)
    * @param search  (optional)
@@ -293,7 +293,7 @@ public class ReceivedNfesApi {
   /**
    * List received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
    * @param limit  (optional)
    * @param search  (optional)
@@ -308,7 +308,7 @@ public class ReceivedNfesApi {
   /**
    * List received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
    * @param limit  (optional)
    * @param search  (optional)
@@ -323,7 +323,7 @@ public class ReceivedNfesApi {
   /**
    * List received NF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
    * @param limit  (optional)
    * @param search  (optional)
@@ -420,7 +420,7 @@ public class ReceivedNfesApi {
   /**
    * Manifest recipient event
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param receivedNfesManifestRequest  (required)
    * @throws ApiException if fails to make API call
@@ -432,7 +432,7 @@ public class ReceivedNfesApi {
   /**
    * Manifest recipient event
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param receivedNfesManifestRequest  (required)
    * @param headers Optional headers to include in the request
@@ -445,7 +445,7 @@ public class ReceivedNfesApi {
   /**
    * Manifest recipient event
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param receivedNfesManifestRequest  (required)
    * @return ApiResponse&lt;Void&gt;
@@ -458,7 +458,7 @@ public class ReceivedNfesApi {
   /**
    * Manifest recipient event
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param receivedNfesManifestRequest  (required)
    * @param headers Optional headers to include in the request
@@ -547,7 +547,7 @@ public class ReceivedNfesApi {
   /**
    * Enqueue DistDFe sync
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void receivedNfesSync(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -557,7 +557,7 @@ public class ReceivedNfesApi {
   /**
    * Enqueue DistDFe sync
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -568,7 +568,7 @@ public class ReceivedNfesApi {
   /**
    * Enqueue DistDFe sync
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -579,7 +579,7 @@ public class ReceivedNfesApi {
   /**
    * Enqueue DistDFe sync
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -651,7 +651,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e XML
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -662,7 +662,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e XML
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -674,7 +674,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e XML
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -686,7 +686,7 @@ public class ReceivedNfesApi {
   /**
    * Get received NF-e XML
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;

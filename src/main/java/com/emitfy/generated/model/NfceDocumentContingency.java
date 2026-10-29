@@ -24,82 +24,82 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfseCreateRequestTaxesIss
+ * NfceDocumentContingency
  */
 @JsonPropertyOrder({
-  NfseCreateRequestTaxesIss.JSON_PROPERTY_RATE,
-  NfseCreateRequestTaxesIss.JSON_PROPERTY_IS_WITHHELD
+  NfceDocumentContingency.JSON_PROPERTY_STARTED_AT,
+  NfceDocumentContingency.JSON_PROPERTY_REASON
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
-public class NfseCreateRequestTaxesIss {
-  public static final String JSON_PROPERTY_RATE = "rate";
+public class NfceDocumentContingency {
+  public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
   @javax.annotation.Nullable
-  private BigDecimal rate;
+  private OffsetDateTime startedAt;
 
-  public static final String JSON_PROPERTY_IS_WITHHELD = "isWithheld";
+  public static final String JSON_PROPERTY_REASON = "reason";
   @javax.annotation.Nullable
-  private Boolean isWithheld;
+  private String reason;
 
-  public NfseCreateRequestTaxesIss() { 
+  public NfceDocumentContingency() { 
   }
 
-  public NfseCreateRequestTaxesIss rate(@javax.annotation.Nullable BigDecimal rate) {
-    this.rate = rate;
+  public NfceDocumentContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
+    this.startedAt = startedAt;
     return this;
   }
 
   /**
-   * Get rate
-   * @return rate
+   * Get startedAt
+   * @return startedAt
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RATE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public BigDecimal getRate() {
-    return rate;
+  public OffsetDateTime getStartedAt() {
+    return startedAt;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RATE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRate(@javax.annotation.Nullable BigDecimal rate) {
-    this.rate = rate;
+  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
+    this.startedAt = startedAt;
   }
 
 
-  public NfseCreateRequestTaxesIss isWithheld(@javax.annotation.Nullable Boolean isWithheld) {
-    this.isWithheld = isWithheld;
+  public NfceDocumentContingency reason(@javax.annotation.Nullable String reason) {
+    this.reason = reason;
     return this;
   }
 
   /**
-   * Get isWithheld
-   * @return isWithheld
+   * Get reason
+   * @return reason
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IS_WITHHELD, required = false)
+  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Boolean getIsWithheld() {
-    return isWithheld;
+  public String getReason() {
+    return reason;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_IS_WITHHELD, required = false)
+  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsWithheld(@javax.annotation.Nullable Boolean isWithheld) {
-    this.isWithheld = isWithheld;
+  public void setReason(@javax.annotation.Nullable String reason) {
+    this.reason = reason;
   }
 
 
   /**
-   * Return true if this NfseCreateRequest_taxes_iss object is equal to o.
+   * Return true if this NfceDocument_contingency object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -109,22 +109,22 @@ public class NfseCreateRequestTaxesIss {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NfseCreateRequestTaxesIss nfseCreateRequestTaxesIss = (NfseCreateRequestTaxesIss) o;
-    return Objects.equals(this.rate, nfseCreateRequestTaxesIss.rate) &&
-        Objects.equals(this.isWithheld, nfseCreateRequestTaxesIss.isWithheld);
+    NfceDocumentContingency nfceDocumentContingency = (NfceDocumentContingency) o;
+    return Objects.equals(this.startedAt, nfceDocumentContingency.startedAt) &&
+        Objects.equals(this.reason, nfceDocumentContingency.reason);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rate, isWithheld);
+    return Objects.hash(startedAt, reason);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NfseCreateRequestTaxesIss {\n");
-    sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb.append("    isWithheld: ").append(toIndentedString(isWithheld)).append("\n");
+    sb.append("class NfceDocumentContingency {\n");
+    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
+    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,14 +169,14 @@ public class NfseCreateRequestTaxesIss {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `rate` to the URL query string
-    if (getRate() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%srate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRate()))));
+    // add `startedAt` to the URL query string
+    if (getStartedAt() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstartedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
     }
 
-    // add `isWithheld` to the URL query string
-    if (getIsWithheld() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sisWithheld%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIsWithheld()))));
+    // add `reason` to the URL query string
+    if (getReason() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sreason%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
     }
 
     return joiner.toString();

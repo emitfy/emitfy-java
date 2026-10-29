@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeAddressLayout;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,10 @@ import com.emitfy.generated.ApiClient;
  */
 @JsonPropertyOrder({
   NfseCreateRequestConstruction.JSON_PROPERTY_ART,
-  NfseCreateRequestConstruction.JSON_PROPERTY_WORK_CODE
+  NfseCreateRequestConstruction.JSON_PROPERTY_WORK_CODE,
+  NfseCreateRequestConstruction.JSON_PROPERTY_CIB,
+  NfseCreateRequestConstruction.JSON_PROPERTY_MUNICIPAL_REGISTRATION,
+  NfseCreateRequestConstruction.JSON_PROPERTY_ADDRESS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfseCreateRequestConstruction {
@@ -45,6 +49,18 @@ public class NfseCreateRequestConstruction {
   public static final String JSON_PROPERTY_WORK_CODE = "workCode";
   @javax.annotation.Nullable
   private String workCode;
+
+  public static final String JSON_PROPERTY_CIB = "cib";
+  @javax.annotation.Nullable
+  private String cib;
+
+  public static final String JSON_PROPERTY_MUNICIPAL_REGISTRATION = "municipalRegistration";
+  @javax.annotation.Nullable
+  private String municipalRegistration;
+
+  public static final String JSON_PROPERTY_ADDRESS = "address";
+  @javax.annotation.Nullable
+  private DfeAddressLayout address;
 
   public NfseCreateRequestConstruction() { 
   }
@@ -97,6 +113,78 @@ public class NfseCreateRequestConstruction {
   }
 
 
+  public NfseCreateRequestConstruction cib(@javax.annotation.Nullable String cib) {
+    this.cib = cib;
+    return this;
+  }
+
+  /**
+   * Get cib
+   * @return cib
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CIB, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCib() {
+    return cib;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CIB, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCib(@javax.annotation.Nullable String cib) {
+    this.cib = cib;
+  }
+
+
+  public NfseCreateRequestConstruction municipalRegistration(@javax.annotation.Nullable String municipalRegistration) {
+    this.municipalRegistration = municipalRegistration;
+    return this;
+  }
+
+  /**
+   * Get municipalRegistration
+   * @return municipalRegistration
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPAL_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getMunicipalRegistration() {
+    return municipalRegistration;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPAL_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMunicipalRegistration(@javax.annotation.Nullable String municipalRegistration) {
+    this.municipalRegistration = municipalRegistration;
+  }
+
+
+  public NfseCreateRequestConstruction address(@javax.annotation.Nullable DfeAddressLayout address) {
+    this.address = address;
+    return this;
+  }
+
+  /**
+   * Get address
+   * @return address
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public DfeAddressLayout getAddress() {
+    return address;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAddress(@javax.annotation.Nullable DfeAddressLayout address) {
+    this.address = address;
+  }
+
+
   /**
    * Return true if this NfseCreateRequest_construction object is equal to o.
    */
@@ -110,12 +198,15 @@ public class NfseCreateRequestConstruction {
     }
     NfseCreateRequestConstruction nfseCreateRequestConstruction = (NfseCreateRequestConstruction) o;
     return Objects.equals(this.art, nfseCreateRequestConstruction.art) &&
-        Objects.equals(this.workCode, nfseCreateRequestConstruction.workCode);
+        Objects.equals(this.workCode, nfseCreateRequestConstruction.workCode) &&
+        Objects.equals(this.cib, nfseCreateRequestConstruction.cib) &&
+        Objects.equals(this.municipalRegistration, nfseCreateRequestConstruction.municipalRegistration) &&
+        Objects.equals(this.address, nfseCreateRequestConstruction.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(art, workCode);
+    return Objects.hash(art, workCode, cib, municipalRegistration, address);
   }
 
   @Override
@@ -124,6 +215,9 @@ public class NfseCreateRequestConstruction {
     sb.append("class NfseCreateRequestConstruction {\n");
     sb.append("    art: ").append(toIndentedString(art)).append("\n");
     sb.append("    workCode: ").append(toIndentedString(workCode)).append("\n");
+    sb.append("    cib: ").append(toIndentedString(cib)).append("\n");
+    sb.append("    municipalRegistration: ").append(toIndentedString(municipalRegistration)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -176,6 +270,21 @@ public class NfseCreateRequestConstruction {
     // add `workCode` to the URL query string
     if (getWorkCode() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sworkCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getWorkCode()))));
+    }
+
+    // add `cib` to the URL query string
+    if (getCib() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scib%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCib()))));
+    }
+
+    // add `municipalRegistration` to the URL query string
+    if (getMunicipalRegistration() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalRegistration()))));
+    }
+
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(getAddress().toUrlQueryString(prefix + "address" + suffix));
     }
 
     return joiner.toString();

@@ -71,7 +71,7 @@ public class NfseCreateRequestBorrower {
   }
 
   /**
-   * Get taxId
+   * CPF ou CNPJ do tomador
    * @return taxId
    */
   @javax.annotation.Nullable

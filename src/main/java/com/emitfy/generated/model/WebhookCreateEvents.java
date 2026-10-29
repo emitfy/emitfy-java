@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * WebhookCreateEvents
+ * Informe ao menos um evento (422 se todas as listas vierem vazias).
  */
 @JsonPropertyOrder({
   WebhookCreateEvents.JSON_PROPERTY_INVOICE,
@@ -41,27 +41,146 @@ import com.emitfy.generated.ApiClient;
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class WebhookCreateEvents {
+  /**
+   * Gets or Sets invoice
+   */
+  public enum InvoiceEnum {
+    NFSE_AUTHORIZED(String.valueOf("nfse.authorized")),
+    
+    NFSE_CANCELLED(String.valueOf("nfse.cancelled")),
+    
+    NFSE_REJECTED(String.valueOf("nfse.rejected")),
+    
+    NFE_AUTHORIZED(String.valueOf("nfe.authorized")),
+    
+    NFE_CANCELLED(String.valueOf("nfe.cancelled")),
+    
+    NFE_REJECTED(String.valueOf("nfe.rejected"));
+
+    private String value;
+
+    InvoiceEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InvoiceEnum fromValue(String value) {
+      for (InvoiceEnum b : InvoiceEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
   public static final String JSON_PROPERTY_INVOICE = "invoice";
   @javax.annotation.Nullable
-  private List<String> invoice = new ArrayList<>();
+  private List<InvoiceEnum> invoice = new ArrayList<>();
+
+  /**
+   * Gets or Sets cte
+   */
+  public enum CteEnum {
+    CTE_AUTHORIZED(String.valueOf("cte.authorized")),
+    
+    CTE_CANCELLED(String.valueOf("cte.cancelled")),
+    
+    CTE_REJECTED(String.valueOf("cte.rejected"));
+
+    private String value;
+
+    CteEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static CteEnum fromValue(String value) {
+      for (CteEnum b : CteEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
 
   public static final String JSON_PROPERTY_CTE = "cte";
   @javax.annotation.Nullable
-  private List<String> cte = new ArrayList<>();
+  private List<CteEnum> cte = new ArrayList<>();
+
+  /**
+   * Gets or Sets mdfe
+   */
+  public enum MdfeEnum {
+    MDFE_AUTHORIZED(String.valueOf("mdfe.authorized")),
+    
+    MDFE_CANCELLED(String.valueOf("mdfe.cancelled")),
+    
+    MDFE_REJECTED(String.valueOf("mdfe.rejected")),
+    
+    MDFE_CLOSED(String.valueOf("mdfe.closed"));
+
+    private String value;
+
+    MdfeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MdfeEnum fromValue(String value) {
+      for (MdfeEnum b : MdfeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
 
   public static final String JSON_PROPERTY_MDFE = "mdfe";
   @javax.annotation.Nullable
-  private List<String> mdfe = new ArrayList<>();
+  private List<MdfeEnum> mdfe = new ArrayList<>();
 
   public WebhookCreateEvents() { 
   }
 
-  public WebhookCreateEvents invoice(@javax.annotation.Nullable List<String> invoice) {
+  public WebhookCreateEvents invoice(@javax.annotation.Nullable List<InvoiceEnum> invoice) {
     this.invoice = invoice;
     return this;
   }
 
-  public WebhookCreateEvents addInvoiceItem(String invoiceItem) {
+  public WebhookCreateEvents addInvoiceItem(InvoiceEnum invoiceItem) {
     if (this.invoice == null) {
       this.invoice = new ArrayList<>();
     }
@@ -76,24 +195,24 @@ public class WebhookCreateEvents {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_INVOICE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<String> getInvoice() {
+  public List<InvoiceEnum> getInvoice() {
     return invoice;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_INVOICE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInvoice(@javax.annotation.Nullable List<String> invoice) {
+  public void setInvoice(@javax.annotation.Nullable List<InvoiceEnum> invoice) {
     this.invoice = invoice;
   }
 
 
-  public WebhookCreateEvents cte(@javax.annotation.Nullable List<String> cte) {
+  public WebhookCreateEvents cte(@javax.annotation.Nullable List<CteEnum> cte) {
     this.cte = cte;
     return this;
   }
 
-  public WebhookCreateEvents addCteItem(String cteItem) {
+  public WebhookCreateEvents addCteItem(CteEnum cteItem) {
     if (this.cte == null) {
       this.cte = new ArrayList<>();
     }
@@ -108,24 +227,24 @@ public class WebhookCreateEvents {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_CTE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<String> getCte() {
+  public List<CteEnum> getCte() {
     return cte;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_CTE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCte(@javax.annotation.Nullable List<String> cte) {
+  public void setCte(@javax.annotation.Nullable List<CteEnum> cte) {
     this.cte = cte;
   }
 
 
-  public WebhookCreateEvents mdfe(@javax.annotation.Nullable List<String> mdfe) {
+  public WebhookCreateEvents mdfe(@javax.annotation.Nullable List<MdfeEnum> mdfe) {
     this.mdfe = mdfe;
     return this;
   }
 
-  public WebhookCreateEvents addMdfeItem(String mdfeItem) {
+  public WebhookCreateEvents addMdfeItem(MdfeEnum mdfeItem) {
     if (this.mdfe == null) {
       this.mdfe = new ArrayList<>();
     }
@@ -140,14 +259,14 @@ public class WebhookCreateEvents {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_MDFE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<String> getMdfe() {
+  public List<MdfeEnum> getMdfe() {
     return mdfe;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_MDFE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMdfe(@javax.annotation.Nullable List<String> mdfe) {
+  public void setMdfe(@javax.annotation.Nullable List<MdfeEnum> mdfe) {
     this.mdfe = mdfe;
   }
 

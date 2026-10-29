@@ -18,7 +18,15 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
+import com.emitfy.generated.model.ErrorBody;
+import java.io.File;
+import com.emitfy.generated.model.InvoiceCancelAccepted;
+import com.emitfy.generated.model.NfceCreate200Response;
+import com.emitfy.generated.model.NfceCreate202Response;
 import com.emitfy.generated.model.NfceCreateRequest;
+import com.emitfy.generated.model.NfceList200Response;
+import com.emitfy.generated.model.NfeInutilize200Response;
+import com.emitfy.generated.model.NumberInutilizationList;
 import com.emitfy.generated.model.NumberInutilizationRequest;
 import java.util.UUID;
 
@@ -166,49 +174,52 @@ public class NfceApi {
 
   /**
    * Cancel NFC-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento da NFC-e autorizada.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @return InvoiceCancelAccepted
    * @throws ApiException if fails to make API call
    */
-  public void nfceCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    nfceCancel(companyId, id, null);
+  public InvoiceCancelAccepted nfceCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return nfceCancel(companyId, id, null);
   }
 
   /**
    * Cancel NFC-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento da NFC-e autorizada.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
+   * @return InvoiceCancelAccepted
    * @throws ApiException if fails to make API call
    */
-  public void nfceCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    nfceCancelWithHttpInfo(companyId, id, headers);
+  public InvoiceCancelAccepted nfceCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<InvoiceCancelAccepted> localVarResponse = nfceCancelWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Cancel NFC-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento da NFC-e autorizada.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoiceCancelAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+  public ApiResponse<InvoiceCancelAccepted> nfceCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
     return nfceCancelWithHttpInfo(companyId, id, null);
   }
 
   /**
    * Cancel NFC-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento da NFC-e autorizada.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoiceCancelAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  public ApiResponse<InvoiceCancelAccepted> nfceCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = nfceCancelRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -223,13 +234,24 @@ public class NfceApi {
           throw getApiException("nfceCancel", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<InvoiceCancelAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        InvoiceCancelAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<InvoiceCancelAccepted>() {});
+        
+
+        return new ApiResponse<InvoiceCancelAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -280,52 +302,55 @@ public class NfceApi {
   /**
    * Emit NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param nfceCreateRequest  (required)
    * @param idempotencyKey  (optional)
+   * @return NfceCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
-    nfceCreate(companyId, nfceCreateRequest, idempotencyKey, null);
+  public NfceCreate200Response nfceCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+    return nfceCreate(companyId, nfceCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param nfceCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
+   * @return NfceCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
-    nfceCreateWithHttpInfo(companyId, nfceCreateRequest, idempotencyKey, headers);
+  public NfceCreate200Response nfceCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+    ApiResponse<NfceCreate200Response> localVarResponse = nfceCreateWithHttpInfo(companyId, nfceCreateRequest, idempotencyKey, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Emit NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param nfceCreateRequest  (required)
    * @param idempotencyKey  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfceCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+  public ApiResponse<NfceCreate200Response> nfceCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
     return nfceCreateWithHttpInfo(companyId, nfceCreateRequest, idempotencyKey, null);
   }
 
   /**
    * Emit NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param nfceCreateRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfceCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+  public ApiResponse<NfceCreate200Response> nfceCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NfceCreateRequest nfceCreateRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = nfceCreateRequestBuilder(companyId, nfceCreateRequest, idempotencyKey, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -340,13 +365,24 @@ public class NfceApi {
           throw getApiException("nfceCreate", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<NfceCreate200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        NfceCreate200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NfceCreate200Response>() {});
+        
+
+        return new ApiResponse<NfceCreate200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -405,48 +441,51 @@ public class NfceApi {
   /**
    * Get NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @return NfceCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    nfceGet(companyId, id, null);
+  public NfceCreate200Response nfceGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return nfceGet(companyId, id, null);
   }
 
   /**
    * Get NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
+   * @return NfceCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    nfceGetWithHttpInfo(companyId, id, headers);
+  public NfceCreate200Response nfceGet(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<NfceCreate200Response> localVarResponse = nfceGetWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Get NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfceCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+  public ApiResponse<NfceCreate200Response> nfceGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
     return nfceGetWithHttpInfo(companyId, id, null);
   }
 
   /**
    * Get NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfceCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  public ApiResponse<NfceCreate200Response> nfceGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = nfceGetRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -461,13 +500,24 @@ public class NfceApi {
           throw getApiException("nfceGet", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<NfceCreate200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        NfceCreate200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NfceCreate200Response>() {});
+        
+
+        return new ApiResponse<NfceCreate200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -516,50 +566,196 @@ public class NfceApi {
   }
 
   /**
-   * Inutilize NFC-e number range
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
-   * @param numberInutilizationRequest  (required)
+   * List NFC-e number inutilizations
+   * Histórico de inutilizações de NFC-e (modelo 65), mais recentes primeiro.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param page  (optional, default to 1)
+   * @param pageSize  (optional, default to 30)
+   * @return NumberInutilizationList
    * @throws ApiException if fails to make API call
    */
-  public void nfceInutilize(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest) throws ApiException {
-    nfceInutilize(companyId, numberInutilizationRequest, null);
+  public NumberInutilizationList nfceInutilizationsList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize) throws ApiException {
+    return nfceInutilizationsList(companyId, page, pageSize, null);
+  }
+
+  /**
+   * List NFC-e number inutilizations
+   * Histórico de inutilizações de NFC-e (modelo 65), mais recentes primeiro.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param page  (optional, default to 1)
+   * @param pageSize  (optional, default to 30)
+   * @param headers Optional headers to include in the request
+   * @return NumberInutilizationList
+   * @throws ApiException if fails to make API call
+   */
+  public NumberInutilizationList nfceInutilizationsList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
+    ApiResponse<NumberInutilizationList> localVarResponse = nfceInutilizationsListWithHttpInfo(companyId, page, pageSize, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * List NFC-e number inutilizations
+   * Histórico de inutilizações de NFC-e (modelo 65), mais recentes primeiro.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param page  (optional, default to 1)
+   * @param pageSize  (optional, default to 30)
+   * @return ApiResponse&lt;NumberInutilizationList&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<NumberInutilizationList> nfceInutilizationsListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize) throws ApiException {
+    return nfceInutilizationsListWithHttpInfo(companyId, page, pageSize, null);
+  }
+
+  /**
+   * List NFC-e number inutilizations
+   * Histórico de inutilizações de NFC-e (modelo 65), mais recentes primeiro.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param page  (optional, default to 1)
+   * @param pageSize  (optional, default to 30)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;NumberInutilizationList&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<NumberInutilizationList> nfceInutilizationsListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = nfceInutilizationsListRequestBuilder(companyId, page, pageSize, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("nfceInutilizationsList", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<NumberInutilizationList>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        NumberInutilizationList responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NumberInutilizationList>() {});
+        
+
+        return new ApiResponse<NumberInutilizationList>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder nfceInutilizationsListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling nfceInutilizationsList");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/nfce/inutilizations"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "page";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("page", page));
+    localVarQueryParameterBaseName = "pageSize";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
   }
 
   /**
    * Inutilize NFC-e number range
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param numberInutilizationRequest  (required)
+   * @return NfeInutilize200Response
+   * @throws ApiException if fails to make API call
+   */
+  public NfeInutilize200Response nfceInutilize(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest) throws ApiException {
+    return nfceInutilize(companyId, numberInutilizationRequest, null);
+  }
+
+  /**
+   * Inutilize NFC-e number range
+   * 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param numberInutilizationRequest  (required)
    * @param headers Optional headers to include in the request
+   * @return NfeInutilize200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceInutilize(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest, Map<String, String> headers) throws ApiException {
-    nfceInutilizeWithHttpInfo(companyId, numberInutilizationRequest, headers);
+  public NfeInutilize200Response nfceInutilize(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest, Map<String, String> headers) throws ApiException {
+    ApiResponse<NfeInutilize200Response> localVarResponse = nfceInutilizeWithHttpInfo(companyId, numberInutilizationRequest, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Inutilize NFC-e number range
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param numberInutilizationRequest  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfeInutilize200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceInutilizeWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest) throws ApiException {
+  public ApiResponse<NfeInutilize200Response> nfceInutilizeWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest) throws ApiException {
     return nfceInutilizeWithHttpInfo(companyId, numberInutilizationRequest, null);
   }
 
   /**
    * Inutilize NFC-e number range
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param numberInutilizationRequest  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfeInutilize200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceInutilizeWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest, Map<String, String> headers) throws ApiException {
+  public ApiResponse<NfeInutilize200Response> nfceInutilizeWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull NumberInutilizationRequest numberInutilizationRequest, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = nfceInutilizeRequestBuilder(companyId, numberInutilizationRequest, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -574,13 +770,24 @@ public class NfceApi {
           throw getApiException("nfceInutilize", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<NfeInutilize200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        NfeInutilize200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NfeInutilize200Response>() {});
+        
+
+        return new ApiResponse<NfeInutilize200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -636,56 +843,59 @@ public class NfceApi {
   /**
    * List NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
-   * @param status  (optional)
+   * @param pageSize  (optional, default to 20)
+   * @param status Filtro de status. Aqui o cancelado é &#x60;canceled&#x60; (o valor &#x60;cancelled&#x60; não é aceito neste filtro); &#x60;error&#x60; → &#x60;rejected&#x60;.  (optional)
+   * @return NfceList200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
-    nfceList(companyId, page, pageSize, status, null);
+  public NfceList200Response nfceList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
+    return nfceList(companyId, page, pageSize, status, null);
   }
 
   /**
    * List NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
-   * @param status  (optional)
+   * @param pageSize  (optional, default to 20)
+   * @param status Filtro de status. Aqui o cancelado é &#x60;canceled&#x60; (o valor &#x60;cancelled&#x60; não é aceito neste filtro); &#x60;error&#x60; → &#x60;rejected&#x60;.  (optional)
    * @param headers Optional headers to include in the request
+   * @return NfceList200Response
    * @throws ApiException if fails to make API call
    */
-  public void nfceList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    nfceListWithHttpInfo(companyId, page, pageSize, status, headers);
+  public NfceList200Response nfceList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
+    ApiResponse<NfceList200Response> localVarResponse = nfceListWithHttpInfo(companyId, page, pageSize, status, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * List NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
-   * @param status  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @param pageSize  (optional, default to 20)
+   * @param status Filtro de status. Aqui o cancelado é &#x60;canceled&#x60; (o valor &#x60;cancelled&#x60; não é aceito neste filtro); &#x60;error&#x60; → &#x60;rejected&#x60;.  (optional)
+   * @return ApiResponse&lt;NfceList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
+  public ApiResponse<NfceList200Response> nfceListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
     return nfceListWithHttpInfo(companyId, page, pageSize, status, null);
   }
 
   /**
    * List NFC-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
-   * @param status  (optional)
+   * @param pageSize  (optional, default to 20)
+   * @param status Filtro de status. Aqui o cancelado é &#x60;canceled&#x60; (o valor &#x60;cancelled&#x60; não é aceito neste filtro); &#x60;error&#x60; → &#x60;rejected&#x60;.  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;NfceList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
+  public ApiResponse<NfceList200Response> nfceListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = nfceListRequestBuilder(companyId, page, pageSize, status, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -700,13 +910,24 @@ public class NfceApi {
           throw getApiException("nfceList", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<NfceList200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        NfceList200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<NfceList200Response>() {});
+        
+
+        return new ApiResponse<NfceList200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -769,51 +990,62 @@ public class NfceApi {
   }
 
   /**
-   * Get NFC-e PDF
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Get NFC-e PDF (cupom)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @param regenerate &#x60;1&#x60;/&#x60;true&#x60; &#x3D; regenera o PDF antes de entregar. (optional)
+   * @return File
    * @throws ApiException if fails to make API call
    */
-  public void nfcePdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    nfcePdf(companyId, id, null);
+  public File nfcePdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, @javax.annotation.Nullable String regenerate) throws ApiException {
+    return nfcePdf(companyId, id, download, regenerate, null);
   }
 
   /**
-   * Get NFC-e PDF
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Get NFC-e PDF (cupom)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @param regenerate &#x60;1&#x60;/&#x60;true&#x60; &#x3D; regenera o PDF antes de entregar. (optional)
    * @param headers Optional headers to include in the request
+   * @return File
    * @throws ApiException if fails to make API call
    */
-  public void nfcePdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    nfcePdfWithHttpInfo(companyId, id, headers);
+  public File nfcePdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, @javax.annotation.Nullable String regenerate, Map<String, String> headers) throws ApiException {
+    ApiResponse<File> localVarResponse = nfcePdfWithHttpInfo(companyId, id, download, regenerate, headers);
+    return localVarResponse.getData();
   }
 
   /**
-   * Get NFC-e PDF
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Get NFC-e PDF (cupom)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @param regenerate &#x60;1&#x60;/&#x60;true&#x60; &#x3D; regenera o PDF antes de entregar. (optional)
+   * @return ApiResponse&lt;File&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfcePdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    return nfcePdfWithHttpInfo(companyId, id, null);
+  public ApiResponse<File> nfcePdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, @javax.annotation.Nullable String regenerate) throws ApiException {
+    return nfcePdfWithHttpInfo(companyId, id, download, regenerate, null);
   }
 
   /**
-   * Get NFC-e PDF
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Get NFC-e PDF (cupom)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @param regenerate &#x60;1&#x60;/&#x60;true&#x60; &#x3D; regenera o PDF antes de entregar. (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;File&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfcePdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = nfcePdfRequestBuilder(companyId, id, headers);
+  public ApiResponse<File> nfcePdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, @javax.annotation.Nullable String regenerate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = nfcePdfRequestBuilder(companyId, id, download, regenerate, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -827,13 +1059,23 @@ public class NfceApi {
           throw getApiException("nfcePdf", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<File>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        // Handle file downloading.
+        File responseValue = downloadFileFromResponse(localVarResponse, localVarResponseBody);
+        
+
+        return new ApiResponse<File>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -849,7 +1091,7 @@ public class NfceApi {
     }
   }
 
-  private HttpRequest.Builder nfcePdfRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder nfcePdfRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, @javax.annotation.Nullable String regenerate, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling nfcePdf");
@@ -865,9 +1107,26 @@ public class NfceApi {
         .replace("{companyId}", ApiClient.urlEncode(companyId.toString()))
         .replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "download";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("download", download));
+    localVarQueryParameterBaseName = "regenerate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("regenerate", regenerate));
 
-    localVarRequestBuilder.header("Accept", "application/json");
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/pdf, application/json");
 
     localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {
@@ -883,8 +1142,8 @@ public class NfceApi {
 
   /**
    * Transmit NFC-e to SEFAZ
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Usado após criar com &#x60;transmit&#x3D;later&#x60; (por exemplo, contingência offline).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -894,8 +1153,8 @@ public class NfceApi {
 
   /**
    * Transmit NFC-e to SEFAZ
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Usado após criar com &#x60;transmit&#x3D;later&#x60; (por exemplo, contingência offline).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -906,8 +1165,8 @@ public class NfceApi {
 
   /**
    * Transmit NFC-e to SEFAZ
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Usado após criar com &#x60;transmit&#x3D;later&#x60; (por exemplo, contingência offline).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -918,8 +1177,8 @@ public class NfceApi {
 
   /**
    * Transmit NFC-e to SEFAZ
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Usado após criar com &#x60;transmit&#x3D;later&#x60; (por exemplo, contingência offline).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -996,50 +1255,57 @@ public class NfceApi {
 
   /**
    * Get NFC-e XML
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @return File
    * @throws ApiException if fails to make API call
    */
-  public void nfceXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    nfceXml(companyId, id, null);
+  public File nfceXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download) throws ApiException {
+    return nfceXml(companyId, id, download, null);
   }
 
   /**
    * Get NFC-e XML
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
    * @param headers Optional headers to include in the request
+   * @return File
    * @throws ApiException if fails to make API call
    */
-  public void nfceXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    nfceXmlWithHttpInfo(companyId, id, headers);
+  public File nfceXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, Map<String, String> headers) throws ApiException {
+    ApiResponse<File> localVarResponse = nfceXmlWithHttpInfo(companyId, id, download, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Get NFC-e XML
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
+   * @return ApiResponse&lt;File&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
-    return nfceXmlWithHttpInfo(companyId, id, null);
+  public ApiResponse<File> nfceXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download) throws ApiException {
+    return nfceXmlWithHttpInfo(companyId, id, download, null);
   }
 
   /**
    * Get NFC-e XML
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Entrega o arquivo em stream (200) quando já está pronto; senão gera e entrega, ou responde 302 para o CDN. Disponível só após autorização (ou cancelamento confirmado).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
+   * @param download &#x60;1&#x60; &#x3D; força download com nome &#x60;nota-&lt;número&gt;.&lt;ext&gt;&#x60; e sem cache. (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;File&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> nfceXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = nfceXmlRequestBuilder(companyId, id, headers);
+  public ApiResponse<File> nfceXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = nfceXmlRequestBuilder(companyId, id, download, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -1053,13 +1319,23 @@ public class NfceApi {
           throw getApiException("nfceXml", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<File>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        // Handle file downloading.
+        File responseValue = downloadFileFromResponse(localVarResponse, localVarResponseBody);
+        
+
+        return new ApiResponse<File>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -1075,7 +1351,7 @@ public class NfceApi {
     }
   }
 
-  private HttpRequest.Builder nfceXmlRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder nfceXmlRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable String download, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling nfceXml");
@@ -1091,9 +1367,24 @@ public class NfceApi {
         .replace("{companyId}", ApiClient.urlEncode(companyId.toString()))
         .replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "download";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("download", download));
 
-    localVarRequestBuilder.header("Accept", "application/json");
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/xml, application/json");
 
     localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {

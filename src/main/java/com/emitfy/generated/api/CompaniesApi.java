@@ -274,7 +274,7 @@ public class CompaniesApi {
   /**
    * Delete or detach company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companiesDelete(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -284,7 +284,7 @@ public class CompaniesApi {
   /**
    * Delete or detach company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -295,7 +295,7 @@ public class CompaniesApi {
   /**
    * Delete or detach company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -306,7 +306,7 @@ public class CompaniesApi {
   /**
    * Delete or detach company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -378,7 +378,7 @@ public class CompaniesApi {
   /**
    * Get company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companiesGet(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -388,7 +388,7 @@ public class CompaniesApi {
   /**
    * Get company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -399,7 +399,7 @@ public class CompaniesApi {
   /**
    * Get company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -410,7 +410,7 @@ public class CompaniesApi {
   /**
    * Get company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -577,7 +577,7 @@ public class CompaniesApi {
   /**
    * Update company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (optional)
    * @throws ApiException if fails to make API call
    */
@@ -588,7 +588,7 @@ public class CompaniesApi {
   /**
    * Update company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -600,7 +600,7 @@ public class CompaniesApi {
   /**
    * Update company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (optional)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -612,7 +612,7 @@ public class CompaniesApi {
   /**
    * Update company
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -691,7 +691,7 @@ public class CompaniesApi {
   /**
    * Remove certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companyCertificateDelete(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -701,7 +701,7 @@ public class CompaniesApi {
   /**
    * Remove certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -712,7 +712,7 @@ public class CompaniesApi {
   /**
    * Remove certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -723,7 +723,7 @@ public class CompaniesApi {
   /**
    * Remove certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -795,7 +795,7 @@ public class CompaniesApi {
   /**
    * Get certificate status
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companyCertificateGet(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -805,7 +805,7 @@ public class CompaniesApi {
   /**
    * Get certificate status
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -816,7 +816,7 @@ public class CompaniesApi {
   /**
    * Get certificate status
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -827,7 +827,7 @@ public class CompaniesApi {
   /**
    * Get certificate status
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -899,7 +899,7 @@ public class CompaniesApi {
   /**
    * Upload A1 certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companyCertificateUpload(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -909,7 +909,7 @@ public class CompaniesApi {
   /**
    * Upload A1 certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -920,7 +920,7 @@ public class CompaniesApi {
   /**
    * Upload A1 certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -931,7 +931,7 @@ public class CompaniesApi {
   /**
    * Upload A1 certificate
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -1003,7 +1003,7 @@ public class CompaniesApi {
   /**
    * Company fiscal status
    * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
   public void companyStatus(@javax.annotation.Nonnull UUID companyId) throws ApiException {
@@ -1013,7 +1013,7 @@ public class CompaniesApi {
   /**
    * Company fiscal status
    * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
@@ -1024,7 +1024,7 @@ public class CompaniesApi {
   /**
    * Company fiscal status
    * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
@@ -1035,7 +1035,7 @@ public class CompaniesApi {
   /**
    * Company fiscal status
    * Prontidão para emissão (&#x60;ready&#x60;, &#x60;issues[]&#x60;). Em &#x60;nfse.auth&#x60;, o Emitfy deriva do IBGE do endereço se o município exige certificado A1, login/senha ou token (catálogo municipal ACBr). Municípios só-login não listam A1 faltando como único bloqueio de NFS-e. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call

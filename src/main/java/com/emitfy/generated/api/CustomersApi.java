@@ -166,7 +166,7 @@ public class CustomersApi {
   /**
    * Create customer
    * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @throws ApiException if fails to make API call
    */
@@ -177,7 +177,7 @@ public class CustomersApi {
   /**
    * Create customer
    * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -189,7 +189,7 @@ public class CustomersApi {
   /**
    * Create customer
    * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -201,7 +201,7 @@ public class CustomersApi {
   /**
    * Create customer
    * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -284,7 +284,7 @@ public class CustomersApi {
   /**
    * Delete customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -295,7 +295,7 @@ public class CustomersApi {
   /**
    * Delete customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -307,7 +307,7 @@ public class CustomersApi {
   /**
    * Delete customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -319,7 +319,7 @@ public class CustomersApi {
   /**
    * Delete customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -397,7 +397,7 @@ public class CustomersApi {
   /**
    * Get customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -408,7 +408,7 @@ public class CustomersApi {
   /**
    * Get customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -420,7 +420,7 @@ public class CustomersApi {
   /**
    * Get customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -432,7 +432,7 @@ public class CustomersApi {
   /**
    * Get customer
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -510,57 +510,69 @@ public class CustomersApi {
   /**
    * List customers
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
    * @param search  (optional)
+   * @param filter  (optional, default to all)
    * @throws ApiException if fails to make API call
    */
-  public void customersList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String search) throws ApiException {
-    customersList(companyId, page, pageSize, search, null);
+  public void customersList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String search, @javax.annotation.Nullable String filter) throws ApiException {
+    customersList(companyId, limit, action, cursor, page, search, filter, null);
   }
 
   /**
    * List customers
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
    * @param search  (optional)
+   * @param filter  (optional, default to all)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
-  public void customersList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String search, Map<String, String> headers) throws ApiException {
-    customersListWithHttpInfo(companyId, page, pageSize, search, headers);
+  public void customersList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String search, @javax.annotation.Nullable String filter, Map<String, String> headers) throws ApiException {
+    customersListWithHttpInfo(companyId, limit, action, cursor, page, search, filter, headers);
   }
 
   /**
    * List customers
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
    * @param search  (optional)
+   * @param filter  (optional, default to all)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> customersListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String search) throws ApiException {
-    return customersListWithHttpInfo(companyId, page, pageSize, search, null);
+  public ApiResponse<Void> customersListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String search, @javax.annotation.Nullable String filter) throws ApiException {
+    return customersListWithHttpInfo(companyId, limit, action, cursor, page, search, filter, null);
   }
 
   /**
    * List customers
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
    * @param search  (optional)
+   * @param filter  (optional, default to all)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> customersListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String search, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = customersListRequestBuilder(companyId, page, pageSize, search, headers);
+  public ApiResponse<Void> customersListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String search, @javax.annotation.Nullable String filter, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = customersListRequestBuilder(companyId, limit, action, cursor, page, search, filter, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -596,7 +608,7 @@ public class CustomersApi {
     }
   }
 
-  private HttpRequest.Builder customersListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String search, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder customersListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String search, @javax.annotation.Nullable String filter, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling customersList");
@@ -610,12 +622,18 @@ public class CustomersApi {
     List<Pair> localVarQueryParams = new ArrayList<>();
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "limit";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
+    localVarQueryParameterBaseName = "action";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("action", action));
+    localVarQueryParameterBaseName = "cursor";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("cursor", cursor));
     localVarQueryParameterBaseName = "page";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("page", page));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
     localVarQueryParameterBaseName = "search";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+    localVarQueryParameterBaseName = "filter";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("filter", filter));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");
@@ -645,7 +663,7 @@ public class CustomersApi {
   /**
    * Update customer (overwrite)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param requestBody  (optional)
    * @throws ApiException if fails to make API call
@@ -657,7 +675,7 @@ public class CustomersApi {
   /**
    * Update customer (overwrite)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
@@ -670,7 +688,7 @@ public class CustomersApi {
   /**
    * Update customer (overwrite)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param requestBody  (optional)
    * @return ApiResponse&lt;Void&gt;
@@ -683,7 +701,7 @@ public class CustomersApi {
   /**
    * Update customer (overwrite)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param requestBody  (optional)
    * @param headers Optional headers to include in the request

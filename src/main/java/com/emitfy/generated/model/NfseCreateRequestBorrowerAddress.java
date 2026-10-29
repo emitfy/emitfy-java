@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfseCreateRequestBorrowerAddress
+ * Endereço do tomador. Não aceita código IBGE (&#x60;cityCode&#x60;/&#x60;ibge&#x60;) — campo desconhecido retorna 422. 
  */
 @JsonPropertyOrder({
   NfseCreateRequestBorrowerAddress.JSON_PROPERTY_STREET,
@@ -39,9 +39,7 @@ import com.emitfy.generated.ApiClient;
   NfseCreateRequestBorrowerAddress.JSON_PROPERTY_DISTRICT,
   NfseCreateRequestBorrowerAddress.JSON_PROPERTY_CITY,
   NfseCreateRequestBorrowerAddress.JSON_PROPERTY_STATE,
-  NfseCreateRequestBorrowerAddress.JSON_PROPERTY_ZIPCODE,
-  NfseCreateRequestBorrowerAddress.JSON_PROPERTY_CITY_CODE,
-  NfseCreateRequestBorrowerAddress.JSON_PROPERTY_IBGE
+  NfseCreateRequestBorrowerAddress.JSON_PROPERTY_ZIPCODE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfseCreateRequestBorrowerAddress {
@@ -72,14 +70,6 @@ public class NfseCreateRequestBorrowerAddress {
   public static final String JSON_PROPERTY_ZIPCODE = "zipcode";
   @javax.annotation.Nullable
   private String zipcode;
-
-  public static final String JSON_PROPERTY_CITY_CODE = "cityCode";
-  @javax.annotation.Nullable
-  private String cityCode;
-
-  public static final String JSON_PROPERTY_IBGE = "ibge";
-  @javax.annotation.Nullable
-  private String ibge;
 
   public NfseCreateRequestBorrowerAddress() { 
   }
@@ -252,54 +242,6 @@ public class NfseCreateRequestBorrowerAddress {
   }
 
 
-  public NfseCreateRequestBorrowerAddress cityCode(@javax.annotation.Nullable String cityCode) {
-    this.cityCode = cityCode;
-    return this;
-  }
-
-  /**
-   * Get cityCode
-   * @return cityCode
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CITY_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getCityCode() {
-    return cityCode;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_CITY_CODE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCityCode(@javax.annotation.Nullable String cityCode) {
-    this.cityCode = cityCode;
-  }
-
-
-  public NfseCreateRequestBorrowerAddress ibge(@javax.annotation.Nullable String ibge) {
-    this.ibge = ibge;
-    return this;
-  }
-
-  /**
-   * Get ibge
-   * @return ibge
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IBGE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getIbge() {
-    return ibge;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_IBGE, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIbge(@javax.annotation.Nullable String ibge) {
-    this.ibge = ibge;
-  }
-
-
   /**
    * Return true if this NfseCreateRequest_borrower_address object is equal to o.
    */
@@ -318,14 +260,12 @@ public class NfseCreateRequestBorrowerAddress {
         Objects.equals(this.district, nfseCreateRequestBorrowerAddress.district) &&
         Objects.equals(this.city, nfseCreateRequestBorrowerAddress.city) &&
         Objects.equals(this.state, nfseCreateRequestBorrowerAddress.state) &&
-        Objects.equals(this.zipcode, nfseCreateRequestBorrowerAddress.zipcode) &&
-        Objects.equals(this.cityCode, nfseCreateRequestBorrowerAddress.cityCode) &&
-        Objects.equals(this.ibge, nfseCreateRequestBorrowerAddress.ibge);
+        Objects.equals(this.zipcode, nfseCreateRequestBorrowerAddress.zipcode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(street, number, complement, district, city, state, zipcode, cityCode, ibge);
+    return Objects.hash(street, number, complement, district, city, state, zipcode);
   }
 
   @Override
@@ -339,8 +279,6 @@ public class NfseCreateRequestBorrowerAddress {
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    zipcode: ").append(toIndentedString(zipcode)).append("\n");
-    sb.append("    cityCode: ").append(toIndentedString(cityCode)).append("\n");
-    sb.append("    ibge: ").append(toIndentedString(ibge)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -418,16 +356,6 @@ public class NfseCreateRequestBorrowerAddress {
     // add `zipcode` to the URL query string
     if (getZipcode() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%szipcode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getZipcode()))));
-    }
-
-    // add `cityCode` to the URL query string
-    if (getCityCode() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%scityCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCityCode()))));
-    }
-
-    // add `ibge` to the URL query string
-    if (getIbge() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sibge%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbge()))));
     }
 
     return joiner.toString();

@@ -19,8 +19,14 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeAutXml;
+import com.emitfy.generated.model.DfeTechResponsible;
 import com.emitfy.generated.model.MdfeDriver;
+import com.emitfy.generated.model.MdfeEmitRequestAdditional;
+import com.emitfy.generated.model.MdfeEmitRequestInsuranceInner;
+import com.emitfy.generated.model.MdfeEmitRequestPredominantProduct;
 import com.emitfy.generated.model.MdfeModal;
+import com.emitfy.generated.model.MdfePayment;
 import com.emitfy.generated.model.MdfeUnloadCity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -52,6 +58,9 @@ import com.emitfy.generated.ApiClient;
   MdfeEmitRequest.JSON_PROPERTY_MODAL,
   MdfeEmitRequest.JSON_PROPERTY_DRIVERS,
   MdfeEmitRequest.JSON_PROPERTY_INSURANCE,
+  MdfeEmitRequest.JSON_PROPERTY_PREDOMINANT_PRODUCT,
+  MdfeEmitRequest.JSON_PROPERTY_SEALS,
+  MdfeEmitRequest.JSON_PROPERTY_AUT_XML,
   MdfeEmitRequest.JSON_PROPERTY_ADDITIONAL,
   MdfeEmitRequest.JSON_PROPERTY_TECH_RESPONSIBLE,
   MdfeEmitRequest.JSON_PROPERTY_PAYMENTS,
@@ -105,19 +114,31 @@ public class MdfeEmitRequest {
 
   public static final String JSON_PROPERTY_INSURANCE = "insurance";
   @javax.annotation.Nullable
-  private List<Object> insurance = new ArrayList<>();
+  private List<MdfeEmitRequestInsuranceInner> insurance = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PREDOMINANT_PRODUCT = "predominantProduct";
+  @javax.annotation.Nullable
+  private MdfeEmitRequestPredominantProduct predominantProduct;
+
+  public static final String JSON_PROPERTY_SEALS = "seals";
+  @javax.annotation.Nullable
+  private List<String> seals = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_AUT_XML = "autXml";
+  @javax.annotation.Nullable
+  private List<DfeAutXml> autXml = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ADDITIONAL = "additional";
   @javax.annotation.Nullable
-  private Object additional;
+  private MdfeEmitRequestAdditional additional;
 
   public static final String JSON_PROPERTY_TECH_RESPONSIBLE = "techResponsible";
   @javax.annotation.Nullable
-  private Object techResponsible;
+  private DfeTechResponsible techResponsible;
 
   public static final String JSON_PROPERTY_PAYMENTS = "payments";
   @javax.annotation.Nullable
-  private List<Object> payments = new ArrayList<>();
+  private List<MdfePayment> payments = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ISSUE_DATE = "issueDate";
   @javax.annotation.Nullable
@@ -408,12 +429,12 @@ public class MdfeEmitRequest {
   }
 
 
-  public MdfeEmitRequest insurance(@javax.annotation.Nullable List<Object> insurance) {
+  public MdfeEmitRequest insurance(@javax.annotation.Nullable List<MdfeEmitRequestInsuranceInner> insurance) {
     this.insurance = insurance;
     return this;
   }
 
-  public MdfeEmitRequest addInsuranceItem(Object insuranceItem) {
+  public MdfeEmitRequest addInsuranceItem(MdfeEmitRequestInsuranceInner insuranceItem) {
     if (this.insurance == null) {
       this.insurance = new ArrayList<>();
     }
@@ -428,19 +449,107 @@ public class MdfeEmitRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_INSURANCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getInsurance() {
+  public List<MdfeEmitRequestInsuranceInner> getInsurance() {
     return insurance;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_INSURANCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInsurance(@javax.annotation.Nullable List<Object> insurance) {
+  public void setInsurance(@javax.annotation.Nullable List<MdfeEmitRequestInsuranceInner> insurance) {
     this.insurance = insurance;
   }
 
 
-  public MdfeEmitRequest additional(@javax.annotation.Nullable Object additional) {
+  public MdfeEmitRequest predominantProduct(@javax.annotation.Nullable MdfeEmitRequestPredominantProduct predominantProduct) {
+    this.predominantProduct = predominantProduct;
+    return this;
+  }
+
+  /**
+   * Get predominantProduct
+   * @return predominantProduct
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PREDOMINANT_PRODUCT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public MdfeEmitRequestPredominantProduct getPredominantProduct() {
+    return predominantProduct;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PREDOMINANT_PRODUCT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPredominantProduct(@javax.annotation.Nullable MdfeEmitRequestPredominantProduct predominantProduct) {
+    this.predominantProduct = predominantProduct;
+  }
+
+
+  public MdfeEmitRequest seals(@javax.annotation.Nullable List<String> seals) {
+    this.seals = seals;
+    return this;
+  }
+
+  public MdfeEmitRequest addSealsItem(String sealsItem) {
+    if (this.seals == null) {
+      this.seals = new ArrayList<>();
+    }
+    this.seals.add(sealsItem);
+    return this;
+  }
+
+  /**
+   * Get seals
+   * @return seals
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SEALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getSeals() {
+    return seals;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SEALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSeals(@javax.annotation.Nullable List<String> seals) {
+    this.seals = seals;
+  }
+
+
+  public MdfeEmitRequest autXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
+    return this;
+  }
+
+  public MdfeEmitRequest addAutXmlItem(DfeAutXml autXmlItem) {
+    if (this.autXml == null) {
+      this.autXml = new ArrayList<>();
+    }
+    this.autXml.add(autXmlItem);
+    return this;
+  }
+
+  /**
+   * Get autXml
+   * @return autXml
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<DfeAutXml> getAutXml() {
+    return autXml;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAutXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
+  }
+
+
+  public MdfeEmitRequest additional(@javax.annotation.Nullable MdfeEmitRequestAdditional additional) {
     this.additional = additional;
     return this;
   }
@@ -452,19 +561,19 @@ public class MdfeEmitRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getAdditional() {
+  public MdfeEmitRequestAdditional getAdditional() {
     return additional;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdditional(@javax.annotation.Nullable Object additional) {
+  public void setAdditional(@javax.annotation.Nullable MdfeEmitRequestAdditional additional) {
     this.additional = additional;
   }
 
 
-  public MdfeEmitRequest techResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public MdfeEmitRequest techResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
     return this;
   }
@@ -476,24 +585,24 @@ public class MdfeEmitRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getTechResponsible() {
+  public DfeTechResponsible getTechResponsible() {
     return techResponsible;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTechResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public void setTechResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
   }
 
 
-  public MdfeEmitRequest payments(@javax.annotation.Nullable List<Object> payments) {
+  public MdfeEmitRequest payments(@javax.annotation.Nullable List<MdfePayment> payments) {
     this.payments = payments;
     return this;
   }
 
-  public MdfeEmitRequest addPaymentsItem(Object paymentsItem) {
+  public MdfeEmitRequest addPaymentsItem(MdfePayment paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<>();
     }
@@ -508,14 +617,14 @@ public class MdfeEmitRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getPayments() {
+  public List<MdfePayment> getPayments() {
     return payments;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayments(@javax.annotation.Nullable List<Object> payments) {
+  public void setPayments(@javax.annotation.Nullable List<MdfePayment> payments) {
     this.payments = payments;
   }
 
@@ -568,6 +677,9 @@ public class MdfeEmitRequest {
         Objects.equals(this.modal, mdfeEmitRequest.modal) &&
         Objects.equals(this.drivers, mdfeEmitRequest.drivers) &&
         Objects.equals(this.insurance, mdfeEmitRequest.insurance) &&
+        Objects.equals(this.predominantProduct, mdfeEmitRequest.predominantProduct) &&
+        Objects.equals(this.seals, mdfeEmitRequest.seals) &&
+        Objects.equals(this.autXml, mdfeEmitRequest.autXml) &&
         Objects.equals(this.additional, mdfeEmitRequest.additional) &&
         Objects.equals(this.techResponsible, mdfeEmitRequest.techResponsible) &&
         Objects.equals(this.payments, mdfeEmitRequest.payments) &&
@@ -576,7 +688,7 @@ public class MdfeEmitRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(externalId, ufStart, ufEnd, municipalityStartIbge, municipalityEndIbge, cargoTotalAmount, cargoQuantity, cargoUnit, documents, modal, drivers, insurance, additional, techResponsible, payments, issueDate);
+    return Objects.hash(externalId, ufStart, ufEnd, municipalityStartIbge, municipalityEndIbge, cargoTotalAmount, cargoQuantity, cargoUnit, documents, modal, drivers, insurance, predominantProduct, seals, autXml, additional, techResponsible, payments, issueDate);
   }
 
   @Override
@@ -595,6 +707,9 @@ public class MdfeEmitRequest {
     sb.append("    modal: ").append(toIndentedString(modal)).append("\n");
     sb.append("    drivers: ").append(toIndentedString(drivers)).append("\n");
     sb.append("    insurance: ").append(toIndentedString(insurance)).append("\n");
+    sb.append("    predominantProduct: ").append(toIndentedString(predominantProduct)).append("\n");
+    sb.append("    seals: ").append(toIndentedString(seals)).append("\n");
+    sb.append("    autXml: ").append(toIndentedString(autXml)).append("\n");
     sb.append("    additional: ").append(toIndentedString(additional)).append("\n");
     sb.append("    techResponsible: ").append(toIndentedString(techResponsible)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
@@ -711,28 +826,54 @@ public class MdfeEmitRequest {
     // add `insurance` to the URL query string
     if (getInsurance() != null) {
       for (int i = 0; i < getInsurance().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%sinsurance%s%s=%s", prefix, suffix,
+        if (getInsurance().get(i) != null) {
+          joiner.add(getInsurance().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sinsurance%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `predominantProduct` to the URL query string
+    if (getPredominantProduct() != null) {
+      joiner.add(getPredominantProduct().toUrlQueryString(prefix + "predominantProduct" + suffix));
+    }
+
+    // add `seals` to the URL query string
+    if (getSeals() != null) {
+      for (int i = 0; i < getSeals().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%sseals%s%s=%s", prefix, suffix,
             "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getInsurance().get(i)))));
+            ApiClient.urlEncode(ApiClient.valueToString(getSeals().get(i)))));
+      }
+    }
+
+    // add `autXml` to the URL query string
+    if (getAutXml() != null) {
+      for (int i = 0; i < getAutXml().size(); i++) {
+        if (getAutXml().get(i) != null) {
+          joiner.add(getAutXml().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sautXml%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 
     // add `additional` to the URL query string
     if (getAdditional() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sadditional%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditional()))));
+      joiner.add(getAdditional().toUrlQueryString(prefix + "additional" + suffix));
     }
 
     // add `techResponsible` to the URL query string
     if (getTechResponsible() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%stechResponsible%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTechResponsible()))));
+      joiner.add(getTechResponsible().toUrlQueryString(prefix + "techResponsible" + suffix));
     }
 
     // add `payments` to the URL query string
     if (getPayments() != null) {
       for (int i = 0; i < getPayments().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%spayments%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getPayments().get(i)))));
+        if (getPayments().get(i) != null) {
+          joiner.add(getPayments().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%spayments%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

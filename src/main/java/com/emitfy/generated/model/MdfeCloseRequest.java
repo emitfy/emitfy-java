@@ -61,7 +61,7 @@ public class MdfeCloseRequest {
   }
 
   /**
-   * Get cityCode
+   * IBGE do município de encerramento
    * @return cityCode
    */
   @javax.annotation.Nonnull

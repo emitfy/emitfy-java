@@ -40,17 +40,17 @@ import com.emitfy.generated.ApiClient;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfceCreateRequestContingency {
   public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime startedAt;
 
   public static final String JSON_PROPERTY_REASON = "reason";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String reason;
 
   public NfceCreateRequestContingency() { 
   }
 
-  public NfceCreateRequestContingency startedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
+  public NfceCreateRequestContingency startedAt(@javax.annotation.Nonnull OffsetDateTime startedAt) {
     this.startedAt = startedAt;
     return this;
   }
@@ -59,22 +59,22 @@ public class NfceCreateRequestContingency {
    * Get startedAt
    * @return startedAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public OffsetDateTime getStartedAt() {
     return startedAt;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartedAt(@javax.annotation.Nullable OffsetDateTime startedAt) {
+  @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartedAt(@javax.annotation.Nonnull OffsetDateTime startedAt) {
     this.startedAt = startedAt;
   }
 
 
-  public NfceCreateRequestContingency reason(@javax.annotation.Nullable String reason) {
+  public NfceCreateRequestContingency reason(@javax.annotation.Nonnull String reason) {
     this.reason = reason;
     return this;
   }
@@ -83,17 +83,17 @@ public class NfceCreateRequestContingency {
    * Get reason
    * @return reason
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(value = JSON_PROPERTY_REASON, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getReason() {
     return reason;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REASON, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReason(@javax.annotation.Nullable String reason) {
+  @JsonProperty(value = JSON_PROPERTY_REASON, required = true)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setReason(@javax.annotation.Nonnull String reason) {
     this.reason = reason;
   }
 

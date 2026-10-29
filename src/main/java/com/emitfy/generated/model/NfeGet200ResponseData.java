@@ -23,13 +23,21 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeGet200ResponseDataCorrectionsInner;
 import com.emitfy.generated.model.TransportDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -38,16 +46,238 @@ import com.emitfy.generated.ApiClient;
  * NfeGet200ResponseData
  */
 @JsonPropertyOrder({
-  NfeGet200ResponseData.JSON_PROPERTY_TRANSPORT
+  NfeGet200ResponseData.JSON_PROPERTY_ID,
+  NfeGet200ResponseData.JSON_PROPERTY_STATUS,
+  NfeGet200ResponseData.JSON_PROPERTY_TYPE,
+  NfeGet200ResponseData.JSON_PROPERTY_AMOUNT,
+  NfeGet200ResponseData.JSON_PROPERTY_TRANSPORT,
+  NfeGet200ResponseData.JSON_PROPERTY_EMISSION_DATE,
+  NfeGet200ResponseData.JSON_PROPERTY_CANCELLATION_DATE,
+  NfeGet200ResponseData.JSON_PROPERTY_FISCAL,
+  NfeGet200ResponseData.JSON_PROPERTY_CORRECTIONS,
+  NfeGet200ResponseData.JSON_PROPERTY_CREATED_AT,
+  NfeGet200ResponseData.JSON_PROPERTY_UPDATED_AT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeGet200ResponseData {
+  public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nullable
+  private UUID id;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    PENDING(String.valueOf("pending")),
+    
+    QUEUED(String.valueOf("queued")),
+    
+    PROCESSING(String.valueOf("processing")),
+    
+    AUTHORIZED(String.valueOf("authorized")),
+    
+    REJECTED(String.valueOf("rejected")),
+    
+    CANCELLED(String.valueOf("cancelled"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @javax.annotation.Nullable
+  private StatusEnum status;
+
+  /**
+   * Gets or Sets type
+   */
+  public enum TypeEnum {
+    NFE(String.valueOf("nfe"));
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @javax.annotation.Nullable
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  @javax.annotation.Nullable
+  private BigDecimal amount;
+
   public static final String JSON_PROPERTY_TRANSPORT = "transport";
   @javax.annotation.Nullable
   private TransportDetail transport;
 
+  public static final String JSON_PROPERTY_EMISSION_DATE = "emissionDate";
+  @javax.annotation.Nullable
+  private OffsetDateTime emissionDate;
+
+  public static final String JSON_PROPERTY_CANCELLATION_DATE = "cancellationDate";
+  @javax.annotation.Nullable
+  private OffsetDateTime cancellationDate;
+
+  public static final String JSON_PROPERTY_FISCAL = "fiscal";
+  @javax.annotation.Nullable
+  private Map<String, Object> fiscal = new HashMap<>();
+
+  public static final String JSON_PROPERTY_CORRECTIONS = "corrections";
+  @javax.annotation.Nullable
+  private List<NfeGet200ResponseDataCorrectionsInner> corrections = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+  @javax.annotation.Nullable
+  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+  @javax.annotation.Nullable
+  private OffsetDateTime updatedAt;
+
   public NfeGet200ResponseData() { 
   }
+
+  public NfeGet200ResponseData id(@javax.annotation.Nullable UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public UUID getId() {
+    return id;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable UUID id) {
+    this.id = id;
+  }
+
+
+  public NfeGet200ResponseData status(@javax.annotation.Nullable StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public NfeGet200ResponseData type(@javax.annotation.Nullable TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public NfeGet200ResponseData amount(@javax.annotation.Nullable BigDecimal amount) {
+    this.amount = amount;
+    return this;
+  }
+
+  /**
+   * Get amount
+   * @return amount
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(@javax.annotation.Nullable BigDecimal amount) {
+    this.amount = amount;
+  }
+
 
   public NfeGet200ResponseData transport(@javax.annotation.Nullable TransportDetail transport) {
     this.transport = transport;
@@ -70,6 +300,166 @@ public class NfeGet200ResponseData {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransport(@javax.annotation.Nullable TransportDetail transport) {
     this.transport = transport;
+  }
+
+
+  public NfeGet200ResponseData emissionDate(@javax.annotation.Nullable OffsetDateTime emissionDate) {
+    this.emissionDate = emissionDate;
+    return this;
+  }
+
+  /**
+   * Get emissionDate
+   * @return emissionDate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EMISSION_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getEmissionDate() {
+    return emissionDate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EMISSION_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmissionDate(@javax.annotation.Nullable OffsetDateTime emissionDate) {
+    this.emissionDate = emissionDate;
+  }
+
+
+  public NfeGet200ResponseData cancellationDate(@javax.annotation.Nullable OffsetDateTime cancellationDate) {
+    this.cancellationDate = cancellationDate;
+    return this;
+  }
+
+  /**
+   * Get cancellationDate
+   * @return cancellationDate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CANCELLATION_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getCancellationDate() {
+    return cancellationDate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CANCELLATION_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCancellationDate(@javax.annotation.Nullable OffsetDateTime cancellationDate) {
+    this.cancellationDate = cancellationDate;
+  }
+
+
+  public NfeGet200ResponseData fiscal(@javax.annotation.Nullable Map<String, Object> fiscal) {
+    this.fiscal = fiscal;
+    return this;
+  }
+
+  public NfeGet200ResponseData putFiscalItem(String key, Object fiscalItem) {
+    if (this.fiscal == null) {
+      this.fiscal = new HashMap<>();
+    }
+    this.fiscal.put(key, fiscalItem);
+    return this;
+  }
+
+  /**
+   * Dados fiscais (número, série, chave de acesso, protocolo…)
+   * @return fiscal
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FISCAL, required = false)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, Object> getFiscal() {
+    return fiscal;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FISCAL, required = false)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFiscal(@javax.annotation.Nullable Map<String, Object> fiscal) {
+    this.fiscal = fiscal;
+  }
+
+
+  public NfeGet200ResponseData corrections(@javax.annotation.Nullable List<NfeGet200ResponseDataCorrectionsInner> corrections) {
+    this.corrections = corrections;
+    return this;
+  }
+
+  public NfeGet200ResponseData addCorrectionsItem(NfeGet200ResponseDataCorrectionsInner correctionsItem) {
+    if (this.corrections == null) {
+      this.corrections = new ArrayList<>();
+    }
+    this.corrections.add(correctionsItem);
+    return this;
+  }
+
+  /**
+   * Cartas de correção registradas
+   * @return corrections
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CORRECTIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfeGet200ResponseDataCorrectionsInner> getCorrections() {
+    return corrections;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CORRECTIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCorrections(@javax.annotation.Nullable List<NfeGet200ResponseDataCorrectionsInner> corrections) {
+    this.corrections = corrections;
+  }
+
+
+  public NfeGet200ResponseData createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  /**
+   * Get createdAt
+   * @return createdAt
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public NfeGet200ResponseData updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  /**
+   * Get updatedAt
+   * @return updatedAt
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   /**
@@ -128,20 +518,40 @@ public class NfeGet200ResponseData {
       return false;
     }
     NfeGet200ResponseData nfeGet200ResponseData = (NfeGet200ResponseData) o;
-    return Objects.equals(this.transport, nfeGet200ResponseData.transport)&&
+    return Objects.equals(this.id, nfeGet200ResponseData.id) &&
+        Objects.equals(this.status, nfeGet200ResponseData.status) &&
+        Objects.equals(this.type, nfeGet200ResponseData.type) &&
+        Objects.equals(this.amount, nfeGet200ResponseData.amount) &&
+        Objects.equals(this.transport, nfeGet200ResponseData.transport) &&
+        Objects.equals(this.emissionDate, nfeGet200ResponseData.emissionDate) &&
+        Objects.equals(this.cancellationDate, nfeGet200ResponseData.cancellationDate) &&
+        Objects.equals(this.fiscal, nfeGet200ResponseData.fiscal) &&
+        Objects.equals(this.corrections, nfeGet200ResponseData.corrections) &&
+        Objects.equals(this.createdAt, nfeGet200ResponseData.createdAt) &&
+        Objects.equals(this.updatedAt, nfeGet200ResponseData.updatedAt)&&
         Objects.equals(this.additionalProperties, nfeGet200ResponseData.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transport, additionalProperties);
+    return Objects.hash(id, status, type, amount, transport, emissionDate, cancellationDate, fiscal, corrections, createdAt, updatedAt, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfeGet200ResponseData {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
+    sb.append("    emissionDate: ").append(toIndentedString(emissionDate)).append("\n");
+    sb.append("    cancellationDate: ").append(toIndentedString(cancellationDate)).append("\n");
+    sb.append("    fiscal: ").append(toIndentedString(fiscal)).append("\n");
+    sb.append("    corrections: ").append(toIndentedString(corrections)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -187,9 +597,68 @@ public class NfeGet200ResponseData {
 
     StringJoiner joiner = new StringJoiner("&");
 
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sid%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
+    }
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstatus%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%stype%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%samount%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
+    }
+
     // add `transport` to the URL query string
     if (getTransport() != null) {
       joiner.add(getTransport().toUrlQueryString(prefix + "transport" + suffix));
+    }
+
+    // add `emissionDate` to the URL query string
+    if (getEmissionDate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%semissionDate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getEmissionDate()))));
+    }
+
+    // add `cancellationDate` to the URL query string
+    if (getCancellationDate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scancellationDate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCancellationDate()))));
+    }
+
+    // add `fiscal` to the URL query string
+    if (getFiscal() != null) {
+      for (String _key : getFiscal().keySet()) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%sfiscal%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+            getFiscal().get(_key), ApiClient.urlEncode(ApiClient.valueToString(getFiscal().get(_key)))));
+      }
+    }
+
+    // add `corrections` to the URL query string
+    if (getCorrections() != null) {
+      for (int i = 0; i < getCorrections().size(); i++) {
+        if (getCorrections().get(i) != null) {
+          joiner.add(getCorrections().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%scorrections%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `createdAt` to the URL query string
+    if (getCreatedAt() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%screatedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
+    }
+
+    // add `updatedAt` to the URL query string
+    if (getUpdatedAt() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%supdatedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
     }
 
     return joiner.toString();

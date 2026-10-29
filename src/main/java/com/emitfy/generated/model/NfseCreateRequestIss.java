@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfseCreateRequestIss
+ * ISS canônico. &#x60;rate&#x60; obrigatório (0 permitido), salvo se enviado em &#x60;taxes.iss&#x60;.
  */
 @JsonPropertyOrder({
   NfseCreateRequestIss.JSON_PROPERTY_RATE,

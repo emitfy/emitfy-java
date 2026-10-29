@@ -19,6 +19,13 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.CteCargoQuantity;
+import com.emitfy.generated.model.CteCreateRequestComplement;
+import com.emitfy.generated.model.CteIcms;
+import com.emitfy.generated.model.CteParty;
+import com.emitfy.generated.model.DfeAutXml;
+import com.emitfy.generated.model.DfeComponent;
+import com.emitfy.generated.model.DfeTechResponsible;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,24 +43,37 @@ import com.emitfy.generated.ApiClient;
  * CteCreateRequest
  */
 @JsonPropertyOrder({
+  CteCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
   CteCreateRequest.JSON_PROPERTY_CFOP,
   CteCreateRequest.JSON_PROPERTY_NATURE,
+  CteCreateRequest.JSON_PROPERTY_SERVICE_TYPE,
+  CteCreateRequest.JSON_PROPERTY_TAKER,
   CteCreateRequest.JSON_PROPERTY_SHIPPER,
   CteCreateRequest.JSON_PROPERTY_RECIPIENT,
+  CteCreateRequest.JSON_PROPERTY_DISPATCHER,
+  CteCreateRequest.JSON_PROPERTY_RECEIVER,
+  CteCreateRequest.JSON_PROPERTY_TAKER_PARTY,
   CteCreateRequest.JSON_PROPERTY_MUNICIPALITY_START_IBGE,
   CteCreateRequest.JSON_PROPERTY_MUNICIPALITY_END_IBGE,
   CteCreateRequest.JSON_PROPERTY_CARGO_VALUE,
   CteCreateRequest.JSON_PROPERTY_CARGO_PRODUCT,
   CteCreateRequest.JSON_PROPERTY_CARGO_QUANTITIES,
+  CteCreateRequest.JSON_PROPERTY_LINKED_NFE_ACCESS_KEYS,
   CteCreateRequest.JSON_PROPERTY_SERVICE_AMOUNT,
   CteCreateRequest.JSON_PROPERTY_ICMS,
-  CteCreateRequest.JSON_PROPERTY_COMPONENTS,
+  CteCreateRequest.JSON_PROPERTY_RNTRC,
   CteCreateRequest.JSON_PROPERTY_COMPLEMENT,
+  CteCreateRequest.JSON_PROPERTY_COMPONENTS,
   CteCreateRequest.JSON_PROPERTY_AUT_XML,
-  CteCreateRequest.JSON_PROPERTY_TECH_RESPONSIBLE
+  CteCreateRequest.JSON_PROPERTY_TECH_RESPONSIBLE,
+  CteCreateRequest.JSON_PROPERTY_MODAL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class CteCreateRequest {
+  public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+  @javax.annotation.Nullable
+  private String externalId;
+
   public static final String JSON_PROPERTY_CFOP = "cfop";
   @javax.annotation.Nonnull
   private String cfop;
@@ -62,13 +82,74 @@ public class CteCreateRequest {
   @javax.annotation.Nonnull
   private String nature;
 
+  public static final String JSON_PROPERTY_SERVICE_TYPE = "serviceType";
+  @javax.annotation.Nullable
+  private String serviceType = "0";
+
+  /**
+   * Tomador (toma). &#x60;4&#x60; &#x3D; outro — informe &#x60;takerParty&#x60;.
+   */
+  public enum TakerEnum {
+    _0(String.valueOf("0")),
+    
+    _1(String.valueOf("1")),
+    
+    _2(String.valueOf("2")),
+    
+    _3(String.valueOf("3")),
+    
+    _4(String.valueOf("4"));
+
+    private String value;
+
+    TakerEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TakerEnum fromValue(String value) {
+      for (TakerEnum b : TakerEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TAKER = "taker";
+  @javax.annotation.Nullable
+  private TakerEnum taker = TakerEnum._3;
+
   public static final String JSON_PROPERTY_SHIPPER = "shipper";
   @javax.annotation.Nonnull
-  private Object shipper;
+  private CteParty shipper;
 
   public static final String JSON_PROPERTY_RECIPIENT = "recipient";
   @javax.annotation.Nonnull
-  private Object recipient;
+  private CteParty recipient;
+
+  public static final String JSON_PROPERTY_DISPATCHER = "dispatcher";
+  @javax.annotation.Nullable
+  private CteParty dispatcher;
+
+  public static final String JSON_PROPERTY_RECEIVER = "receiver";
+  @javax.annotation.Nullable
+  private CteParty receiver;
+
+  public static final String JSON_PROPERTY_TAKER_PARTY = "takerParty";
+  @javax.annotation.Nullable
+  private CteParty takerParty;
 
   public static final String JSON_PROPERTY_MUNICIPALITY_START_IBGE = "municipalityStartIbge";
   @javax.annotation.Nonnull
@@ -88,7 +169,11 @@ public class CteCreateRequest {
 
   public static final String JSON_PROPERTY_CARGO_QUANTITIES = "cargoQuantities";
   @javax.annotation.Nonnull
-  private List<Object> cargoQuantities = new ArrayList<>();
+  private List<CteCargoQuantity> cargoQuantities = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_LINKED_NFE_ACCESS_KEYS = "linkedNfeAccessKeys";
+  @javax.annotation.Nullable
+  private List<String> linkedNfeAccessKeys = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SERVICE_AMOUNT = "serviceAmount";
   @javax.annotation.Nonnull
@@ -96,26 +181,58 @@ public class CteCreateRequest {
 
   public static final String JSON_PROPERTY_ICMS = "icms";
   @javax.annotation.Nonnull
-  private Object icms;
+  private CteIcms icms;
 
-  public static final String JSON_PROPERTY_COMPONENTS = "components";
+  public static final String JSON_PROPERTY_RNTRC = "rntrc";
   @javax.annotation.Nullable
-  private List<Object> components = new ArrayList<>();
+  private String rntrc;
 
   public static final String JSON_PROPERTY_COMPLEMENT = "complement";
   @javax.annotation.Nullable
-  private Object complement;
+  private CteCreateRequestComplement complement;
+
+  public static final String JSON_PROPERTY_COMPONENTS = "components";
+  @javax.annotation.Nullable
+  private List<DfeComponent> components = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUT_XML = "autXml";
   @javax.annotation.Nullable
-  private List<Object> autXml = new ArrayList<>();
+  private List<DfeAutXml> autXml = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TECH_RESPONSIBLE = "techResponsible";
   @javax.annotation.Nullable
-  private Object techResponsible;
+  private DfeTechResponsible techResponsible;
+
+  public static final String JSON_PROPERTY_MODAL = "modal";
+  @javax.annotation.Nullable
+  private String modal;
 
   public CteCreateRequest() { 
   }
+
+  public CteCreateRequest externalId(@javax.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+    return this;
+  }
+
+  /**
+   * Idempotência. Obrigatório se não enviar o header &#x60;Idempotency-Key&#x60; (400 &#x60;CTE_EXTERNAL_ID_REQUIRED&#x60;).
+   * @return externalId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getExternalId() {
+    return externalId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalId(@javax.annotation.Nullable String externalId) {
+    this.externalId = externalId;
+  }
+
 
   public CteCreateRequest cfop(@javax.annotation.Nonnull String cfop) {
     this.cfop = cfop;
@@ -165,7 +282,55 @@ public class CteCreateRequest {
   }
 
 
-  public CteCreateRequest shipper(@javax.annotation.Nonnull Object shipper) {
+  public CteCreateRequest serviceType(@javax.annotation.Nullable String serviceType) {
+    this.serviceType = serviceType;
+    return this;
+  }
+
+  /**
+   * Tipo do serviço (tpServ). Default 0.
+   * @return serviceType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getServiceType() {
+    return serviceType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERVICE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceType(@javax.annotation.Nullable String serviceType) {
+    this.serviceType = serviceType;
+  }
+
+
+  public CteCreateRequest taker(@javax.annotation.Nullable TakerEnum taker) {
+    this.taker = taker;
+    return this;
+  }
+
+  /**
+   * Tomador (toma). &#x60;4&#x60; &#x3D; outro — informe &#x60;takerParty&#x60;.
+   * @return taker
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAKER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public TakerEnum getTaker() {
+    return taker;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TAKER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaker(@javax.annotation.Nullable TakerEnum taker) {
+    this.taker = taker;
+  }
+
+
+  public CteCreateRequest shipper(@javax.annotation.Nonnull CteParty shipper) {
     this.shipper = shipper;
     return this;
   }
@@ -177,19 +342,19 @@ public class CteCreateRequest {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_SHIPPER, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public Object getShipper() {
+  public CteParty getShipper() {
     return shipper;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_SHIPPER, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setShipper(@javax.annotation.Nonnull Object shipper) {
+  public void setShipper(@javax.annotation.Nonnull CteParty shipper) {
     this.shipper = shipper;
   }
 
 
-  public CteCreateRequest recipient(@javax.annotation.Nonnull Object recipient) {
+  public CteCreateRequest recipient(@javax.annotation.Nonnull CteParty recipient) {
     this.recipient = recipient;
     return this;
   }
@@ -201,15 +366,87 @@ public class CteCreateRequest {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_RECIPIENT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public Object getRecipient() {
+  public CteParty getRecipient() {
     return recipient;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_RECIPIENT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecipient(@javax.annotation.Nonnull Object recipient) {
+  public void setRecipient(@javax.annotation.Nonnull CteParty recipient) {
     this.recipient = recipient;
+  }
+
+
+  public CteCreateRequest dispatcher(@javax.annotation.Nullable CteParty dispatcher) {
+    this.dispatcher = dispatcher;
+    return this;
+  }
+
+  /**
+   * Get dispatcher
+   * @return dispatcher
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DISPATCHER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public CteParty getDispatcher() {
+    return dispatcher;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DISPATCHER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDispatcher(@javax.annotation.Nullable CteParty dispatcher) {
+    this.dispatcher = dispatcher;
+  }
+
+
+  public CteCreateRequest receiver(@javax.annotation.Nullable CteParty receiver) {
+    this.receiver = receiver;
+    return this;
+  }
+
+  /**
+   * Get receiver
+   * @return receiver
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RECEIVER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public CteParty getReceiver() {
+    return receiver;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RECEIVER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReceiver(@javax.annotation.Nullable CteParty receiver) {
+    this.receiver = receiver;
+  }
+
+
+  public CteCreateRequest takerParty(@javax.annotation.Nullable CteParty takerParty) {
+    this.takerParty = takerParty;
+    return this;
+  }
+
+  /**
+   * Get takerParty
+   * @return takerParty
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAKER_PARTY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public CteParty getTakerParty() {
+    return takerParty;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TAKER_PARTY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTakerParty(@javax.annotation.Nullable CteParty takerParty) {
+    this.takerParty = takerParty;
   }
 
 
@@ -268,6 +505,7 @@ public class CteCreateRequest {
 
   /**
    * Get cargoValue
+   * minimum: 0
    * @return cargoValue
    */
   @javax.annotation.Nonnull
@@ -309,12 +547,12 @@ public class CteCreateRequest {
   }
 
 
-  public CteCreateRequest cargoQuantities(@javax.annotation.Nonnull List<Object> cargoQuantities) {
+  public CteCreateRequest cargoQuantities(@javax.annotation.Nonnull List<CteCargoQuantity> cargoQuantities) {
     this.cargoQuantities = cargoQuantities;
     return this;
   }
 
-  public CteCreateRequest addCargoQuantitiesItem(Object cargoQuantitiesItem) {
+  public CteCreateRequest addCargoQuantitiesItem(CteCargoQuantity cargoQuantitiesItem) {
     if (this.cargoQuantities == null) {
       this.cargoQuantities = new ArrayList<>();
     }
@@ -329,15 +567,47 @@ public class CteCreateRequest {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_CARGO_QUANTITIES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public List<Object> getCargoQuantities() {
+  public List<CteCargoQuantity> getCargoQuantities() {
     return cargoQuantities;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_CARGO_QUANTITIES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCargoQuantities(@javax.annotation.Nonnull List<Object> cargoQuantities) {
+  public void setCargoQuantities(@javax.annotation.Nonnull List<CteCargoQuantity> cargoQuantities) {
     this.cargoQuantities = cargoQuantities;
+  }
+
+
+  public CteCreateRequest linkedNfeAccessKeys(@javax.annotation.Nullable List<String> linkedNfeAccessKeys) {
+    this.linkedNfeAccessKeys = linkedNfeAccessKeys;
+    return this;
+  }
+
+  public CteCreateRequest addLinkedNfeAccessKeysItem(String linkedNfeAccessKeysItem) {
+    if (this.linkedNfeAccessKeys == null) {
+      this.linkedNfeAccessKeys = new ArrayList<>();
+    }
+    this.linkedNfeAccessKeys.add(linkedNfeAccessKeysItem);
+    return this;
+  }
+
+  /**
+   * Get linkedNfeAccessKeys
+   * @return linkedNfeAccessKeys
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_LINKED_NFE_ACCESS_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getLinkedNfeAccessKeys() {
+    return linkedNfeAccessKeys;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_LINKED_NFE_ACCESS_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLinkedNfeAccessKeys(@javax.annotation.Nullable List<String> linkedNfeAccessKeys) {
+    this.linkedNfeAccessKeys = linkedNfeAccessKeys;
   }
 
 
@@ -348,6 +618,7 @@ public class CteCreateRequest {
 
   /**
    * Get serviceAmount
+   * minimum: 0
    * @return serviceAmount
    */
   @javax.annotation.Nonnull
@@ -365,7 +636,7 @@ public class CteCreateRequest {
   }
 
 
-  public CteCreateRequest icms(@javax.annotation.Nonnull Object icms) {
+  public CteCreateRequest icms(@javax.annotation.Nonnull CteIcms icms) {
     this.icms = icms;
     return this;
   }
@@ -377,24 +648,72 @@ public class CteCreateRequest {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_ICMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public Object getIcms() {
+  public CteIcms getIcms() {
     return icms;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_ICMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIcms(@javax.annotation.Nonnull Object icms) {
+  public void setIcms(@javax.annotation.Nonnull CteIcms icms) {
     this.icms = icms;
   }
 
 
-  public CteCreateRequest components(@javax.annotation.Nullable List<Object> components) {
+  public CteCreateRequest rntrc(@javax.annotation.Nullable String rntrc) {
+    this.rntrc = rntrc;
+    return this;
+  }
+
+  /**
+   * Get rntrc
+   * @return rntrc
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RNTRC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getRntrc() {
+    return rntrc;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RNTRC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRntrc(@javax.annotation.Nullable String rntrc) {
+    this.rntrc = rntrc;
+  }
+
+
+  public CteCreateRequest complement(@javax.annotation.Nullable CteCreateRequestComplement complement) {
+    this.complement = complement;
+    return this;
+  }
+
+  /**
+   * Get complement
+   * @return complement
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_COMPLEMENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public CteCreateRequestComplement getComplement() {
+    return complement;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_COMPLEMENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setComplement(@javax.annotation.Nullable CteCreateRequestComplement complement) {
+    this.complement = complement;
+  }
+
+
+  public CteCreateRequest components(@javax.annotation.Nullable List<DfeComponent> components) {
     this.components = components;
     return this;
   }
 
-  public CteCreateRequest addComponentsItem(Object componentsItem) {
+  public CteCreateRequest addComponentsItem(DfeComponent componentsItem) {
     if (this.components == null) {
       this.components = new ArrayList<>();
     }
@@ -409,48 +728,24 @@ public class CteCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getComponents() {
+  public List<DfeComponent> getComponents() {
     return components;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_COMPONENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComponents(@javax.annotation.Nullable List<Object> components) {
+  public void setComponents(@javax.annotation.Nullable List<DfeComponent> components) {
     this.components = components;
   }
 
 
-  public CteCreateRequest complement(@javax.annotation.Nullable Object complement) {
-    this.complement = complement;
-    return this;
-  }
-
-  /**
-   * Get complement
-   * @return complement
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COMPLEMENT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getComplement() {
-    return complement;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_COMPLEMENT, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComplement(@javax.annotation.Nullable Object complement) {
-    this.complement = complement;
-  }
-
-
-  public CteCreateRequest autXml(@javax.annotation.Nullable List<Object> autXml) {
+  public CteCreateRequest autXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
     this.autXml = autXml;
     return this;
   }
 
-  public CteCreateRequest addAutXmlItem(Object autXmlItem) {
+  public CteCreateRequest addAutXmlItem(DfeAutXml autXmlItem) {
     if (this.autXml == null) {
       this.autXml = new ArrayList<>();
     }
@@ -465,19 +760,19 @@ public class CteCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getAutXml() {
+  public List<DfeAutXml> getAutXml() {
     return autXml;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAutXml(@javax.annotation.Nullable List<Object> autXml) {
+  public void setAutXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
     this.autXml = autXml;
   }
 
 
-  public CteCreateRequest techResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public CteCreateRequest techResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
     return this;
   }
@@ -489,15 +784,39 @@ public class CteCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getTechResponsible() {
+  public DfeTechResponsible getTechResponsible() {
     return techResponsible;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTechResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public void setTechResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
+  }
+
+
+  public CteCreateRequest modal(@javax.annotation.Nullable String modal) {
+    this.modal = modal;
+    return this;
+  }
+
+  /**
+   * Get modal
+   * @return modal
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MODAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getModal() {
+    return modal;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_MODAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setModal(@javax.annotation.Nullable String modal) {
+    this.modal = modal;
   }
 
 
@@ -513,47 +832,65 @@ public class CteCreateRequest {
       return false;
     }
     CteCreateRequest cteCreateRequest = (CteCreateRequest) o;
-    return Objects.equals(this.cfop, cteCreateRequest.cfop) &&
+    return Objects.equals(this.externalId, cteCreateRequest.externalId) &&
+        Objects.equals(this.cfop, cteCreateRequest.cfop) &&
         Objects.equals(this.nature, cteCreateRequest.nature) &&
+        Objects.equals(this.serviceType, cteCreateRequest.serviceType) &&
+        Objects.equals(this.taker, cteCreateRequest.taker) &&
         Objects.equals(this.shipper, cteCreateRequest.shipper) &&
         Objects.equals(this.recipient, cteCreateRequest.recipient) &&
+        Objects.equals(this.dispatcher, cteCreateRequest.dispatcher) &&
+        Objects.equals(this.receiver, cteCreateRequest.receiver) &&
+        Objects.equals(this.takerParty, cteCreateRequest.takerParty) &&
         Objects.equals(this.municipalityStartIbge, cteCreateRequest.municipalityStartIbge) &&
         Objects.equals(this.municipalityEndIbge, cteCreateRequest.municipalityEndIbge) &&
         Objects.equals(this.cargoValue, cteCreateRequest.cargoValue) &&
         Objects.equals(this.cargoProduct, cteCreateRequest.cargoProduct) &&
         Objects.equals(this.cargoQuantities, cteCreateRequest.cargoQuantities) &&
+        Objects.equals(this.linkedNfeAccessKeys, cteCreateRequest.linkedNfeAccessKeys) &&
         Objects.equals(this.serviceAmount, cteCreateRequest.serviceAmount) &&
         Objects.equals(this.icms, cteCreateRequest.icms) &&
-        Objects.equals(this.components, cteCreateRequest.components) &&
+        Objects.equals(this.rntrc, cteCreateRequest.rntrc) &&
         Objects.equals(this.complement, cteCreateRequest.complement) &&
+        Objects.equals(this.components, cteCreateRequest.components) &&
         Objects.equals(this.autXml, cteCreateRequest.autXml) &&
-        Objects.equals(this.techResponsible, cteCreateRequest.techResponsible);
+        Objects.equals(this.techResponsible, cteCreateRequest.techResponsible) &&
+        Objects.equals(this.modal, cteCreateRequest.modal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cfop, nature, shipper, recipient, municipalityStartIbge, municipalityEndIbge, cargoValue, cargoProduct, cargoQuantities, serviceAmount, icms, components, complement, autXml, techResponsible);
+    return Objects.hash(externalId, cfop, nature, serviceType, taker, shipper, recipient, dispatcher, receiver, takerParty, municipalityStartIbge, municipalityEndIbge, cargoValue, cargoProduct, cargoQuantities, linkedNfeAccessKeys, serviceAmount, icms, rntrc, complement, components, autXml, techResponsible, modal);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CteCreateRequest {\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
     sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
+    sb.append("    serviceType: ").append(toIndentedString(serviceType)).append("\n");
+    sb.append("    taker: ").append(toIndentedString(taker)).append("\n");
     sb.append("    shipper: ").append(toIndentedString(shipper)).append("\n");
     sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
+    sb.append("    dispatcher: ").append(toIndentedString(dispatcher)).append("\n");
+    sb.append("    receiver: ").append(toIndentedString(receiver)).append("\n");
+    sb.append("    takerParty: ").append(toIndentedString(takerParty)).append("\n");
     sb.append("    municipalityStartIbge: ").append(toIndentedString(municipalityStartIbge)).append("\n");
     sb.append("    municipalityEndIbge: ").append(toIndentedString(municipalityEndIbge)).append("\n");
     sb.append("    cargoValue: ").append(toIndentedString(cargoValue)).append("\n");
     sb.append("    cargoProduct: ").append(toIndentedString(cargoProduct)).append("\n");
     sb.append("    cargoQuantities: ").append(toIndentedString(cargoQuantities)).append("\n");
+    sb.append("    linkedNfeAccessKeys: ").append(toIndentedString(linkedNfeAccessKeys)).append("\n");
     sb.append("    serviceAmount: ").append(toIndentedString(serviceAmount)).append("\n");
     sb.append("    icms: ").append(toIndentedString(icms)).append("\n");
-    sb.append("    components: ").append(toIndentedString(components)).append("\n");
+    sb.append("    rntrc: ").append(toIndentedString(rntrc)).append("\n");
     sb.append("    complement: ").append(toIndentedString(complement)).append("\n");
+    sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("    autXml: ").append(toIndentedString(autXml)).append("\n");
     sb.append("    techResponsible: ").append(toIndentedString(techResponsible)).append("\n");
+    sb.append("    modal: ").append(toIndentedString(modal)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -598,6 +935,11 @@ public class CteCreateRequest {
 
     StringJoiner joiner = new StringJoiner("&");
 
+    // add `externalId` to the URL query string
+    if (getExternalId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sexternalId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
+    }
+
     // add `cfop` to the URL query string
     if (getCfop() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scfop%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfop()))));
@@ -608,14 +950,39 @@ public class CteCreateRequest {
       joiner.add(String.format(java.util.Locale.ROOT, "%snature%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNature()))));
     }
 
+    // add `serviceType` to the URL query string
+    if (getServiceType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sserviceType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getServiceType()))));
+    }
+
+    // add `taker` to the URL query string
+    if (getTaker() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%staker%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaker()))));
+    }
+
     // add `shipper` to the URL query string
     if (getShipper() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sshipper%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getShipper()))));
+      joiner.add(getShipper().toUrlQueryString(prefix + "shipper" + suffix));
     }
 
     // add `recipient` to the URL query string
     if (getRecipient() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%srecipient%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRecipient()))));
+      joiner.add(getRecipient().toUrlQueryString(prefix + "recipient" + suffix));
+    }
+
+    // add `dispatcher` to the URL query string
+    if (getDispatcher() != null) {
+      joiner.add(getDispatcher().toUrlQueryString(prefix + "dispatcher" + suffix));
+    }
+
+    // add `receiver` to the URL query string
+    if (getReceiver() != null) {
+      joiner.add(getReceiver().toUrlQueryString(prefix + "receiver" + suffix));
+    }
+
+    // add `takerParty` to the URL query string
+    if (getTakerParty() != null) {
+      joiner.add(getTakerParty().toUrlQueryString(prefix + "takerParty" + suffix));
     }
 
     // add `municipalityStartIbge` to the URL query string
@@ -641,9 +1008,19 @@ public class CteCreateRequest {
     // add `cargoQuantities` to the URL query string
     if (getCargoQuantities() != null) {
       for (int i = 0; i < getCargoQuantities().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%scargoQuantities%s%s=%s", prefix, suffix,
+        if (getCargoQuantities().get(i) != null) {
+          joiner.add(getCargoQuantities().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%scargoQuantities%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `linkedNfeAccessKeys` to the URL query string
+    if (getLinkedNfeAccessKeys() != null) {
+      for (int i = 0; i < getLinkedNfeAccessKeys().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%slinkedNfeAccessKeys%s%s=%s", prefix, suffix,
             "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getCargoQuantities().get(i)))));
+            ApiClient.urlEncode(ApiClient.valueToString(getLinkedNfeAccessKeys().get(i)))));
       }
     }
 
@@ -654,35 +1031,47 @@ public class CteCreateRequest {
 
     // add `icms` to the URL query string
     if (getIcms() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sicms%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIcms()))));
+      joiner.add(getIcms().toUrlQueryString(prefix + "icms" + suffix));
+    }
+
+    // add `rntrc` to the URL query string
+    if (getRntrc() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%srntrc%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRntrc()))));
+    }
+
+    // add `complement` to the URL query string
+    if (getComplement() != null) {
+      joiner.add(getComplement().toUrlQueryString(prefix + "complement" + suffix));
     }
 
     // add `components` to the URL query string
     if (getComponents() != null) {
       for (int i = 0; i < getComponents().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%scomponents%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getComponents().get(i)))));
+        if (getComponents().get(i) != null) {
+          joiner.add(getComponents().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%scomponents%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
-    }
-
-    // add `complement` to the URL query string
-    if (getComplement() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%scomplement%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getComplement()))));
     }
 
     // add `autXml` to the URL query string
     if (getAutXml() != null) {
       for (int i = 0; i < getAutXml().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%sautXml%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getAutXml().get(i)))));
+        if (getAutXml().get(i) != null) {
+          joiner.add(getAutXml().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sautXml%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 
     // add `techResponsible` to the URL query string
     if (getTechResponsible() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%stechResponsible%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTechResponsible()))));
+      joiner.add(getTechResponsible().toUrlQueryString(prefix + "techResponsible" + suffix));
+    }
+
+    // add `modal` to the URL query string
+    if (getModal() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smodal%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getModal()))));
     }
 
     return joiner.toString();

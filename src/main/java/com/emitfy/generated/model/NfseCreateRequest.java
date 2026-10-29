@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfseCreateRequest
+ * Além dos campos &#x60;required&#x60;, a validação exige: &#x60;cityServiceCode&#x60; (ou o alias &#x60;serviceCode&#x60;), &#x60;federalServiceCode&#x60; (ou &#x60;serviceItemCode&#x60;) e &#x60;iss.rate&#x60; (ou &#x60;taxes.iss.rate&#x60;; 0 é válido). Com &#x60;serviceLocation&#x60; &#x60;3&#x60;, &#x60;cityIbge&#x60; (IBGE de 7 dígitos) é obrigatório. Falha → 422 &#x60;VALIDATION_ERROR&#x60;. Campo desconhecido também → 422. 
  */
 @JsonPropertyOrder({
   NfseCreateRequest.JSON_PROPERTY_SERVICE_DESCRIPTION,
@@ -56,6 +56,11 @@ import com.emitfy.generated.ApiClient;
   NfseCreateRequest.JSON_PROPERTY_NATURE_OF_OPERATION,
   NfseCreateRequest.JSON_PROPERTY_SERVICE_LOCATION,
   NfseCreateRequest.JSON_PROPERTY_MUNICIPALITY_OF_INCIDENCE,
+  NfseCreateRequest.JSON_PROPERTY_CITY_IBGE,
+  NfseCreateRequest.JSON_PROPERTY_COMPETENCE_DATE,
+  NfseCreateRequest.JSON_PROPERTY_DEDUCTIONS,
+  NfseCreateRequest.JSON_PROPERTY_EXIGIBILITY,
+  NfseCreateRequest.JSON_PROPERTY_ADDITIONAL_INFO,
   NfseCreateRequest.JSON_PROPERTY_TAXES,
   NfseCreateRequest.JSON_PROPERTY_AMOUNT,
   NfseCreateRequest.JSON_PROPERTY_ISSUE_DATE,
@@ -85,20 +90,99 @@ public class NfseCreateRequest {
   @javax.annotation.Nullable
   private String sku;
 
+  /**
+   * Default other_service
+   */
+  public enum CategoryEnum {
+    ONLINE_COURSE(String.valueOf("online_course")),
+    
+    CONSULTING(String.valueOf("consulting")),
+    
+    SUBSCRIPTION(String.valueOf("subscription")),
+    
+    SAAS(String.valueOf("saas")),
+    
+    ONLINE_EVENT(String.valueOf("online_event")),
+    
+    PROFESSIONAL_SERVICE(String.valueOf("professional_service")),
+    
+    OTHER_SERVICE(String.valueOf("other_service")),
+    
+    AFFILIATE_INFOPRODUCTS(String.valueOf("affiliate_infoproducts")),
+    
+    AFFILIATE_BETTING(String.valueOf("affiliate_betting")),
+    
+    MARKETING_AGENCY(String.valueOf("marketing_agency")),
+    
+    COPYWRITER(String.valueOf("copywriter")),
+    
+    SYSTEMS_DEVELOPMENT(String.valueOf("systems_development")),
+    
+    GRAPHIC_DESIGNER(String.valueOf("graphic_designer")),
+    
+    DROPSHIPPING_SUPPLIER(String.valueOf("dropshipping_supplier")),
+    
+    DROPSHIPPING_CONSUMER(String.valueOf("dropshipping_consumer")),
+    
+    TRAFFIC_MANAGER(String.valueOf("traffic_manager")),
+    
+    DIGITAL_INFLUENCER(String.valueOf("digital_influencer")),
+    
+    INFOPRODUCER(String.valueOf("infoproducer")),
+    
+    PHYSICAL_PRODUCT(String.valueOf("physical_product")),
+    
+    DIGITAL_BOOK(String.valueOf("digital_book")),
+    
+    DIGITAL_CONTENT(String.valueOf("digital_content")),
+    
+    MEMBERSHIP(String.valueOf("membership")),
+    
+    SOFTWARE(String.valueOf("software")),
+    
+    OTHER_PRODUCT(String.valueOf("other_product"));
+
+    private String value;
+
+    CategoryEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static CategoryEnum fromValue(String value) {
+      for (CategoryEnum b : CategoryEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
   public static final String JSON_PROPERTY_CATEGORY = "category";
   @javax.annotation.Nullable
-  private String category;
+  private CategoryEnum category;
 
   public static final String JSON_PROPERTY_GUARANTEE = "guarantee";
   @javax.annotation.Nullable
   private Integer guarantee;
 
   public static final String JSON_PROPERTY_CITY_SERVICE_CODE = "cityServiceCode";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String cityServiceCode;
 
   public static final String JSON_PROPERTY_FEDERAL_SERVICE_CODE = "federalServiceCode";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String federalServiceCode;
 
   public static final String JSON_PROPERTY_NBS = "nbs";
@@ -110,24 +194,161 @@ public class NfseCreateRequest {
   private String cnaeCode;
 
   public static final String JSON_PROPERTY_ISS = "iss";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private NfseCreateRequestIss iss;
 
   public static final String JSON_PROPERTY_IBS_CBS = "ibsCbs";
   @javax.annotation.Nullable
   private NfseCreateRequestIbsCbs ibsCbs;
 
+  /**
+   * Natureza da operação. Default 1.
+   */
+  public enum NatureOfOperationEnum {
+    _1(String.valueOf("1")),
+    
+    _2(String.valueOf("2")),
+    
+    _3(String.valueOf("3")),
+    
+    _4(String.valueOf("4")),
+    
+    _5(String.valueOf("5")),
+    
+    _6(String.valueOf("6"));
+
+    private String value;
+
+    NatureOfOperationEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static NatureOfOperationEnum fromValue(String value) {
+      for (NatureOfOperationEnum b : NatureOfOperationEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
   public static final String JSON_PROPERTY_NATURE_OF_OPERATION = "natureOfOperation";
   @javax.annotation.Nullable
-  private String natureOfOperation;
+  private NatureOfOperationEnum natureOfOperation;
+
+  /**
+   * Local de prestação. &#x60;1&#x60; município da empresa (default), &#x60;2&#x60; município do tomador, &#x60;3&#x60; outro município (exige &#x60;cityIbge&#x60;). 
+   */
+  public enum ServiceLocationEnum {
+    _1(String.valueOf("1")),
+    
+    _2(String.valueOf("2")),
+    
+    _3(String.valueOf("3"));
+
+    private String value;
+
+    ServiceLocationEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ServiceLocationEnum fromValue(String value) {
+      for (ServiceLocationEnum b : ServiceLocationEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
 
   public static final String JSON_PROPERTY_SERVICE_LOCATION = "serviceLocation";
   @javax.annotation.Nullable
-  private String serviceLocation;
+  private ServiceLocationEnum serviceLocation;
+
+  /**
+   * Município de incidência do ISS. Default 0.
+   */
+  public enum MunicipalityOfIncidenceEnum {
+    _0(String.valueOf("0")),
+    
+    _1(String.valueOf("1")),
+    
+    _2(String.valueOf("2"));
+
+    private String value;
+
+    MunicipalityOfIncidenceEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MunicipalityOfIncidenceEnum fromValue(String value) {
+      for (MunicipalityOfIncidenceEnum b : MunicipalityOfIncidenceEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
 
   public static final String JSON_PROPERTY_MUNICIPALITY_OF_INCIDENCE = "municipalityOfIncidence";
   @javax.annotation.Nullable
-  private String municipalityOfIncidence;
+  private MunicipalityOfIncidenceEnum municipalityOfIncidence;
+
+  public static final String JSON_PROPERTY_CITY_IBGE = "cityIbge";
+  @javax.annotation.Nullable
+  private String cityIbge;
+
+  public static final String JSON_PROPERTY_COMPETENCE_DATE = "competenceDate";
+  @javax.annotation.Nullable
+  private OffsetDateTime competenceDate;
+
+  public static final String JSON_PROPERTY_DEDUCTIONS = "deductions";
+  @javax.annotation.Nullable
+  private BigDecimal deductions;
+
+  public static final String JSON_PROPERTY_EXIGIBILITY = "exigibility";
+  @javax.annotation.Nullable
+  private String exigibility;
+
+  public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
+  @javax.annotation.Nullable
+  private String additionalInfo;
 
   public static final String JSON_PROPERTY_TAXES = "taxes";
   @javax.annotation.Nullable
@@ -260,7 +481,7 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest category(@javax.annotation.Nullable String category) {
+  public NfseCreateRequest category(@javax.annotation.Nullable CategoryEnum category) {
     this.category = category;
     return this;
   }
@@ -272,14 +493,14 @@ public class NfseCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_CATEGORY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getCategory() {
+  public CategoryEnum getCategory() {
     return category;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_CATEGORY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCategory(@javax.annotation.Nullable String category) {
+  public void setCategory(@javax.annotation.Nullable CategoryEnum category) {
     this.category = category;
   }
 
@@ -310,50 +531,50 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest cityServiceCode(@javax.annotation.Nonnull String cityServiceCode) {
+  public NfseCreateRequest cityServiceCode(@javax.annotation.Nullable String cityServiceCode) {
     this.cityServiceCode = cityServiceCode;
     return this;
   }
 
   /**
-   * Código municipal do serviço
+   * Código municipal do serviço (obrigatório, ou o alias &#x60;serviceCode&#x60;)
    * @return cityServiceCode
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getCityServiceCode() {
     return cityServiceCode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCityServiceCode(@javax.annotation.Nonnull String cityServiceCode) {
+  @JsonProperty(value = JSON_PROPERTY_CITY_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCityServiceCode(@javax.annotation.Nullable String cityServiceCode) {
     this.cityServiceCode = cityServiceCode;
   }
 
 
-  public NfseCreateRequest federalServiceCode(@javax.annotation.Nonnull String federalServiceCode) {
+  public NfseCreateRequest federalServiceCode(@javax.annotation.Nullable String federalServiceCode) {
     this.federalServiceCode = federalServiceCode;
     return this;
   }
 
   /**
-   * Item LC 116 (cTribNac)
+   * Item LC 116 (cTribNac) — obrigatório, ou o alias &#x60;serviceItemCode&#x60;
    * @return federalServiceCode
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getFederalServiceCode() {
     return federalServiceCode;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFederalServiceCode(@javax.annotation.Nonnull String federalServiceCode) {
+  @JsonProperty(value = JSON_PROPERTY_FEDERAL_SERVICE_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFederalServiceCode(@javax.annotation.Nullable String federalServiceCode) {
     this.federalServiceCode = federalServiceCode;
   }
 
@@ -406,7 +627,7 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest iss(@javax.annotation.Nonnull NfseCreateRequestIss iss) {
+  public NfseCreateRequest iss(@javax.annotation.Nullable NfseCreateRequestIss iss) {
     this.iss = iss;
     return this;
   }
@@ -415,17 +636,17 @@ public class NfseCreateRequest {
    * Get iss
    * @return iss
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ISS, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ISS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public NfseCreateRequestIss getIss() {
     return iss;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ISS, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIss(@javax.annotation.Nonnull NfseCreateRequestIss iss) {
+  @JsonProperty(value = JSON_PROPERTY_ISS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIss(@javax.annotation.Nullable NfseCreateRequestIss iss) {
     this.iss = iss;
   }
 
@@ -454,75 +675,196 @@ public class NfseCreateRequest {
   }
 
 
-  public NfseCreateRequest natureOfOperation(@javax.annotation.Nullable String natureOfOperation) {
+  public NfseCreateRequest natureOfOperation(@javax.annotation.Nullable NatureOfOperationEnum natureOfOperation) {
     this.natureOfOperation = natureOfOperation;
     return this;
   }
 
   /**
-   * Get natureOfOperation
+   * Natureza da operação. Default 1.
    * @return natureOfOperation
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_NATURE_OF_OPERATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getNatureOfOperation() {
+  public NatureOfOperationEnum getNatureOfOperation() {
     return natureOfOperation;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_NATURE_OF_OPERATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNatureOfOperation(@javax.annotation.Nullable String natureOfOperation) {
+  public void setNatureOfOperation(@javax.annotation.Nullable NatureOfOperationEnum natureOfOperation) {
     this.natureOfOperation = natureOfOperation;
   }
 
 
-  public NfseCreateRequest serviceLocation(@javax.annotation.Nullable String serviceLocation) {
+  public NfseCreateRequest serviceLocation(@javax.annotation.Nullable ServiceLocationEnum serviceLocation) {
     this.serviceLocation = serviceLocation;
     return this;
   }
 
   /**
-   * Get serviceLocation
+   * Local de prestação. &#x60;1&#x60; município da empresa (default), &#x60;2&#x60; município do tomador, &#x60;3&#x60; outro município (exige &#x60;cityIbge&#x60;). 
    * @return serviceLocation
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_SERVICE_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getServiceLocation() {
+  public ServiceLocationEnum getServiceLocation() {
     return serviceLocation;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_SERVICE_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setServiceLocation(@javax.annotation.Nullable String serviceLocation) {
+  public void setServiceLocation(@javax.annotation.Nullable ServiceLocationEnum serviceLocation) {
     this.serviceLocation = serviceLocation;
   }
 
 
-  public NfseCreateRequest municipalityOfIncidence(@javax.annotation.Nullable String municipalityOfIncidence) {
+  public NfseCreateRequest municipalityOfIncidence(@javax.annotation.Nullable MunicipalityOfIncidenceEnum municipalityOfIncidence) {
     this.municipalityOfIncidence = municipalityOfIncidence;
     return this;
   }
 
   /**
-   * Get municipalityOfIncidence
+   * Município de incidência do ISS. Default 0.
    * @return municipalityOfIncidence
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_OF_INCIDENCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getMunicipalityOfIncidence() {
+  public MunicipalityOfIncidenceEnum getMunicipalityOfIncidence() {
     return municipalityOfIncidence;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_MUNICIPALITY_OF_INCIDENCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMunicipalityOfIncidence(@javax.annotation.Nullable String municipalityOfIncidence) {
+  public void setMunicipalityOfIncidence(@javax.annotation.Nullable MunicipalityOfIncidenceEnum municipalityOfIncidence) {
     this.municipalityOfIncidence = municipalityOfIncidence;
+  }
+
+
+  public NfseCreateRequest cityIbge(@javax.annotation.Nullable String cityIbge) {
+    this.cityIbge = cityIbge;
+    return this;
+  }
+
+  /**
+   * IBGE (7 dígitos) do local de prestação. Obrigatório com &#x60;serviceLocation&#x60; &#x60;3&#x60;.
+   * @return cityIbge
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CITY_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCityIbge() {
+    return cityIbge;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CITY_IBGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCityIbge(@javax.annotation.Nullable String cityIbge) {
+    this.cityIbge = cityIbge;
+  }
+
+
+  public NfseCreateRequest competenceDate(@javax.annotation.Nullable OffsetDateTime competenceDate) {
+    this.competenceDate = competenceDate;
+    return this;
+  }
+
+  /**
+   * Data de competência (ISO 8601 com offset).
+   * @return competenceDate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_COMPETENCE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getCompetenceDate() {
+    return competenceDate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_COMPETENCE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCompetenceDate(@javax.annotation.Nullable OffsetDateTime competenceDate) {
+    this.competenceDate = competenceDate;
+  }
+
+
+  public NfseCreateRequest deductions(@javax.annotation.Nullable BigDecimal deductions) {
+    this.deductions = deductions;
+    return this;
+  }
+
+  /**
+   * Deduções da base de cálculo. Default 0.
+   * minimum: 0
+   * @return deductions
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DEDUCTIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getDeductions() {
+    return deductions;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DEDUCTIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeductions(@javax.annotation.Nullable BigDecimal deductions) {
+    this.deductions = deductions;
+  }
+
+
+  public NfseCreateRequest exigibility(@javax.annotation.Nullable String exigibility) {
+    this.exigibility = exigibility;
+    return this;
+  }
+
+  /**
+   * Get exigibility
+   * @return exigibility
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXIGIBILITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getExigibility() {
+    return exigibility;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EXIGIBILITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExigibility(@javax.annotation.Nullable String exigibility) {
+    this.exigibility = exigibility;
+  }
+
+
+  public NfseCreateRequest additionalInfo(@javax.annotation.Nullable String additionalInfo) {
+    this.additionalInfo = additionalInfo;
+    return this;
+  }
+
+  /**
+   * Get additionalInfo
+   * @return additionalInfo
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_INFO, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getAdditionalInfo() {
+    return additionalInfo;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_INFO, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdditionalInfo(@javax.annotation.Nullable String additionalInfo) {
+    this.additionalInfo = additionalInfo;
   }
 
 
@@ -557,6 +899,7 @@ public class NfseCreateRequest {
 
   /**
    * Get amount
+   * minimum: 0
    * @return amount
    */
   @javax.annotation.Nonnull
@@ -604,7 +947,7 @@ public class NfseCreateRequest {
   }
 
   /**
-   * Get externalId
+   * Idempotência (o header &#x60;Idempotency-Key&#x60; tem prioridade)
    * @return externalId
    */
   @javax.annotation.Nullable
@@ -900,6 +1243,11 @@ public class NfseCreateRequest {
         Objects.equals(this.natureOfOperation, nfseCreateRequest.natureOfOperation) &&
         Objects.equals(this.serviceLocation, nfseCreateRequest.serviceLocation) &&
         Objects.equals(this.municipalityOfIncidence, nfseCreateRequest.municipalityOfIncidence) &&
+        Objects.equals(this.cityIbge, nfseCreateRequest.cityIbge) &&
+        Objects.equals(this.competenceDate, nfseCreateRequest.competenceDate) &&
+        Objects.equals(this.deductions, nfseCreateRequest.deductions) &&
+        Objects.equals(this.exigibility, nfseCreateRequest.exigibility) &&
+        Objects.equals(this.additionalInfo, nfseCreateRequest.additionalInfo) &&
         Objects.equals(this.taxes, nfseCreateRequest.taxes) &&
         Objects.equals(this.amount, nfseCreateRequest.amount) &&
         Objects.equals(this.issueDate, nfseCreateRequest.issueDate) &&
@@ -918,7 +1266,7 @@ public class NfseCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(serviceDescription, name, sku, category, guarantee, cityServiceCode, federalServiceCode, nbs, cnaeCode, iss, ibsCbs, natureOfOperation, serviceLocation, municipalityOfIncidence, taxes, amount, issueDate, externalId, borrower, intermediary, construction, substitution, serviceCode, serviceItemCode, nbsCode, taxClassification, ibsCst, ibsOperationIndicator);
+    return Objects.hash(serviceDescription, name, sku, category, guarantee, cityServiceCode, federalServiceCode, nbs, cnaeCode, iss, ibsCbs, natureOfOperation, serviceLocation, municipalityOfIncidence, cityIbge, competenceDate, deductions, exigibility, additionalInfo, taxes, amount, issueDate, externalId, borrower, intermediary, construction, substitution, serviceCode, serviceItemCode, nbsCode, taxClassification, ibsCst, ibsOperationIndicator);
   }
 
   @Override
@@ -939,6 +1287,11 @@ public class NfseCreateRequest {
     sb.append("    natureOfOperation: ").append(toIndentedString(natureOfOperation)).append("\n");
     sb.append("    serviceLocation: ").append(toIndentedString(serviceLocation)).append("\n");
     sb.append("    municipalityOfIncidence: ").append(toIndentedString(municipalityOfIncidence)).append("\n");
+    sb.append("    cityIbge: ").append(toIndentedString(cityIbge)).append("\n");
+    sb.append("    competenceDate: ").append(toIndentedString(competenceDate)).append("\n");
+    sb.append("    deductions: ").append(toIndentedString(deductions)).append("\n");
+    sb.append("    exigibility: ").append(toIndentedString(exigibility)).append("\n");
+    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    taxes: ").append(toIndentedString(taxes)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
@@ -1065,6 +1418,31 @@ public class NfseCreateRequest {
     // add `municipalityOfIncidence` to the URL query string
     if (getMunicipalityOfIncidence() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalityOfIncidence%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalityOfIncidence()))));
+    }
+
+    // add `cityIbge` to the URL query string
+    if (getCityIbge() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scityIbge%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCityIbge()))));
+    }
+
+    // add `competenceDate` to the URL query string
+    if (getCompetenceDate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scompetenceDate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCompetenceDate()))));
+    }
+
+    // add `deductions` to the URL query string
+    if (getDeductions() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdeductions%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDeductions()))));
+    }
+
+    // add `exigibility` to the URL query string
+    if (getExigibility() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sexigibility%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExigibility()))));
+    }
+
+    // add `additionalInfo` to the URL query string
+    if (getAdditionalInfo() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sadditionalInfo%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditionalInfo()))));
     }
 
     // add `taxes` to the URL query string

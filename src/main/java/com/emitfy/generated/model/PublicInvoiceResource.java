@@ -122,9 +122,52 @@ public class PublicInvoiceResource {
   @javax.annotation.Nonnull
   private TypeEnum type;
 
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    PENDING(String.valueOf("pending")),
+    
+    QUEUED(String.valueOf("queued")),
+    
+    PROCESSING(String.valueOf("processing")),
+    
+    AUTHORIZED(String.valueOf("authorized")),
+    
+    REJECTED(String.valueOf("rejected")),
+    
+    CANCELLED(String.valueOf("cancelled"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
   public static final String JSON_PROPERTY_STATUS = "status";
   @javax.annotation.Nonnull
-  private String status;
+  private StatusEnum status;
 
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull
@@ -334,7 +377,7 @@ public class PublicInvoiceResource {
   }
 
 
-  public PublicInvoiceResource status(@javax.annotation.Nonnull String status) {
+  public PublicInvoiceResource status(@javax.annotation.Nonnull StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -346,14 +389,14 @@ public class PublicInvoiceResource {
   @javax.annotation.Nonnull
   @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(@javax.annotation.Nonnull String status) {
+  public void setStatus(@javax.annotation.Nonnull StatusEnum status) {
     this.status = status;
   }
 

@@ -98,6 +98,7 @@ public class NumberInutilizationRequest {
   /**
    * Get rangeStart
    * minimum: 1
+   * maximum: 999999999
    * @return rangeStart
    */
   @javax.annotation.Nonnull
@@ -121,8 +122,9 @@ public class NumberInutilizationRequest {
   }
 
   /**
-   * Get rangeEnd
+   * Deve ser maior ou igual a &#x60;rangeStart&#x60;.
    * minimum: 1
+   * maximum: 999999999
    * @return rangeEnd
    */
   @javax.annotation.Nonnull
@@ -170,7 +172,7 @@ public class NumberInutilizationRequest {
   }
 
   /**
-   * Get year
+   * Ano da inutilização. Padrão &#x3D; ano corrente.
    * minimum: 2000
    * maximum: 2100
    * @return year

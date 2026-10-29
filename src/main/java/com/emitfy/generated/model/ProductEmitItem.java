@@ -46,6 +46,7 @@ import com.emitfy.generated.ApiClient;
   ProductEmitItem.JSON_PROPERTY_CFOP,
   ProductEmitItem.JSON_PROPERTY_CFOP_INTERNAL,
   ProductEmitItem.JSON_PROPERTY_CFOP_EXTERNAL,
+  ProductEmitItem.JSON_PROPERTY_CFOP_EXTERNAL_NON_TAXPAYER,
   ProductEmitItem.JSON_PROPERTY_CFOP_INTERNATIONAL,
   ProductEmitItem.JSON_PROPERTY_QUANTITY,
   ProductEmitItem.JSON_PROPERTY_UNIT_VALUE,
@@ -56,10 +57,25 @@ import com.emitfy.generated.ApiClient;
   ProductEmitItem.JSON_PROPERTY_ICMS_ORIGIN,
   ProductEmitItem.JSON_PROPERTY_ICMS_CST,
   ProductEmitItem.JSON_PROPERTY_ICMS_TAX_RATE,
+  ProductEmitItem.JSON_PROPERTY_ICMS_MOD_BC,
+  ProductEmitItem.JSON_PROPERTY_ICMS_TAX_BENEFIT_CODE,
   ProductEmitItem.JSON_PROPERTY_PIS_CST,
   ProductEmitItem.JSON_PROPERTY_PIS_TAX_RATE,
   ProductEmitItem.JSON_PROPERTY_COFINS_CST,
   ProductEmitItem.JSON_PROPERTY_COFINS_TAX_RATE,
+  ProductEmitItem.JSON_PROPERTY_IPI_CST,
+  ProductEmitItem.JSON_PROPERTY_IPI_TAX_RATE,
+  ProductEmitItem.JSON_PROPERTY_IPI_LEGAL_CODE,
+  ProductEmitItem.JSON_PROPERTY_CEST,
+  ProductEmitItem.JSON_PROPERTY_FCI,
+  ProductEmitItem.JSON_PROPERTY_NVE,
+  ProductEmitItem.JSON_PROPERTY_EXTIPI,
+  ProductEmitItem.JSON_PROPERTY_ORDER_NUMBER,
+  ProductEmitItem.JSON_PROPERTY_ORDER_ITEM,
+  ProductEmitItem.JSON_PROPERTY_FREIGHT,
+  ProductEmitItem.JSON_PROPERTY_INSURANCE,
+  ProductEmitItem.JSON_PROPERTY_DISCOUNT,
+  ProductEmitItem.JSON_PROPERTY_OTHER,
   ProductEmitItem.JSON_PROPERTY_TAX_CLASSIFICATION,
   ProductEmitItem.JSON_PROPERTY_IBS_CST,
   ProductEmitItem.JSON_PROPERTY_CBS_CST,
@@ -115,6 +131,10 @@ public class ProductEmitItem {
   @javax.annotation.Nullable
   private String cfopExternal;
 
+  public static final String JSON_PROPERTY_CFOP_EXTERNAL_NON_TAXPAYER = "cfopExternalNonTaxpayer";
+  @javax.annotation.Nullable
+  private String cfopExternalNonTaxpayer;
+
   public static final String JSON_PROPERTY_CFOP_INTERNATIONAL = "cfopInternational";
   @javax.annotation.Nullable
   private String cfopInternational;
@@ -155,6 +175,14 @@ public class ProductEmitItem {
   @javax.annotation.Nullable
   private BigDecimal icmsTaxRate;
 
+  public static final String JSON_PROPERTY_ICMS_MOD_BC = "icmsModBc";
+  @javax.annotation.Nullable
+  private String icmsModBc;
+
+  public static final String JSON_PROPERTY_ICMS_TAX_BENEFIT_CODE = "icmsTaxBenefitCode";
+  @javax.annotation.Nullable
+  private String icmsTaxBenefitCode;
+
   public static final String JSON_PROPERTY_PIS_CST = "pisCst";
   @javax.annotation.Nullable
   private String pisCst;
@@ -170,6 +198,58 @@ public class ProductEmitItem {
   public static final String JSON_PROPERTY_COFINS_TAX_RATE = "cofinsTaxRate";
   @javax.annotation.Nullable
   private BigDecimal cofinsTaxRate;
+
+  public static final String JSON_PROPERTY_IPI_CST = "ipiCst";
+  @javax.annotation.Nullable
+  private String ipiCst;
+
+  public static final String JSON_PROPERTY_IPI_TAX_RATE = "ipiTaxRate";
+  @javax.annotation.Nullable
+  private BigDecimal ipiTaxRate;
+
+  public static final String JSON_PROPERTY_IPI_LEGAL_CODE = "ipiLegalCode";
+  @javax.annotation.Nullable
+  private String ipiLegalCode;
+
+  public static final String JSON_PROPERTY_CEST = "cest";
+  @javax.annotation.Nullable
+  private String cest;
+
+  public static final String JSON_PROPERTY_FCI = "fci";
+  @javax.annotation.Nullable
+  private String fci;
+
+  public static final String JSON_PROPERTY_NVE = "nve";
+  @javax.annotation.Nullable
+  private List<String> nve = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_EXTIPI = "extipi";
+  @javax.annotation.Nullable
+  private String extipi;
+
+  public static final String JSON_PROPERTY_ORDER_NUMBER = "orderNumber";
+  @javax.annotation.Nullable
+  private String orderNumber;
+
+  public static final String JSON_PROPERTY_ORDER_ITEM = "orderItem";
+  @javax.annotation.Nullable
+  private Integer orderItem;
+
+  public static final String JSON_PROPERTY_FREIGHT = "freight";
+  @javax.annotation.Nullable
+  private BigDecimal freight;
+
+  public static final String JSON_PROPERTY_INSURANCE = "insurance";
+  @javax.annotation.Nullable
+  private BigDecimal insurance;
+
+  public static final String JSON_PROPERTY_DISCOUNT = "discount";
+  @javax.annotation.Nullable
+  private BigDecimal discount;
+
+  public static final String JSON_PROPERTY_OTHER = "other";
+  @javax.annotation.Nullable
+  private BigDecimal other;
 
   public static final String JSON_PROPERTY_TAX_CLASSIFICATION = "taxClassification";
   @javax.annotation.Nullable
@@ -324,7 +404,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get fiscalDescription
+   * Descrição na nota (xProd). Default &#x3D; description
    * @return fiscalDescription
    */
   @javax.annotation.Nullable
@@ -464,6 +544,30 @@ public class ProductEmitItem {
   }
 
 
+  public ProductEmitItem cfopExternalNonTaxpayer(@javax.annotation.Nullable String cfopExternalNonTaxpayer) {
+    this.cfopExternalNonTaxpayer = cfopExternalNonTaxpayer;
+    return this;
+  }
+
+  /**
+   * Get cfopExternalNonTaxpayer
+   * @return cfopExternalNonTaxpayer
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CFOP_EXTERNAL_NON_TAXPAYER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCfopExternalNonTaxpayer() {
+    return cfopExternalNonTaxpayer;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CFOP_EXTERNAL_NON_TAXPAYER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCfopExternalNonTaxpayer(@javax.annotation.Nullable String cfopExternalNonTaxpayer) {
+    this.cfopExternalNonTaxpayer = cfopExternalNonTaxpayer;
+  }
+
+
   public ProductEmitItem cfopInternational(@javax.annotation.Nullable String cfopInternational) {
     this.cfopInternational = cfopInternational;
     return this;
@@ -495,6 +599,7 @@ public class ProductEmitItem {
 
   /**
    * Get quantity
+   * minimum: 0
    * @return quantity
    */
   @javax.annotation.Nonnull
@@ -519,6 +624,7 @@ public class ProductEmitItem {
 
   /**
    * Get unitValue
+   * minimum: 0
    * @return unitValue
    */
   @javax.annotation.Nonnull
@@ -542,7 +648,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get unit
+   * Alias legado de commercialUnit
    * @return unit
    */
   @javax.annotation.Nullable
@@ -704,6 +810,54 @@ public class ProductEmitItem {
   }
 
 
+  public ProductEmitItem icmsModBc(@javax.annotation.Nullable String icmsModBc) {
+    this.icmsModBc = icmsModBc;
+    return this;
+  }
+
+  /**
+   * Get icmsModBc
+   * @return icmsModBc
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ICMS_MOD_BC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIcmsModBc() {
+    return icmsModBc;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ICMS_MOD_BC, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcmsModBc(@javax.annotation.Nullable String icmsModBc) {
+    this.icmsModBc = icmsModBc;
+  }
+
+
+  public ProductEmitItem icmsTaxBenefitCode(@javax.annotation.Nullable String icmsTaxBenefitCode) {
+    this.icmsTaxBenefitCode = icmsTaxBenefitCode;
+    return this;
+  }
+
+  /**
+   * Get icmsTaxBenefitCode
+   * @return icmsTaxBenefitCode
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ICMS_TAX_BENEFIT_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIcmsTaxBenefitCode() {
+    return icmsTaxBenefitCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ICMS_TAX_BENEFIT_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcmsTaxBenefitCode(@javax.annotation.Nullable String icmsTaxBenefitCode) {
+    this.icmsTaxBenefitCode = icmsTaxBenefitCode;
+  }
+
+
   public ProductEmitItem pisCst(@javax.annotation.Nullable String pisCst) {
     this.pisCst = pisCst;
     return this;
@@ -797,6 +951,331 @@ public class ProductEmitItem {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCofinsTaxRate(@javax.annotation.Nullable BigDecimal cofinsTaxRate) {
     this.cofinsTaxRate = cofinsTaxRate;
+  }
+
+
+  public ProductEmitItem ipiCst(@javax.annotation.Nullable String ipiCst) {
+    this.ipiCst = ipiCst;
+    return this;
+  }
+
+  /**
+   * Get ipiCst
+   * @return ipiCst
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IPI_CST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIpiCst() {
+    return ipiCst;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IPI_CST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpiCst(@javax.annotation.Nullable String ipiCst) {
+    this.ipiCst = ipiCst;
+  }
+
+
+  public ProductEmitItem ipiTaxRate(@javax.annotation.Nullable BigDecimal ipiTaxRate) {
+    this.ipiTaxRate = ipiTaxRate;
+    return this;
+  }
+
+  /**
+   * Get ipiTaxRate
+   * @return ipiTaxRate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IPI_TAX_RATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getIpiTaxRate() {
+    return ipiTaxRate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IPI_TAX_RATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpiTaxRate(@javax.annotation.Nullable BigDecimal ipiTaxRate) {
+    this.ipiTaxRate = ipiTaxRate;
+  }
+
+
+  public ProductEmitItem ipiLegalCode(@javax.annotation.Nullable String ipiLegalCode) {
+    this.ipiLegalCode = ipiLegalCode;
+    return this;
+  }
+
+  /**
+   * Get ipiLegalCode
+   * @return ipiLegalCode
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IPI_LEGAL_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIpiLegalCode() {
+    return ipiLegalCode;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IPI_LEGAL_CODE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpiLegalCode(@javax.annotation.Nullable String ipiLegalCode) {
+    this.ipiLegalCode = ipiLegalCode;
+  }
+
+
+  public ProductEmitItem cest(@javax.annotation.Nullable String cest) {
+    this.cest = cest;
+    return this;
+  }
+
+  /**
+   * Get cest
+   * @return cest
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CEST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCest() {
+    return cest;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CEST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCest(@javax.annotation.Nullable String cest) {
+    this.cest = cest;
+  }
+
+
+  public ProductEmitItem fci(@javax.annotation.Nullable String fci) {
+    this.fci = fci;
+    return this;
+  }
+
+  /**
+   * Get fci
+   * @return fci
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FCI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getFci() {
+    return fci;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FCI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFci(@javax.annotation.Nullable String fci) {
+    this.fci = fci;
+  }
+
+
+  public ProductEmitItem nve(@javax.annotation.Nullable List<String> nve) {
+    this.nve = nve;
+    return this;
+  }
+
+  public ProductEmitItem addNveItem(String nveItem) {
+    if (this.nve == null) {
+      this.nve = new ArrayList<>();
+    }
+    this.nve.add(nveItem);
+    return this;
+  }
+
+  /**
+   * Get nve
+   * @return nve
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NVE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getNve() {
+    return nve;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NVE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNve(@javax.annotation.Nullable List<String> nve) {
+    this.nve = nve;
+  }
+
+
+  public ProductEmitItem extipi(@javax.annotation.Nullable String extipi) {
+    this.extipi = extipi;
+    return this;
+  }
+
+  /**
+   * Get extipi
+   * @return extipi
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXTIPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getExtipi() {
+    return extipi;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EXTIPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExtipi(@javax.annotation.Nullable String extipi) {
+    this.extipi = extipi;
+  }
+
+
+  public ProductEmitItem orderNumber(@javax.annotation.Nullable String orderNumber) {
+    this.orderNumber = orderNumber;
+    return this;
+  }
+
+  /**
+   * Get orderNumber
+   * @return orderNumber
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ORDER_NUMBER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getOrderNumber() {
+    return orderNumber;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ORDER_NUMBER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrderNumber(@javax.annotation.Nullable String orderNumber) {
+    this.orderNumber = orderNumber;
+  }
+
+
+  public ProductEmitItem orderItem(@javax.annotation.Nullable Integer orderItem) {
+    this.orderItem = orderItem;
+    return this;
+  }
+
+  /**
+   * Get orderItem
+   * minimum: 1
+   * @return orderItem
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ORDER_ITEM, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getOrderItem() {
+    return orderItem;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ORDER_ITEM, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrderItem(@javax.annotation.Nullable Integer orderItem) {
+    this.orderItem = orderItem;
+  }
+
+
+  public ProductEmitItem freight(@javax.annotation.Nullable BigDecimal freight) {
+    this.freight = freight;
+    return this;
+  }
+
+  /**
+   * Get freight
+   * minimum: 0
+   * @return freight
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FREIGHT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getFreight() {
+    return freight;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FREIGHT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFreight(@javax.annotation.Nullable BigDecimal freight) {
+    this.freight = freight;
+  }
+
+
+  public ProductEmitItem insurance(@javax.annotation.Nullable BigDecimal insurance) {
+    this.insurance = insurance;
+    return this;
+  }
+
+  /**
+   * Get insurance
+   * minimum: 0
+   * @return insurance
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INSURANCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getInsurance() {
+    return insurance;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_INSURANCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInsurance(@javax.annotation.Nullable BigDecimal insurance) {
+    this.insurance = insurance;
+  }
+
+
+  public ProductEmitItem discount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
+    return this;
+  }
+
+  /**
+   * Get discount
+   * minimum: 0
+   * @return discount
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getDiscount() {
+    return discount;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDiscount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
+  }
+
+
+  public ProductEmitItem other(@javax.annotation.Nullable BigDecimal other) {
+    this.other = other;
+    return this;
+  }
+
+  /**
+   * Get other
+   * minimum: 0
+   * @return other
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_OTHER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getOther() {
+    return other;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_OTHER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOther(@javax.annotation.Nullable BigDecimal other) {
+    this.other = other;
   }
 
 
@@ -1142,6 +1621,7 @@ public class ProductEmitItem {
         Objects.equals(this.cfop, productEmitItem.cfop) &&
         Objects.equals(this.cfopInternal, productEmitItem.cfopInternal) &&
         Objects.equals(this.cfopExternal, productEmitItem.cfopExternal) &&
+        Objects.equals(this.cfopExternalNonTaxpayer, productEmitItem.cfopExternalNonTaxpayer) &&
         Objects.equals(this.cfopInternational, productEmitItem.cfopInternational) &&
         Objects.equals(this.quantity, productEmitItem.quantity) &&
         Objects.equals(this.unitValue, productEmitItem.unitValue) &&
@@ -1152,10 +1632,25 @@ public class ProductEmitItem {
         Objects.equals(this.icmsOrigin, productEmitItem.icmsOrigin) &&
         Objects.equals(this.icmsCst, productEmitItem.icmsCst) &&
         Objects.equals(this.icmsTaxRate, productEmitItem.icmsTaxRate) &&
+        Objects.equals(this.icmsModBc, productEmitItem.icmsModBc) &&
+        Objects.equals(this.icmsTaxBenefitCode, productEmitItem.icmsTaxBenefitCode) &&
         Objects.equals(this.pisCst, productEmitItem.pisCst) &&
         Objects.equals(this.pisTaxRate, productEmitItem.pisTaxRate) &&
         Objects.equals(this.cofinsCst, productEmitItem.cofinsCst) &&
         Objects.equals(this.cofinsTaxRate, productEmitItem.cofinsTaxRate) &&
+        Objects.equals(this.ipiCst, productEmitItem.ipiCst) &&
+        Objects.equals(this.ipiTaxRate, productEmitItem.ipiTaxRate) &&
+        Objects.equals(this.ipiLegalCode, productEmitItem.ipiLegalCode) &&
+        Objects.equals(this.cest, productEmitItem.cest) &&
+        Objects.equals(this.fci, productEmitItem.fci) &&
+        Objects.equals(this.nve, productEmitItem.nve) &&
+        Objects.equals(this.extipi, productEmitItem.extipi) &&
+        Objects.equals(this.orderNumber, productEmitItem.orderNumber) &&
+        Objects.equals(this.orderItem, productEmitItem.orderItem) &&
+        Objects.equals(this.freight, productEmitItem.freight) &&
+        Objects.equals(this.insurance, productEmitItem.insurance) &&
+        Objects.equals(this.discount, productEmitItem.discount) &&
+        Objects.equals(this.other, productEmitItem.other) &&
         Objects.equals(this.taxClassification, productEmitItem.taxClassification) &&
         Objects.equals(this.ibsCst, productEmitItem.ibsCst) &&
         Objects.equals(this.cbsCst, productEmitItem.cbsCst) &&
@@ -1172,7 +1667,7 @@ public class ProductEmitItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
+    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
   }
 
   @Override
@@ -1189,6 +1684,7 @@ public class ProductEmitItem {
     sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
     sb.append("    cfopInternal: ").append(toIndentedString(cfopInternal)).append("\n");
     sb.append("    cfopExternal: ").append(toIndentedString(cfopExternal)).append("\n");
+    sb.append("    cfopExternalNonTaxpayer: ").append(toIndentedString(cfopExternalNonTaxpayer)).append("\n");
     sb.append("    cfopInternational: ").append(toIndentedString(cfopInternational)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    unitValue: ").append(toIndentedString(unitValue)).append("\n");
@@ -1199,10 +1695,25 @@ public class ProductEmitItem {
     sb.append("    icmsOrigin: ").append(toIndentedString(icmsOrigin)).append("\n");
     sb.append("    icmsCst: ").append(toIndentedString(icmsCst)).append("\n");
     sb.append("    icmsTaxRate: ").append(toIndentedString(icmsTaxRate)).append("\n");
+    sb.append("    icmsModBc: ").append(toIndentedString(icmsModBc)).append("\n");
+    sb.append("    icmsTaxBenefitCode: ").append(toIndentedString(icmsTaxBenefitCode)).append("\n");
     sb.append("    pisCst: ").append(toIndentedString(pisCst)).append("\n");
     sb.append("    pisTaxRate: ").append(toIndentedString(pisTaxRate)).append("\n");
     sb.append("    cofinsCst: ").append(toIndentedString(cofinsCst)).append("\n");
     sb.append("    cofinsTaxRate: ").append(toIndentedString(cofinsTaxRate)).append("\n");
+    sb.append("    ipiCst: ").append(toIndentedString(ipiCst)).append("\n");
+    sb.append("    ipiTaxRate: ").append(toIndentedString(ipiTaxRate)).append("\n");
+    sb.append("    ipiLegalCode: ").append(toIndentedString(ipiLegalCode)).append("\n");
+    sb.append("    cest: ").append(toIndentedString(cest)).append("\n");
+    sb.append("    fci: ").append(toIndentedString(fci)).append("\n");
+    sb.append("    nve: ").append(toIndentedString(nve)).append("\n");
+    sb.append("    extipi: ").append(toIndentedString(extipi)).append("\n");
+    sb.append("    orderNumber: ").append(toIndentedString(orderNumber)).append("\n");
+    sb.append("    orderItem: ").append(toIndentedString(orderItem)).append("\n");
+    sb.append("    freight: ").append(toIndentedString(freight)).append("\n");
+    sb.append("    insurance: ").append(toIndentedString(insurance)).append("\n");
+    sb.append("    discount: ").append(toIndentedString(discount)).append("\n");
+    sb.append("    other: ").append(toIndentedString(other)).append("\n");
     sb.append("    taxClassification: ").append(toIndentedString(taxClassification)).append("\n");
     sb.append("    ibsCst: ").append(toIndentedString(ibsCst)).append("\n");
     sb.append("    cbsCst: ").append(toIndentedString(cbsCst)).append("\n");
@@ -1309,6 +1820,11 @@ public class ProductEmitItem {
       joiner.add(String.format(java.util.Locale.ROOT, "%scfopExternal%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfopExternal()))));
     }
 
+    // add `cfopExternalNonTaxpayer` to the URL query string
+    if (getCfopExternalNonTaxpayer() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scfopExternalNonTaxpayer%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfopExternalNonTaxpayer()))));
+    }
+
     // add `cfopInternational` to the URL query string
     if (getCfopInternational() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scfopInternational%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfopInternational()))));
@@ -1359,6 +1875,16 @@ public class ProductEmitItem {
       joiner.add(String.format(java.util.Locale.ROOT, "%sicmsTaxRate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIcmsTaxRate()))));
     }
 
+    // add `icmsModBc` to the URL query string
+    if (getIcmsModBc() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sicmsModBc%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIcmsModBc()))));
+    }
+
+    // add `icmsTaxBenefitCode` to the URL query string
+    if (getIcmsTaxBenefitCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sicmsTaxBenefitCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIcmsTaxBenefitCode()))));
+    }
+
     // add `pisCst` to the URL query string
     if (getPisCst() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%spisCst%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPisCst()))));
@@ -1377,6 +1903,75 @@ public class ProductEmitItem {
     // add `cofinsTaxRate` to the URL query string
     if (getCofinsTaxRate() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scofinsTaxRate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCofinsTaxRate()))));
+    }
+
+    // add `ipiCst` to the URL query string
+    if (getIpiCst() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sipiCst%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIpiCst()))));
+    }
+
+    // add `ipiTaxRate` to the URL query string
+    if (getIpiTaxRate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sipiTaxRate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIpiTaxRate()))));
+    }
+
+    // add `ipiLegalCode` to the URL query string
+    if (getIpiLegalCode() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sipiLegalCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIpiLegalCode()))));
+    }
+
+    // add `cest` to the URL query string
+    if (getCest() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scest%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCest()))));
+    }
+
+    // add `fci` to the URL query string
+    if (getFci() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sfci%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFci()))));
+    }
+
+    // add `nve` to the URL query string
+    if (getNve() != null) {
+      for (int i = 0; i < getNve().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%snve%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getNve().get(i)))));
+      }
+    }
+
+    // add `extipi` to the URL query string
+    if (getExtipi() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sextipi%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExtipi()))));
+    }
+
+    // add `orderNumber` to the URL query string
+    if (getOrderNumber() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sorderNumber%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOrderNumber()))));
+    }
+
+    // add `orderItem` to the URL query string
+    if (getOrderItem() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sorderItem%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOrderItem()))));
+    }
+
+    // add `freight` to the URL query string
+    if (getFreight() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sfreight%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFreight()))));
+    }
+
+    // add `insurance` to the URL query string
+    if (getInsurance() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sinsurance%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getInsurance()))));
+    }
+
+    // add `discount` to the URL query string
+    if (getDiscount() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdiscount%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDiscount()))));
+    }
+
+    // add `other` to the URL query string
+    if (getOther() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sother%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOther()))));
     }
 
     // add `taxClassification` to the URL query string

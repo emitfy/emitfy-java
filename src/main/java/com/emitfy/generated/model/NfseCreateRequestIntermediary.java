@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeAddressLayout;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,8 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   NfseCreateRequestIntermediary.JSON_PROPERTY_TAX_ID,
   NfseCreateRequestIntermediary.JSON_PROPERTY_NAME,
-  NfseCreateRequestIntermediary.JSON_PROPERTY_MUNICIPAL_REGISTRATION
+  NfseCreateRequestIntermediary.JSON_PROPERTY_MUNICIPAL_REGISTRATION,
+  NfseCreateRequestIntermediary.JSON_PROPERTY_ADDRESS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfseCreateRequestIntermediary {
@@ -50,6 +52,10 @@ public class NfseCreateRequestIntermediary {
   public static final String JSON_PROPERTY_MUNICIPAL_REGISTRATION = "municipalRegistration";
   @javax.annotation.Nullable
   private String municipalRegistration;
+
+  public static final String JSON_PROPERTY_ADDRESS = "address";
+  @javax.annotation.Nullable
+  private DfeAddressLayout address;
 
   public NfseCreateRequestIntermediary() { 
   }
@@ -126,6 +132,30 @@ public class NfseCreateRequestIntermediary {
   }
 
 
+  public NfseCreateRequestIntermediary address(@javax.annotation.Nullable DfeAddressLayout address) {
+    this.address = address;
+    return this;
+  }
+
+  /**
+   * Get address
+   * @return address
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public DfeAddressLayout getAddress() {
+    return address;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAddress(@javax.annotation.Nullable DfeAddressLayout address) {
+    this.address = address;
+  }
+
+
   /**
    * Return true if this NfseCreateRequest_intermediary object is equal to o.
    */
@@ -140,12 +170,13 @@ public class NfseCreateRequestIntermediary {
     NfseCreateRequestIntermediary nfseCreateRequestIntermediary = (NfseCreateRequestIntermediary) o;
     return Objects.equals(this.taxId, nfseCreateRequestIntermediary.taxId) &&
         Objects.equals(this.name, nfseCreateRequestIntermediary.name) &&
-        Objects.equals(this.municipalRegistration, nfseCreateRequestIntermediary.municipalRegistration);
+        Objects.equals(this.municipalRegistration, nfseCreateRequestIntermediary.municipalRegistration) &&
+        Objects.equals(this.address, nfseCreateRequestIntermediary.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taxId, name, municipalRegistration);
+    return Objects.hash(taxId, name, municipalRegistration, address);
   }
 
   @Override
@@ -155,6 +186,7 @@ public class NfseCreateRequestIntermediary {
     sb.append("    taxId: ").append(toIndentedString(taxId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    municipalRegistration: ").append(toIndentedString(municipalRegistration)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -212,6 +244,11 @@ public class NfseCreateRequestIntermediary {
     // add `municipalRegistration` to the URL query string
     if (getMunicipalRegistration() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalRegistration()))));
+    }
+
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(getAddress().toUrlQueryString(prefix + "address" + suffix));
     }
 
     return joiner.toString();

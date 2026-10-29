@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * Dados de transporte inline (opcional). &#x60;freightModality&#x60; é obrigatório quando &#x60;carrier&#x60; é enviado; &#x60;noShipping&#x60; com &#x60;carrier&#x60; retorna 400. 
+ * Dados de transporte inline (opcional). &#x60;freightModality&#x60; é obrigatório quando &#x60;carrier&#x60; é enviado; &#x60;noShipping&#x60; com &#x60;carrier&#x60; retorna 422 (&#x60;VALIDATION_ERROR&#x60;). 
  */
 @JsonPropertyOrder({
   NfeCreateRequestTransport.JSON_PROPERTY_FREIGHT_MODALITY,

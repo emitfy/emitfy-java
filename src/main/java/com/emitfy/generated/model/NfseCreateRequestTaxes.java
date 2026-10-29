@@ -19,7 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
-import com.emitfy.generated.model.NfseCreateRequestTaxesIss;
+import com.emitfy.generated.model.NfseTaxEntry;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -45,32 +45,32 @@ import com.emitfy.generated.ApiClient;
 public class NfseCreateRequestTaxes {
   public static final String JSON_PROPERTY_ISS = "iss";
   @javax.annotation.Nullable
-  private NfseCreateRequestTaxesIss iss;
+  private NfseTaxEntry iss;
 
   public static final String JSON_PROPERTY_PIS = "pis";
   @javax.annotation.Nullable
-  private Object pis;
+  private NfseTaxEntry pis;
 
   public static final String JSON_PROPERTY_COFINS = "cofins";
   @javax.annotation.Nullable
-  private Object cofins;
+  private NfseTaxEntry cofins;
 
   public static final String JSON_PROPERTY_CSLL = "csll";
   @javax.annotation.Nullable
-  private Object csll;
+  private NfseTaxEntry csll;
 
   public static final String JSON_PROPERTY_IR = "ir";
   @javax.annotation.Nullable
-  private Object ir;
+  private NfseTaxEntry ir;
 
   public static final String JSON_PROPERTY_INSS = "inss";
   @javax.annotation.Nullable
-  private Object inss;
+  private NfseTaxEntry inss;
 
   public NfseCreateRequestTaxes() { 
   }
 
-  public NfseCreateRequestTaxes iss(@javax.annotation.Nullable NfseCreateRequestTaxesIss iss) {
+  public NfseCreateRequestTaxes iss(@javax.annotation.Nullable NfseTaxEntry iss) {
     this.iss = iss;
     return this;
   }
@@ -82,19 +82,19 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_ISS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public NfseCreateRequestTaxesIss getIss() {
+  public NfseTaxEntry getIss() {
     return iss;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_ISS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIss(@javax.annotation.Nullable NfseCreateRequestTaxesIss iss) {
+  public void setIss(@javax.annotation.Nullable NfseTaxEntry iss) {
     this.iss = iss;
   }
 
 
-  public NfseCreateRequestTaxes pis(@javax.annotation.Nullable Object pis) {
+  public NfseCreateRequestTaxes pis(@javax.annotation.Nullable NfseTaxEntry pis) {
     this.pis = pis;
     return this;
   }
@@ -106,19 +106,19 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_PIS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getPis() {
+  public NfseTaxEntry getPis() {
     return pis;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_PIS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPis(@javax.annotation.Nullable Object pis) {
+  public void setPis(@javax.annotation.Nullable NfseTaxEntry pis) {
     this.pis = pis;
   }
 
 
-  public NfseCreateRequestTaxes cofins(@javax.annotation.Nullable Object cofins) {
+  public NfseCreateRequestTaxes cofins(@javax.annotation.Nullable NfseTaxEntry cofins) {
     this.cofins = cofins;
     return this;
   }
@@ -130,19 +130,19 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_COFINS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getCofins() {
+  public NfseTaxEntry getCofins() {
     return cofins;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_COFINS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCofins(@javax.annotation.Nullable Object cofins) {
+  public void setCofins(@javax.annotation.Nullable NfseTaxEntry cofins) {
     this.cofins = cofins;
   }
 
 
-  public NfseCreateRequestTaxes csll(@javax.annotation.Nullable Object csll) {
+  public NfseCreateRequestTaxes csll(@javax.annotation.Nullable NfseTaxEntry csll) {
     this.csll = csll;
     return this;
   }
@@ -154,19 +154,19 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_CSLL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getCsll() {
+  public NfseTaxEntry getCsll() {
     return csll;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_CSLL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCsll(@javax.annotation.Nullable Object csll) {
+  public void setCsll(@javax.annotation.Nullable NfseTaxEntry csll) {
     this.csll = csll;
   }
 
 
-  public NfseCreateRequestTaxes ir(@javax.annotation.Nullable Object ir) {
+  public NfseCreateRequestTaxes ir(@javax.annotation.Nullable NfseTaxEntry ir) {
     this.ir = ir;
     return this;
   }
@@ -178,19 +178,19 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_IR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getIr() {
+  public NfseTaxEntry getIr() {
     return ir;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_IR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIr(@javax.annotation.Nullable Object ir) {
+  public void setIr(@javax.annotation.Nullable NfseTaxEntry ir) {
     this.ir = ir;
   }
 
 
-  public NfseCreateRequestTaxes inss(@javax.annotation.Nullable Object inss) {
+  public NfseCreateRequestTaxes inss(@javax.annotation.Nullable NfseTaxEntry inss) {
     this.inss = inss;
     return this;
   }
@@ -202,14 +202,14 @@ public class NfseCreateRequestTaxes {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_INSS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getInss() {
+  public NfseTaxEntry getInss() {
     return inss;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_INSS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInss(@javax.annotation.Nullable Object inss) {
+  public void setInss(@javax.annotation.Nullable NfseTaxEntry inss) {
     this.inss = inss;
   }
 
@@ -300,27 +300,27 @@ public class NfseCreateRequestTaxes {
 
     // add `pis` to the URL query string
     if (getPis() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%spis%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPis()))));
+      joiner.add(getPis().toUrlQueryString(prefix + "pis" + suffix));
     }
 
     // add `cofins` to the URL query string
     if (getCofins() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%scofins%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCofins()))));
+      joiner.add(getCofins().toUrlQueryString(prefix + "cofins" + suffix));
     }
 
     // add `csll` to the URL query string
     if (getCsll() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%scsll%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCsll()))));
+      joiner.add(getCsll().toUrlQueryString(prefix + "csll" + suffix));
     }
 
     // add `ir` to the URL query string
     if (getIr() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sir%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIr()))));
+      joiner.add(getIr().toUrlQueryString(prefix + "ir" + suffix));
     }
 
     // add `inss` to the URL query string
     if (getInss() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sinss%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getInss()))));
+      joiner.add(getInss().toUrlQueryString(prefix + "inss" + suffix));
     }
 
     return joiner.toString();

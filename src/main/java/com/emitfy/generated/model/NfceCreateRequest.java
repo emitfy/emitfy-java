@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeTechResponsible;
 import com.emitfy.generated.model.NfceCreateRequestContingency;
 import com.emitfy.generated.model.NfceCreateRequestRecipient;
 import com.emitfy.generated.model.ProductEmitItem;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,18 +37,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfceCreateRequest
+ * Com &#x60;issueMode: offlineContingency&#x60; a validação exige &#x60;contingency&#x60;, &#x60;accessKey&#x60; (44 dígitos, modelo 65, tpEmis 9), &#x60;number&#x60;, &#x60;series&#x60; e &#x60;issuedAt&#x60; (ou &#x60;issueDate&#x60;). Falha → 422 &#x60;VALIDATION_ERROR&#x60;. 
  */
 @JsonPropertyOrder({
   NfceCreateRequest.JSON_PROPERTY_PAYMENT_METHOD,
   NfceCreateRequest.JSON_PROPERTY_ITEMS,
   NfceCreateRequest.JSON_PROPERTY_RECIPIENT,
+  NfceCreateRequest.JSON_PROPERTY_NATURE,
+  NfceCreateRequest.JSON_PROPERTY_CFOP,
+  NfceCreateRequest.JSON_PROPERTY_ISSUE_DATE,
   NfceCreateRequest.JSON_PROPERTY_ADDITIONAL,
   NfceCreateRequest.JSON_PROPERTY_TECH_RESPONSIBLE,
   NfceCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
   NfceCreateRequest.JSON_PROPERTY_ISSUE_MODE,
   NfceCreateRequest.JSON_PROPERTY_CONTINGENCY,
   NfceCreateRequest.JSON_PROPERTY_ACCESS_KEY,
+  NfceCreateRequest.JSON_PROPERTY_NUMBER,
+  NfceCreateRequest.JSON_PROPERTY_SERIES,
+  NfceCreateRequest.JSON_PROPERTY_ISSUED_AT,
+  NfceCreateRequest.JSON_PROPERTY_SIGNED_XML,
   NfceCreateRequest.JSON_PROPERTY_TRANSMIT
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
@@ -108,13 +117,25 @@ public class NfceCreateRequest {
   @javax.annotation.Nullable
   private NfceCreateRequestRecipient recipient;
 
+  public static final String JSON_PROPERTY_NATURE = "nature";
+  @javax.annotation.Nullable
+  private String nature;
+
+  public static final String JSON_PROPERTY_CFOP = "cfop";
+  @javax.annotation.Nullable
+  private String cfop;
+
+  public static final String JSON_PROPERTY_ISSUE_DATE = "issueDate";
+  @javax.annotation.Nullable
+  private OffsetDateTime issueDate;
+
   public static final String JSON_PROPERTY_ADDITIONAL = "additional";
   @javax.annotation.Nullable
   private Object additional;
 
   public static final String JSON_PROPERTY_TECH_RESPONSIBLE = "techResponsible";
   @javax.annotation.Nullable
-  private Object techResponsible;
+  private DfeTechResponsible techResponsible;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
   @javax.annotation.Nullable
@@ -167,8 +188,24 @@ public class NfceCreateRequest {
   @javax.annotation.Nullable
   private String accessKey;
 
+  public static final String JSON_PROPERTY_NUMBER = "number";
+  @javax.annotation.Nullable
+  private Integer number;
+
+  public static final String JSON_PROPERTY_SERIES = "series";
+  @javax.annotation.Nullable
+  private Integer series;
+
+  public static final String JSON_PROPERTY_ISSUED_AT = "issuedAt";
+  @javax.annotation.Nullable
+  private OffsetDateTime issuedAt;
+
+  public static final String JSON_PROPERTY_SIGNED_XML = "signedXml";
+  @javax.annotation.Nullable
+  private String signedXml;
+
   /**
-   * Gets or Sets transmit
+   * &#x60;later&#x60; &#x3D; cria sem transmitir; envie depois com &#x60;POST .../nfce/{id}/transmit&#x60;
    */
   public enum TransmitEnum {
     NOW(String.valueOf("now")),
@@ -289,6 +326,78 @@ public class NfceCreateRequest {
   }
 
 
+  public NfceCreateRequest nature(@javax.annotation.Nullable String nature) {
+    this.nature = nature;
+    return this;
+  }
+
+  /**
+   * Get nature
+   * @return nature
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NATURE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getNature() {
+    return nature;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NATURE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNature(@javax.annotation.Nullable String nature) {
+    this.nature = nature;
+  }
+
+
+  public NfceCreateRequest cfop(@javax.annotation.Nullable String cfop) {
+    this.cfop = cfop;
+    return this;
+  }
+
+  /**
+   * Get cfop
+   * @return cfop
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CFOP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCfop() {
+    return cfop;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CFOP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCfop(@javax.annotation.Nullable String cfop) {
+    this.cfop = cfop;
+  }
+
+
+  public NfceCreateRequest issueDate(@javax.annotation.Nullable OffsetDateTime issueDate) {
+    this.issueDate = issueDate;
+    return this;
+  }
+
+  /**
+   * Get issueDate
+   * @return issueDate
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ISSUE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getIssueDate() {
+    return issueDate;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ISSUE_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIssueDate(@javax.annotation.Nullable OffsetDateTime issueDate) {
+    this.issueDate = issueDate;
+  }
+
+
   public NfceCreateRequest additional(@javax.annotation.Nullable Object additional) {
     this.additional = additional;
     return this;
@@ -313,7 +422,7 @@ public class NfceCreateRequest {
   }
 
 
-  public NfceCreateRequest techResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public NfceCreateRequest techResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
     return this;
   }
@@ -325,14 +434,14 @@ public class NfceCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getTechResponsible() {
+  public DfeTechResponsible getTechResponsible() {
     return techResponsible;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_TECH_RESPONSIBLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTechResponsible(@javax.annotation.Nullable Object techResponsible) {
+  public void setTechResponsible(@javax.annotation.Nullable DfeTechResponsible techResponsible) {
     this.techResponsible = techResponsible;
   }
 
@@ -343,7 +452,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Get externalId
+   * Idempotência (o header &#x60;Idempotency-Key&#x60; tem prioridade)
    * @return externalId
    */
   @javax.annotation.Nullable
@@ -415,7 +524,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Get accessKey
+   * Chave de 44 dígitos gerada pelo PDV (contingência offline)
    * @return accessKey
    */
   @javax.annotation.Nullable
@@ -433,13 +542,111 @@ public class NfceCreateRequest {
   }
 
 
+  public NfceCreateRequest number(@javax.annotation.Nullable Integer number) {
+    this.number = number;
+    return this;
+  }
+
+  /**
+   * Número da NFC-e atribuído pelo PDV (contingência offline)
+   * minimum: 1
+   * @return number
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NUMBER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getNumber() {
+    return number;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NUMBER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumber(@javax.annotation.Nullable Integer number) {
+    this.number = number;
+  }
+
+
+  public NfceCreateRequest series(@javax.annotation.Nullable Integer series) {
+    this.series = series;
+    return this;
+  }
+
+  /**
+   * Série da NFC-e atribuída pelo PDV (contingência offline)
+   * minimum: 1
+   * @return series
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERIES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getSeries() {
+    return series;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SERIES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSeries(@javax.annotation.Nullable Integer series) {
+    this.series = series;
+  }
+
+
+  public NfceCreateRequest issuedAt(@javax.annotation.Nullable OffsetDateTime issuedAt) {
+    this.issuedAt = issuedAt;
+    return this;
+  }
+
+  /**
+   * Data/hora de emissão (dhEmi) do cupom impresso em contingência
+   * @return issuedAt
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ISSUED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public OffsetDateTime getIssuedAt() {
+    return issuedAt;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ISSUED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIssuedAt(@javax.annotation.Nullable OffsetDateTime issuedAt) {
+    this.issuedAt = issuedAt;
+  }
+
+
+  public NfceCreateRequest signedXml(@javax.annotation.Nullable String signedXml) {
+    this.signedXml = signedXml;
+    return this;
+  }
+
+  /**
+   * XML já assinado pelo PDV (contingência offline), quando houver
+   * @return signedXml
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SIGNED_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getSignedXml() {
+    return signedXml;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SIGNED_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSignedXml(@javax.annotation.Nullable String signedXml) {
+    this.signedXml = signedXml;
+  }
+
+
   public NfceCreateRequest transmit(@javax.annotation.Nullable TransmitEnum transmit) {
     this.transmit = transmit;
     return this;
   }
 
   /**
-   * Get transmit
+   * &#x60;later&#x60; &#x3D; cria sem transmitir; envie depois com &#x60;POST .../nfce/{id}/transmit&#x60;
    * @return transmit
    */
   @javax.annotation.Nullable
@@ -472,18 +679,25 @@ public class NfceCreateRequest {
     return Objects.equals(this.paymentMethod, nfceCreateRequest.paymentMethod) &&
         Objects.equals(this.items, nfceCreateRequest.items) &&
         Objects.equals(this.recipient, nfceCreateRequest.recipient) &&
+        Objects.equals(this.nature, nfceCreateRequest.nature) &&
+        Objects.equals(this.cfop, nfceCreateRequest.cfop) &&
+        Objects.equals(this.issueDate, nfceCreateRequest.issueDate) &&
         Objects.equals(this.additional, nfceCreateRequest.additional) &&
         Objects.equals(this.techResponsible, nfceCreateRequest.techResponsible) &&
         Objects.equals(this.externalId, nfceCreateRequest.externalId) &&
         Objects.equals(this.issueMode, nfceCreateRequest.issueMode) &&
         Objects.equals(this.contingency, nfceCreateRequest.contingency) &&
         Objects.equals(this.accessKey, nfceCreateRequest.accessKey) &&
+        Objects.equals(this.number, nfceCreateRequest.number) &&
+        Objects.equals(this.series, nfceCreateRequest.series) &&
+        Objects.equals(this.issuedAt, nfceCreateRequest.issuedAt) &&
+        Objects.equals(this.signedXml, nfceCreateRequest.signedXml) &&
         Objects.equals(this.transmit, nfceCreateRequest.transmit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(paymentMethod, items, recipient, additional, techResponsible, externalId, issueMode, contingency, accessKey, transmit);
+    return Objects.hash(paymentMethod, items, recipient, nature, cfop, issueDate, additional, techResponsible, externalId, issueMode, contingency, accessKey, number, series, issuedAt, signedXml, transmit);
   }
 
   @Override
@@ -493,12 +707,19 @@ public class NfceCreateRequest {
     sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
+    sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
+    sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
+    sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
     sb.append("    additional: ").append(toIndentedString(additional)).append("\n");
     sb.append("    techResponsible: ").append(toIndentedString(techResponsible)).append("\n");
     sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    issueMode: ").append(toIndentedString(issueMode)).append("\n");
     sb.append("    contingency: ").append(toIndentedString(contingency)).append("\n");
     sb.append("    accessKey: ").append(toIndentedString(accessKey)).append("\n");
+    sb.append("    number: ").append(toIndentedString(number)).append("\n");
+    sb.append("    series: ").append(toIndentedString(series)).append("\n");
+    sb.append("    issuedAt: ").append(toIndentedString(issuedAt)).append("\n");
+    sb.append("    signedXml: ").append(toIndentedString(signedXml)).append("\n");
     sb.append("    transmit: ").append(toIndentedString(transmit)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -564,6 +785,21 @@ public class NfceCreateRequest {
       joiner.add(getRecipient().toUrlQueryString(prefix + "recipient" + suffix));
     }
 
+    // add `nature` to the URL query string
+    if (getNature() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snature%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNature()))));
+    }
+
+    // add `cfop` to the URL query string
+    if (getCfop() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scfop%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCfop()))));
+    }
+
+    // add `issueDate` to the URL query string
+    if (getIssueDate() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sissueDate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIssueDate()))));
+    }
+
     // add `additional` to the URL query string
     if (getAdditional() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sadditional%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditional()))));
@@ -571,7 +807,7 @@ public class NfceCreateRequest {
 
     // add `techResponsible` to the URL query string
     if (getTechResponsible() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%stechResponsible%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTechResponsible()))));
+      joiner.add(getTechResponsible().toUrlQueryString(prefix + "techResponsible" + suffix));
     }
 
     // add `externalId` to the URL query string
@@ -592,6 +828,26 @@ public class NfceCreateRequest {
     // add `accessKey` to the URL query string
     if (getAccessKey() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%saccessKey%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAccessKey()))));
+    }
+
+    // add `number` to the URL query string
+    if (getNumber() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snumber%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumber()))));
+    }
+
+    // add `series` to the URL query string
+    if (getSeries() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sseries%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSeries()))));
+    }
+
+    // add `issuedAt` to the URL query string
+    if (getIssuedAt() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sissuedAt%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIssuedAt()))));
+    }
+
+    // add `signedXml` to the URL query string
+    if (getSignedXml() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%ssignedXml%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSignedXml()))));
     }
 
     // add `transmit` to the URL query string

@@ -18,8 +18,12 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
+import com.emitfy.generated.model.ErrorBody;
 import com.emitfy.generated.model.InvoiceUpdateRequest;
+import com.emitfy.generated.model.InvoicesCancel200Response;
 import com.emitfy.generated.model.InvoicesGet200Response;
+import com.emitfy.generated.model.InvoicesList200Response;
+import com.emitfy.generated.model.InvoicesSendEmail200Response;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -166,54 +170,53 @@ public class InvoicesApi {
 
   /**
    * Cancel authorized invoice
-   * Cancela nota autorizada. Equivale aos DELETE tipados (&#x60;/nfse/{id}&#x60;, &#x60;/nfe/{id}&#x60;, &#x60;/nfce/{id}&#x60;).
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento de nota autorizada (NFS-e, NF-e ou NFC-e). Mesmo efeito fiscal dos DELETE tipados, mas com contrato diferente: responde **200** (não 202) com &#x60;outcome: fiscal_cancel_enqueued&#x60;, e status inválido vira **409** (não 422). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
+   * @return InvoicesCancel200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody) throws ApiException {
-    invoicesCancel(companyId, id, requestBody, null);
+  public InvoicesCancel200Response invoicesCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return invoicesCancel(companyId, id, null);
   }
 
   /**
    * Cancel authorized invoice
-   * Cancela nota autorizada. Equivale aos DELETE tipados (&#x60;/nfse/{id}&#x60;, &#x60;/nfe/{id}&#x60;, &#x60;/nfce/{id}&#x60;).
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento de nota autorizada (NFS-e, NF-e ou NFC-e). Mesmo efeito fiscal dos DELETE tipados, mas com contrato diferente: responde **200** (não 202) com &#x60;outcome: fiscal_cancel_enqueued&#x60;, e status inválido vira **409** (não 422). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
+   * @return InvoicesCancel200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
-    invoicesCancelWithHttpInfo(companyId, id, requestBody, headers);
+  public InvoicesCancel200Response invoicesCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<InvoicesCancel200Response> localVarResponse = invoicesCancelWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Cancel authorized invoice
-   * Cancela nota autorizada. Equivale aos DELETE tipados (&#x60;/nfse/{id}&#x60;, &#x60;/nfe/{id}&#x60;, &#x60;/nfce/{id}&#x60;).
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento de nota autorizada (NFS-e, NF-e ou NFC-e). Mesmo efeito fiscal dos DELETE tipados, mas com contrato diferente: responde **200** (não 202) com &#x60;outcome: fiscal_cancel_enqueued&#x60;, e status inválido vira **409** (não 422). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoicesCancel200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody) throws ApiException {
-    return invoicesCancelWithHttpInfo(companyId, id, requestBody, null);
+  public ApiResponse<InvoicesCancel200Response> invoicesCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return invoicesCancelWithHttpInfo(companyId, id, null);
   }
 
   /**
    * Cancel authorized invoice
-   * Cancela nota autorizada. Equivale aos DELETE tipados (&#x60;/nfse/{id}&#x60;, &#x60;/nfe/{id}&#x60;, &#x60;/nfce/{id}&#x60;).
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Enfileira o cancelamento de nota autorizada (NFS-e, NF-e ou NFC-e). Mesmo efeito fiscal dos DELETE tipados, mas com contrato diferente: responde **200** (não 202) com &#x60;outcome: fiscal_cancel_enqueued&#x60;, e status inválido vira **409** (não 422). 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoicesCancel200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = invoicesCancelRequestBuilder(companyId, id, requestBody, headers);
+  public ApiResponse<InvoicesCancel200Response> invoicesCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = invoicesCancelRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -227,13 +230,24 @@ public class InvoicesApi {
           throw getApiException("invoicesCancel", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<InvoicesCancel200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        InvoicesCancel200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<InvoicesCancel200Response>() {});
+        
+
+        return new ApiResponse<InvoicesCancel200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -249,7 +263,7 @@ public class InvoicesApi {
     }
   }
 
-  private HttpRequest.Builder invoicesCancelRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder invoicesCancelRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling invoicesCancel");
@@ -267,15 +281,9 @@ public class InvoicesApi {
 
     localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.header("Content-Type", "application/json");
     localVarRequestBuilder.header("Accept", "application/json");
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(requestBody);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
@@ -289,8 +297,8 @@ public class InvoicesApi {
 
   /**
    * Consult invoice at SEFAZ or city hall
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Reconsulta NFS-e ou NF-e. NFC-e não tem reconsulta remota (sempre 400 &#x60;NFCE_CONSULT_UNSUPPORTED&#x60;).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -300,8 +308,8 @@ public class InvoicesApi {
 
   /**
    * Consult invoice at SEFAZ or city hall
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Reconsulta NFS-e ou NF-e. NFC-e não tem reconsulta remota (sempre 400 &#x60;NFCE_CONSULT_UNSUPPORTED&#x60;).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -312,8 +320,8 @@ public class InvoicesApi {
 
   /**
    * Consult invoice at SEFAZ or city hall
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Reconsulta NFS-e ou NF-e. NFC-e não tem reconsulta remota (sempre 400 &#x60;NFCE_CONSULT_UNSUPPORTED&#x60;).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -324,8 +332,8 @@ public class InvoicesApi {
 
   /**
    * Consult invoice at SEFAZ or city hall
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Reconsulta NFS-e ou NF-e. NFC-e não tem reconsulta remota (sempre 400 &#x60;NFCE_CONSULT_UNSUPPORTED&#x60;).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -403,7 +411,7 @@ public class InvoicesApi {
   /**
    * Emit or retry invoice
    * Enfileira emissão imediata (forceManual) de nota pending ou rejected. Não altera nota autorizada/cancelada. Não é carta de correção (&#x60;POST .../nfe/{id}/correction&#x60;). 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -414,7 +422,7 @@ public class InvoicesApi {
   /**
    * Emit or retry invoice
    * Enfileira emissão imediata (forceManual) de nota pending ou rejected. Não altera nota autorizada/cancelada. Não é carta de correção (&#x60;POST .../nfe/{id}/correction&#x60;). 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -426,7 +434,7 @@ public class InvoicesApi {
   /**
    * Emit or retry invoice
    * Enfileira emissão imediata (forceManual) de nota pending ou rejected. Não altera nota autorizada/cancelada. Não é carta de correção (&#x60;POST .../nfe/{id}/correction&#x60;). 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -438,7 +446,7 @@ public class InvoicesApi {
   /**
    * Emit or retry invoice
    * Enfileira emissão imediata (forceManual) de nota pending ou rejected. Não altera nota autorizada/cancelada. Não é carta de correção (&#x60;POST .../nfe/{id}/correction&#x60;). 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -516,7 +524,7 @@ public class InvoicesApi {
   /**
    * List invoice events
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -527,7 +535,7 @@ public class InvoicesApi {
   /**
    * List invoice events
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -539,7 +547,7 @@ public class InvoicesApi {
   /**
    * List invoice events
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -551,7 +559,7 @@ public class InvoicesApi {
   /**
    * List invoice events
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -629,7 +637,7 @@ public class InvoicesApi {
   /**
    * Get invoice
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return InvoicesGet200Response
    * @throws ApiException if fails to make API call
@@ -641,7 +649,7 @@ public class InvoicesApi {
   /**
    * Get invoice
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return InvoicesGet200Response
@@ -655,7 +663,7 @@ public class InvoicesApi {
   /**
    * Get invoice
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;InvoicesGet200Response&gt;
    * @throws ApiException if fails to make API call
@@ -667,7 +675,7 @@ public class InvoicesApi {
   /**
    * Get invoice
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;InvoicesGet200Response&gt;
@@ -756,53 +764,88 @@ public class InvoicesApi {
   /**
    * List invoices
    * Consulta unificada das notas da empresa (todos os tipos). Criação inicial nos atalhos por tipo (&#x60;/nfse&#x60;, &#x60;/nfe&#x60;, &#x60;/nfce&#x60;, &#x60;/cte&#x60;, &#x60;/cte-os&#x60;). PATCH/emit/cancel nesta família &#x60;/invoices&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param status Status canônico; aliases: &#x60;canceled&#x60; → &#x60;cancelled&#x60;, &#x60;error&#x60;/&#x60;failed&#x60; → &#x60;rejected&#x60;, &#x60;queued&#x60; → &#x60;processing&#x60;. (optional)
+   * @param type  (optional)
+   * @param search  (optional)
+   * @param integrationId  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return InvoicesList200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize) throws ApiException {
-    invoicesList(companyId, page, pageSize, null);
+  public InvoicesList200Response invoicesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String status, @javax.annotation.Nullable String type, @javax.annotation.Nullable String search, @javax.annotation.Nullable UUID integrationId, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return invoicesList(companyId, limit, action, cursor, page, status, type, search, integrationId, startDate, endDate, null);
   }
 
   /**
    * List invoices
    * Consulta unificada das notas da empresa (todos os tipos). Criação inicial nos atalhos por tipo (&#x60;/nfse&#x60;, &#x60;/nfe&#x60;, &#x60;/nfce&#x60;, &#x60;/cte&#x60;, &#x60;/cte-os&#x60;). PATCH/emit/cancel nesta família &#x60;/invoices&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param status Status canônico; aliases: &#x60;canceled&#x60; → &#x60;cancelled&#x60;, &#x60;error&#x60;/&#x60;failed&#x60; → &#x60;rejected&#x60;, &#x60;queued&#x60; → &#x60;processing&#x60;. (optional)
+   * @param type  (optional)
+   * @param search  (optional)
+   * @param integrationId  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
+   * @return InvoicesList200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
-    invoicesListWithHttpInfo(companyId, page, pageSize, headers);
+  public InvoicesList200Response invoicesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String status, @javax.annotation.Nullable String type, @javax.annotation.Nullable String search, @javax.annotation.Nullable UUID integrationId, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    ApiResponse<InvoicesList200Response> localVarResponse = invoicesListWithHttpInfo(companyId, limit, action, cursor, page, status, type, search, integrationId, startDate, endDate, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * List invoices
    * Consulta unificada das notas da empresa (todos os tipos). Criação inicial nos atalhos por tipo (&#x60;/nfse&#x60;, &#x60;/nfe&#x60;, &#x60;/nfce&#x60;, &#x60;/cte&#x60;, &#x60;/cte-os&#x60;). PATCH/emit/cancel nesta família &#x60;/invoices&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @param status Status canônico; aliases: &#x60;canceled&#x60; → &#x60;cancelled&#x60;, &#x60;error&#x60;/&#x60;failed&#x60; → &#x60;rejected&#x60;, &#x60;queued&#x60; → &#x60;processing&#x60;. (optional)
+   * @param type  (optional)
+   * @param search  (optional)
+   * @param integrationId  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return ApiResponse&lt;InvoicesList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize) throws ApiException {
-    return invoicesListWithHttpInfo(companyId, page, pageSize, null);
+  public ApiResponse<InvoicesList200Response> invoicesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String status, @javax.annotation.Nullable String type, @javax.annotation.Nullable String search, @javax.annotation.Nullable UUID integrationId, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return invoicesListWithHttpInfo(companyId, limit, action, cursor, page, status, type, search, integrationId, startDate, endDate, null);
   }
 
   /**
    * List invoices
    * Consulta unificada das notas da empresa (todos os tipos). Criação inicial nos atalhos por tipo (&#x60;/nfse&#x60;, &#x60;/nfe&#x60;, &#x60;/nfce&#x60;, &#x60;/cte&#x60;, &#x60;/cte-os&#x60;). PATCH/emit/cancel nesta família &#x60;/invoices&#x60;.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param limit  (optional, default to 15)
+   * @param action Navegação por cursor. &#x60;first&#x60; (padrão) volta para a primeira página e ignora &#x60;cursor&#x60;; &#x60;next&#x60; usa como &#x60;cursor&#x60; o &#x60;id&#x60; do último item da página atual; &#x60;prev&#x60; usa o &#x60;id&#x60; do primeiro item; &#x60;last&#x60; vai para a última página. &#x60;page&#x60; só é ecoado/ajustado em &#x60;pageInfo&#x60;.  (optional, default to first)
+   * @param cursor &#x60;id&#x60; do item de referência (usado com &#x60;action&#x3D;next|prev&#x60;). (optional)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param status Status canônico; aliases: &#x60;canceled&#x60; → &#x60;cancelled&#x60;, &#x60;error&#x60;/&#x60;failed&#x60; → &#x60;rejected&#x60;, &#x60;queued&#x60; → &#x60;processing&#x60;. (optional)
+   * @param type  (optional)
+   * @param search  (optional)
+   * @param integrationId  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoicesList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = invoicesListRequestBuilder(companyId, page, pageSize, headers);
+  public ApiResponse<InvoicesList200Response> invoicesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String status, @javax.annotation.Nullable String type, @javax.annotation.Nullable String search, @javax.annotation.Nullable UUID integrationId, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = invoicesListRequestBuilder(companyId, limit, action, cursor, page, status, type, search, integrationId, startDate, endDate, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -816,13 +859,24 @@ public class InvoicesApi {
           throw getApiException("invoicesList", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<InvoicesList200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        InvoicesList200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<InvoicesList200Response>() {});
+        
+
+        return new ApiResponse<InvoicesList200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -838,7 +892,7 @@ public class InvoicesApi {
     }
   }
 
-  private HttpRequest.Builder invoicesListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder invoicesListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String action, @javax.annotation.Nullable String cursor, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable String status, @javax.annotation.Nullable String type, @javax.annotation.Nullable String search, @javax.annotation.Nullable UUID integrationId, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling invoicesList");
@@ -852,10 +906,26 @@ public class InvoicesApi {
     List<Pair> localVarQueryParams = new ArrayList<>();
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "limit";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
+    localVarQueryParameterBaseName = "action";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("action", action));
+    localVarQueryParameterBaseName = "cursor";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("cursor", cursor));
     localVarQueryParameterBaseName = "page";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("page", page));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+    localVarQueryParameterBaseName = "status";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+    localVarQueryParameterBaseName = "type";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("type", type));
+    localVarQueryParameterBaseName = "search";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+    localVarQueryParameterBaseName = "integrationId";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("integrationId", integrationId));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");
@@ -884,54 +954,53 @@ public class InvoicesApi {
 
   /**
    * Resend invoice email
-   * Reenvia e-mail da NFS-e autorizada ao tomador.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Reenvia o e-mail da nota autorizada ao tomador/destinatário (só NFS-e e NF-e).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
+   * @return InvoicesSendEmail200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesSendEmail(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody) throws ApiException {
-    invoicesSendEmail(companyId, id, requestBody, null);
+  public InvoicesSendEmail200Response invoicesSendEmail(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return invoicesSendEmail(companyId, id, null);
   }
 
   /**
    * Resend invoice email
-   * Reenvia e-mail da NFS-e autorizada ao tomador.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Reenvia o e-mail da nota autorizada ao tomador/destinatário (só NFS-e e NF-e).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
+   * @return InvoicesSendEmail200Response
    * @throws ApiException if fails to make API call
    */
-  public void invoicesSendEmail(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
-    invoicesSendEmailWithHttpInfo(companyId, id, requestBody, headers);
+  public InvoicesSendEmail200Response invoicesSendEmail(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<InvoicesSendEmail200Response> localVarResponse = invoicesSendEmailWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Resend invoice email
-   * Reenvia e-mail da NFS-e autorizada ao tomador.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Reenvia o e-mail da nota autorizada ao tomador/destinatário (só NFS-e e NF-e).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoicesSendEmail200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesSendEmailWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody) throws ApiException {
-    return invoicesSendEmailWithHttpInfo(companyId, id, requestBody, null);
+  public ApiResponse<InvoicesSendEmail200Response> invoicesSendEmailWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return invoicesSendEmailWithHttpInfo(companyId, id, null);
   }
 
   /**
    * Resend invoice email
-   * Reenvia e-mail da NFS-e autorizada ao tomador.
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Sem corpo. Reenvia o e-mail da nota autorizada ao tomador/destinatário (só NFS-e e NF-e).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
-   * @param requestBody  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;InvoicesSendEmail200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> invoicesSendEmailWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = invoicesSendEmailRequestBuilder(companyId, id, requestBody, headers);
+  public ApiResponse<InvoicesSendEmail200Response> invoicesSendEmailWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = invoicesSendEmailRequestBuilder(companyId, id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -945,13 +1014,24 @@ public class InvoicesApi {
           throw getApiException("invoicesSendEmail", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<InvoicesSendEmail200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        InvoicesSendEmail200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<InvoicesSendEmail200Response>() {});
+        
+
+        return new ApiResponse<InvoicesSendEmail200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -967,7 +1047,7 @@ public class InvoicesApi {
     }
   }
 
-  private HttpRequest.Builder invoicesSendEmailRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nullable Map<String, Object> requestBody, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder invoicesSendEmailRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling invoicesSendEmail");
@@ -985,15 +1065,9 @@ public class InvoicesApi {
 
     localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.header("Content-Type", "application/json");
     localVarRequestBuilder.header("Accept", "application/json");
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(requestBody);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
@@ -1008,7 +1082,7 @@ public class InvoicesApi {
   /**
    * Update invoice draft or rejected note
    * Edita nota pending (draft/scheduled) ou rejected. &#x60;version&#x60; obrigatório. Tomador: &#x60;borrower&#x60; (NFS-e) ou &#x60;recipient&#x60; (NF-e/NFC-e), no mesmo formato do create. Campo desconhecido retorna 422 (não é ignorado). 409 INVOICE_NOT_EDITABLE se autorizada/cancelada; 409 INVOICE_VERSION_CONFLICT se version divergir. Não é carta de correção. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param invoiceUpdateRequest  (required)
    * @throws ApiException if fails to make API call
@@ -1020,7 +1094,7 @@ public class InvoicesApi {
   /**
    * Update invoice draft or rejected note
    * Edita nota pending (draft/scheduled) ou rejected. &#x60;version&#x60; obrigatório. Tomador: &#x60;borrower&#x60; (NFS-e) ou &#x60;recipient&#x60; (NF-e/NFC-e), no mesmo formato do create. Campo desconhecido retorna 422 (não é ignorado). 409 INVOICE_NOT_EDITABLE se autorizada/cancelada; 409 INVOICE_VERSION_CONFLICT se version divergir. Não é carta de correção. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param invoiceUpdateRequest  (required)
    * @param headers Optional headers to include in the request
@@ -1033,7 +1107,7 @@ public class InvoicesApi {
   /**
    * Update invoice draft or rejected note
    * Edita nota pending (draft/scheduled) ou rejected. &#x60;version&#x60; obrigatório. Tomador: &#x60;borrower&#x60; (NFS-e) ou &#x60;recipient&#x60; (NF-e/NFC-e), no mesmo formato do create. Campo desconhecido retorna 422 (não é ignorado). 409 INVOICE_NOT_EDITABLE se autorizada/cancelada; 409 INVOICE_VERSION_CONFLICT se version divergir. Não é carta de correção. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param invoiceUpdateRequest  (required)
    * @return ApiResponse&lt;Void&gt;
@@ -1046,7 +1120,7 @@ public class InvoicesApi {
   /**
    * Update invoice draft or rejected note
    * Edita nota pending (draft/scheduled) ou rejected. &#x60;version&#x60; obrigatório. Tomador: &#x60;borrower&#x60; (NFS-e) ou &#x60;recipient&#x60; (NF-e/NFC-e), no mesmo formato do create. Campo desconhecido retorna 422 (não é ignorado). 409 INVOICE_NOT_EDITABLE se autorizada/cancelada; 409 INVOICE_VERSION_CONFLICT se version divergir. Não é carta de correção. 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param invoiceUpdateRequest  (required)
    * @param headers Optional headers to include in the request

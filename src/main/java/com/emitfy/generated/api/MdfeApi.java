@@ -18,12 +18,16 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
+import com.emitfy.generated.model.ErrorBody;
 import com.emitfy.generated.model.MdfeCancelRequest;
 import com.emitfy.generated.model.MdfeCloseRequest;
+import com.emitfy.generated.model.MdfeCreate200Response;
 import com.emitfy.generated.model.MdfeDriver;
 import com.emitfy.generated.model.MdfeEmitRequest;
+import com.emitfy.generated.model.MdfeList200Response;
 import com.emitfy.generated.model.MdfePayment;
 import com.emitfy.generated.model.MdfeUnloadCity;
+import com.emitfy.generated.model.TransportDocumentAccepted;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -171,52 +175,55 @@ public class MdfeApi {
   /**
    * Add document to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeUnloadCity  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddDocument(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity) throws ApiException {
-    mdfeAddDocument(companyId, id, mdfeUnloadCity, null);
+  public TransportDocumentAccepted mdfeAddDocument(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity) throws ApiException {
+    return mdfeAddDocument(companyId, id, mdfeUnloadCity, null);
   }
 
   /**
    * Add document to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeUnloadCity  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddDocument(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity, Map<String, String> headers) throws ApiException {
-    mdfeAddDocumentWithHttpInfo(companyId, id, mdfeUnloadCity, headers);
+  public TransportDocumentAccepted mdfeAddDocument(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = mdfeAddDocumentWithHttpInfo(companyId, id, mdfeUnloadCity, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Add document to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeUnloadCity  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddDocumentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddDocumentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity) throws ApiException {
     return mdfeAddDocumentWithHttpInfo(companyId, id, mdfeUnloadCity, null);
   }
 
   /**
    * Add document to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeUnloadCity  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddDocumentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddDocumentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeUnloadCity mdfeUnloadCity, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeAddDocumentRequestBuilder(companyId, id, mdfeUnloadCity, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -231,13 +238,24 @@ public class MdfeApi {
           throw getApiException("mdfeAddDocument", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -298,52 +316,55 @@ public class MdfeApi {
   /**
    * Add driver to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeDriver  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddDriver(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver) throws ApiException {
-    mdfeAddDriver(companyId, id, mdfeDriver, null);
+  public TransportDocumentAccepted mdfeAddDriver(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver) throws ApiException {
+    return mdfeAddDriver(companyId, id, mdfeDriver, null);
   }
 
   /**
    * Add driver to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeDriver  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddDriver(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver, Map<String, String> headers) throws ApiException {
-    mdfeAddDriverWithHttpInfo(companyId, id, mdfeDriver, headers);
+  public TransportDocumentAccepted mdfeAddDriver(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = mdfeAddDriverWithHttpInfo(companyId, id, mdfeDriver, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Add driver to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeDriver  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddDriverWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddDriverWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver) throws ApiException {
     return mdfeAddDriverWithHttpInfo(companyId, id, mdfeDriver, null);
   }
 
   /**
    * Add driver to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeDriver  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddDriverWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddDriverWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeDriver mdfeDriver, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeAddDriverRequestBuilder(companyId, id, mdfeDriver, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -358,13 +379,24 @@ public class MdfeApi {
           throw getApiException("mdfeAddDriver", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -425,52 +457,55 @@ public class MdfeApi {
   /**
    * Add payment to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfePayment  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddPayment(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment) throws ApiException {
-    mdfeAddPayment(companyId, id, mdfePayment, null);
+  public TransportDocumentAccepted mdfeAddPayment(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment) throws ApiException {
+    return mdfeAddPayment(companyId, id, mdfePayment, null);
   }
 
   /**
    * Add payment to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfePayment  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeAddPayment(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment, Map<String, String> headers) throws ApiException {
-    mdfeAddPaymentWithHttpInfo(companyId, id, mdfePayment, headers);
+  public TransportDocumentAccepted mdfeAddPayment(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = mdfeAddPaymentWithHttpInfo(companyId, id, mdfePayment, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Add payment to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfePayment  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddPaymentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddPaymentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment) throws ApiException {
     return mdfeAddPaymentWithHttpInfo(companyId, id, mdfePayment, null);
   }
 
   /**
    * Add payment to MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfePayment  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeAddPaymentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeAddPaymentWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfePayment mdfePayment, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeAddPaymentRequestBuilder(companyId, id, mdfePayment, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -485,13 +520,24 @@ public class MdfeApi {
           throw getApiException("mdfeAddPayment", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -551,53 +597,56 @@ public class MdfeApi {
 
   /**
    * Cancel MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * DELETE com corpo JSON obrigatório (&#x60;justification&#x60; 15–255 caracteres).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCancelRequest  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest) throws ApiException {
-    mdfeCancel(companyId, id, mdfeCancelRequest, null);
+  public TransportDocumentAccepted mdfeCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest) throws ApiException {
+    return mdfeCancel(companyId, id, mdfeCancelRequest, null);
   }
 
   /**
    * Cancel MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * DELETE com corpo JSON obrigatório (&#x60;justification&#x60; 15–255 caracteres).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCancelRequest  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest, Map<String, String> headers) throws ApiException {
-    mdfeCancelWithHttpInfo(companyId, id, mdfeCancelRequest, headers);
+  public TransportDocumentAccepted mdfeCancel(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = mdfeCancelWithHttpInfo(companyId, id, mdfeCancelRequest, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Cancel MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * DELETE com corpo JSON obrigatório (&#x60;justification&#x60; 15–255 caracteres).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCancelRequest  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest) throws ApiException {
     return mdfeCancelWithHttpInfo(companyId, id, mdfeCancelRequest, null);
   }
 
   /**
    * Cancel MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * DELETE com corpo JSON obrigatório (&#x60;justification&#x60; 15–255 caracteres).
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCancelRequest  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeCancelWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCancelRequest mdfeCancelRequest, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeCancelRequestBuilder(companyId, id, mdfeCancelRequest, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -612,13 +661,24 @@ public class MdfeApi {
           throw getApiException("mdfeCancel", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -679,52 +739,55 @@ public class MdfeApi {
   /**
    * Close MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCloseRequest  (required)
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeClose(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest) throws ApiException {
-    mdfeClose(companyId, id, mdfeCloseRequest, null);
+  public TransportDocumentAccepted mdfeClose(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest) throws ApiException {
+    return mdfeClose(companyId, id, mdfeCloseRequest, null);
   }
 
   /**
    * Close MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCloseRequest  (required)
    * @param headers Optional headers to include in the request
+   * @return TransportDocumentAccepted
    * @throws ApiException if fails to make API call
    */
-  public void mdfeClose(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest, Map<String, String> headers) throws ApiException {
-    mdfeCloseWithHttpInfo(companyId, id, mdfeCloseRequest, headers);
+  public TransportDocumentAccepted mdfeClose(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest, Map<String, String> headers) throws ApiException {
+    ApiResponse<TransportDocumentAccepted> localVarResponse = mdfeCloseWithHttpInfo(companyId, id, mdfeCloseRequest, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Close MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCloseRequest  (required)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCloseWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeCloseWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest) throws ApiException {
     return mdfeCloseWithHttpInfo(companyId, id, mdfeCloseRequest, null);
   }
 
   /**
    * Close MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param mdfeCloseRequest  (required)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;TransportDocumentAccepted&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCloseWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest, Map<String, String> headers) throws ApiException {
+  public ApiResponse<TransportDocumentAccepted> mdfeCloseWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull MdfeCloseRequest mdfeCloseRequest, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeCloseRequestBuilder(companyId, id, mdfeCloseRequest, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -739,13 +802,24 @@ public class MdfeApi {
           throw getApiException("mdfeClose", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<TransportDocumentAccepted>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        TransportDocumentAccepted responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<TransportDocumentAccepted>() {});
+        
+
+        return new ApiResponse<TransportDocumentAccepted>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -806,7 +880,7 @@ public class MdfeApi {
   /**
    * Consult MDF-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -817,7 +891,7 @@ public class MdfeApi {
   /**
    * Consult MDF-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -829,7 +903,7 @@ public class MdfeApi {
   /**
    * Consult MDF-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -841,7 +915,7 @@ public class MdfeApi {
   /**
    * Consult MDF-e at SEFAZ
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -919,52 +993,55 @@ public class MdfeApi {
   /**
    * Emit MDF-e (modelo 58)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param mdfeEmitRequest  (required)
    * @param idempotencyKey  (optional)
+   * @return MdfeCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void mdfeCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
-    mdfeCreate(companyId, mdfeEmitRequest, idempotencyKey, null);
+  public MdfeCreate200Response mdfeCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+    return mdfeCreate(companyId, mdfeEmitRequest, idempotencyKey, null);
   }
 
   /**
    * Emit MDF-e (modelo 58)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param mdfeEmitRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
+   * @return MdfeCreate200Response
    * @throws ApiException if fails to make API call
    */
-  public void mdfeCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
-    mdfeCreateWithHttpInfo(companyId, mdfeEmitRequest, idempotencyKey, headers);
+  public MdfeCreate200Response mdfeCreate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+    ApiResponse<MdfeCreate200Response> localVarResponse = mdfeCreateWithHttpInfo(companyId, mdfeEmitRequest, idempotencyKey, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * Emit MDF-e (modelo 58)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param mdfeEmitRequest  (required)
    * @param idempotencyKey  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;MdfeCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
+  public ApiResponse<MdfeCreate200Response> mdfeCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey) throws ApiException {
     return mdfeCreateWithHttpInfo(companyId, mdfeEmitRequest, idempotencyKey, null);
   }
 
   /**
    * Emit MDF-e (modelo 58)
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param mdfeEmitRequest  (required)
    * @param idempotencyKey  (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;MdfeCreate200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
+  public ApiResponse<MdfeCreate200Response> mdfeCreateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeEmitRequest mdfeEmitRequest, @javax.annotation.Nullable String idempotencyKey, Map<String, String> headers) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = mdfeCreateRequestBuilder(companyId, mdfeEmitRequest, idempotencyKey, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -979,13 +1056,24 @@ public class MdfeApi {
           throw getApiException("mdfeCreate", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MdfeCreate200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MdfeCreate200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MdfeCreate200Response>() {});
+        
+
+        return new ApiResponse<MdfeCreate200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -1044,7 +1132,7 @@ public class MdfeApi {
   /**
    * Get MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @throws ApiException if fails to make API call
    */
@@ -1055,7 +1143,7 @@ public class MdfeApi {
   /**
    * Get MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -1067,7 +1155,7 @@ public class MdfeApi {
   /**
    * Get MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -1079,7 +1167,7 @@ public class MdfeApi {
   /**
    * Get MDF-e
    * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
@@ -1156,58 +1244,69 @@ public class MdfeApi {
 
   /**
    * List MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Query estrita — parâmetro desconhecido retorna 422.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return MdfeList200Response
    * @throws ApiException if fails to make API call
    */
-  public void mdfeList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
-    mdfeList(companyId, page, pageSize, status, null);
+  public MdfeList200Response mdfeList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return mdfeList(companyId, page, pageSize, status, startDate, endDate, null);
   }
 
   /**
    * List MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Query estrita — parâmetro desconhecido retorna 422.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
+   * @return MdfeList200Response
    * @throws ApiException if fails to make API call
    */
-  public void mdfeList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    mdfeListWithHttpInfo(companyId, page, pageSize, status, headers);
+  public MdfeList200Response mdfeList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    ApiResponse<MdfeList200Response> localVarResponse = mdfeListWithHttpInfo(companyId, page, pageSize, status, startDate, endDate, headers);
+    return localVarResponse.getData();
   }
 
   /**
    * List MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Query estrita — parâmetro desconhecido retorna 422.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
-   * @return ApiResponse&lt;Void&gt;
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
+   * @return ApiResponse&lt;MdfeList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status) throws ApiException {
-    return mdfeListWithHttpInfo(companyId, page, pageSize, status, null);
+  public ApiResponse<MdfeList200Response> mdfeListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate) throws ApiException {
+    return mdfeListWithHttpInfo(companyId, page, pageSize, status, startDate, endDate, null);
   }
 
   /**
    * List MDF-e
-   * 
-   * @param companyId ID da empresa (CNPJ operacional) no path (required)
+   * Query estrita — parâmetro desconhecido retorna 422.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param pageSize  (optional)
+   * @param pageSize  (optional, default to 20)
    * @param status  (optional)
+   * @param startDate Início do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;endDate&#x60;. (optional)
+   * @param endDate Fim do período (epoch em ms; dia inclusivo em America/Sao_Paulo). Só filtra com &#x60;startDate&#x60;. (optional)
    * @param headers Optional headers to include in the request
-   * @return ApiResponse&lt;Void&gt;
+   * @return ApiResponse&lt;MdfeList200Response&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> mdfeListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = mdfeListRequestBuilder(companyId, page, pageSize, status, headers);
+  public ApiResponse<MdfeList200Response> mdfeListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = mdfeListRequestBuilder(companyId, page, pageSize, status, startDate, endDate, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -1221,13 +1320,24 @@ public class MdfeApi {
           throw getApiException("mdfeList", localVarResponse);
         }
         localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
-        if (localVarResponseBody != null) {
-          localVarResponseBody.readAllBytes();
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MdfeList200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
         }
-        return new ApiResponse<>(
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MdfeList200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MdfeList200Response>() {});
+        
+
+        return new ApiResponse<MdfeList200Response>(
             localVarResponse.statusCode(),
             localVarResponse.headers().map(),
-            null
+            responseValue
         );
       } finally {
         if (localVarResponseBody != null) {
@@ -1243,7 +1353,7 @@ public class MdfeApi {
     }
   }
 
-  private HttpRequest.Builder mdfeListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder mdfeListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable String status, @javax.annotation.Nullable Integer startDate, @javax.annotation.Nullable Integer endDate, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling mdfeList");
@@ -1263,6 +1373,10 @@ public class MdfeApi {
     localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
     localVarQueryParameterBaseName = "status";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");
