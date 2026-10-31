@@ -18,6 +18,7 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
+import com.emitfy.generated.model.ReceivedNfesFetchByKeyRequest;
 import com.emitfy.generated.model.ReceivedNfesManifestRequest;
 import java.util.UUID;
 
@@ -164,6 +165,124 @@ public class ReceivedNfesApi {
   }
 
   /**
+   * Fetch received NF-e by access key (DistDFe consChNFe)
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param receivedNfesFetchByKeyRequest  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void receivedNfesFetchByKey(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull ReceivedNfesFetchByKeyRequest receivedNfesFetchByKeyRequest) throws ApiException {
+    receivedNfesFetchByKey(companyId, receivedNfesFetchByKeyRequest, null);
+  }
+
+  /**
+   * Fetch received NF-e by access key (DistDFe consChNFe)
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param receivedNfesFetchByKeyRequest  (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void receivedNfesFetchByKey(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull ReceivedNfesFetchByKeyRequest receivedNfesFetchByKeyRequest, Map<String, String> headers) throws ApiException {
+    receivedNfesFetchByKeyWithHttpInfo(companyId, receivedNfesFetchByKeyRequest, headers);
+  }
+
+  /**
+   * Fetch received NF-e by access key (DistDFe consChNFe)
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param receivedNfesFetchByKeyRequest  (required)
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> receivedNfesFetchByKeyWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull ReceivedNfesFetchByKeyRequest receivedNfesFetchByKeyRequest) throws ApiException {
+    return receivedNfesFetchByKeyWithHttpInfo(companyId, receivedNfesFetchByKeyRequest, null);
+  }
+
+  /**
+   * Fetch received NF-e by access key (DistDFe consChNFe)
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param receivedNfesFetchByKeyRequest  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> receivedNfesFetchByKeyWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull ReceivedNfesFetchByKeyRequest receivedNfesFetchByKeyRequest, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = receivedNfesFetchByKeyRequestBuilder(companyId, receivedNfesFetchByKeyRequest, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("receivedNfesFetchByKey", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder receivedNfesFetchByKeyRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull ReceivedNfesFetchByKeyRequest receivedNfesFetchByKeyRequest, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling receivedNfesFetchByKey");
+    }
+    // verify the required parameter 'receivedNfesFetchByKeyRequest' is set
+    if (receivedNfesFetchByKeyRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'receivedNfesFetchByKeyRequest' when calling receivedNfesFetchByKey");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/received-nfes/fetch-by-key"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(receivedNfesFetchByKeyRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
    * Get received NF-e
    * 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
@@ -284,10 +403,12 @@ public class ReceivedNfesApi {
    * @param limit  (optional)
    * @param search  (optional)
    * @param status  (optional)
+   * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
+   * @param endDate Fim do período de emissão, inclusivo (23:59:59.999 BRT do dia informado). (optional)
    * @throws ApiException if fails to make API call
    */
-  public void receivedNfesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status) throws ApiException {
-    receivedNfesList(companyId, page, limit, search, status, null);
+  public void receivedNfesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    receivedNfesList(companyId, page, limit, search, status, startDate, endDate, null);
   }
 
   /**
@@ -298,11 +419,13 @@ public class ReceivedNfesApi {
    * @param limit  (optional)
    * @param search  (optional)
    * @param status  (optional)
+   * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
+   * @param endDate Fim do período de emissão, inclusivo (23:59:59.999 BRT do dia informado). (optional)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
    */
-  public void receivedNfesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    receivedNfesListWithHttpInfo(companyId, page, limit, search, status, headers);
+  public void receivedNfesList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    receivedNfesListWithHttpInfo(companyId, page, limit, search, status, startDate, endDate, headers);
   }
 
   /**
@@ -313,11 +436,13 @@ public class ReceivedNfesApi {
    * @param limit  (optional)
    * @param search  (optional)
    * @param status  (optional)
+   * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
+   * @param endDate Fim do período de emissão, inclusivo (23:59:59.999 BRT do dia informado). (optional)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> receivedNfesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status) throws ApiException {
-    return receivedNfesListWithHttpInfo(companyId, page, limit, search, status, null);
+  public ApiResponse<Void> receivedNfesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    return receivedNfesListWithHttpInfo(companyId, page, limit, search, status, startDate, endDate, null);
   }
 
   /**
@@ -328,12 +453,14 @@ public class ReceivedNfesApi {
    * @param limit  (optional)
    * @param search  (optional)
    * @param status  (optional)
+   * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
+   * @param endDate Fim do período de emissão, inclusivo (23:59:59.999 BRT do dia informado). (optional)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> receivedNfesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = receivedNfesListRequestBuilder(companyId, page, limit, search, status, headers);
+  public ApiResponse<Void> receivedNfesListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = receivedNfesListRequestBuilder(companyId, page, limit, search, status, startDate, endDate, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -369,7 +496,7 @@ public class ReceivedNfesApi {
     }
   }
 
-  private HttpRequest.Builder receivedNfesListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, Map<String, String> headers) throws ApiException {
+  private HttpRequest.Builder receivedNfesListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer limit, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'companyId' is set
     if (companyId == null) {
       throw new ApiException(400, "Missing the required parameter 'companyId' when calling receivedNfesList");
@@ -391,6 +518,10 @@ public class ReceivedNfesApi {
     localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
     localVarQueryParameterBaseName = "status";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");
