@@ -26,6 +26,8 @@ import com.emitfy.generated.model.MdfeDriver;
 import com.emitfy.generated.model.MdfeEmitRequest;
 import com.emitfy.generated.model.MdfeList200Response;
 import com.emitfy.generated.model.MdfePayment;
+import com.emitfy.generated.model.MdfeSettingsGet200Response;
+import com.emitfy.generated.model.MdfeSettingsPatch;
 import com.emitfy.generated.model.MdfeUnloadCity;
 import com.emitfy.generated.model.TransportDocumentAccepted;
 import java.util.UUID;
@@ -1392,6 +1394,275 @@ public class MdfeApi {
     localVarRequestBuilder.header("Accept", "application/json");
 
     localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Get MDF-e settings
+   * Configuração de MDF-e da empresa. MDF-e não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @return MdfeSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public MdfeSettingsGet200Response mdfeSettingsGet(@javax.annotation.Nonnull UUID companyId) throws ApiException {
+    return mdfeSettingsGet(companyId, null);
+  }
+
+  /**
+   * Get MDF-e settings
+   * Configuração de MDF-e da empresa. MDF-e não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param headers Optional headers to include in the request
+   * @return MdfeSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public MdfeSettingsGet200Response mdfeSettingsGet(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    ApiResponse<MdfeSettingsGet200Response> localVarResponse = mdfeSettingsGetWithHttpInfo(companyId, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Get MDF-e settings
+   * Configuração de MDF-e da empresa. MDF-e não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @return ApiResponse&lt;MdfeSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MdfeSettingsGet200Response> mdfeSettingsGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId) throws ApiException {
+    return mdfeSettingsGetWithHttpInfo(companyId, null);
+  }
+
+  /**
+   * Get MDF-e settings
+   * Configuração de MDF-e da empresa. MDF-e não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;MdfeSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MdfeSettingsGet200Response> mdfeSettingsGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = mdfeSettingsGetRequestBuilder(companyId, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("mdfeSettingsGet", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MdfeSettingsGet200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MdfeSettingsGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MdfeSettingsGet200Response>() {});
+        
+
+        return new ApiResponse<MdfeSettingsGet200Response>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder mdfeSettingsGetRequestBuilder(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling mdfeSettingsGet");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/mdfe/settings"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Enable, disable or configure MDF-e
+   * Liga/desliga a emissão e ajusta a numeração. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param mdfeSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @return MdfeSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public MdfeSettingsGet200Response mdfeSettingsUpdate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeSettingsPatch mdfeSettingsPatch, @javax.annotation.Nullable String confirmNumber) throws ApiException {
+    return mdfeSettingsUpdate(companyId, mdfeSettingsPatch, confirmNumber, null);
+  }
+
+  /**
+   * Enable, disable or configure MDF-e
+   * Liga/desliga a emissão e ajusta a numeração. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param mdfeSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @param headers Optional headers to include in the request
+   * @return MdfeSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public MdfeSettingsGet200Response mdfeSettingsUpdate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeSettingsPatch mdfeSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    ApiResponse<MdfeSettingsGet200Response> localVarResponse = mdfeSettingsUpdateWithHttpInfo(companyId, mdfeSettingsPatch, confirmNumber, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Enable, disable or configure MDF-e
+   * Liga/desliga a emissão e ajusta a numeração. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param mdfeSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @return ApiResponse&lt;MdfeSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MdfeSettingsGet200Response> mdfeSettingsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeSettingsPatch mdfeSettingsPatch, @javax.annotation.Nullable String confirmNumber) throws ApiException {
+    return mdfeSettingsUpdateWithHttpInfo(companyId, mdfeSettingsPatch, confirmNumber, null);
+  }
+
+  /**
+   * Enable, disable or configure MDF-e
+   * Liga/desliga a emissão e ajusta a numeração. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param mdfeSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;MdfeSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MdfeSettingsGet200Response> mdfeSettingsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeSettingsPatch mdfeSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = mdfeSettingsUpdateRequestBuilder(companyId, mdfeSettingsPatch, confirmNumber, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("mdfeSettingsUpdate", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MdfeSettingsGet200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MdfeSettingsGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MdfeSettingsGet200Response>() {});
+        
+
+        return new ApiResponse<MdfeSettingsGet200Response>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder mdfeSettingsUpdateRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull MdfeSettingsPatch mdfeSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling mdfeSettingsUpdate");
+    }
+    // verify the required parameter 'mdfeSettingsPatch' is set
+    if (mdfeSettingsPatch == null) {
+      throw new ApiException(400, "Missing the required parameter 'mdfeSettingsPatch' when calling mdfeSettingsUpdate");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/mdfe/settings"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "confirmNumber";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("confirmNumber", confirmNumber));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(mdfeSettingsPatch);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }

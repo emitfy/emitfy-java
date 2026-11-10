@@ -22,6 +22,8 @@ import com.emitfy.generated.model.CteCreateRequest;
 import com.emitfy.generated.model.CteEmitAccepted;
 import com.emitfy.generated.model.CteList200Response;
 import com.emitfy.generated.model.CteOsCreateRequest;
+import com.emitfy.generated.model.CteSettingsGet200Response;
+import com.emitfy.generated.model.CteSettingsPatch;
 import com.emitfy.generated.model.ErrorBody;
 import com.emitfy.generated.model.TransportDocumentAccepted;
 import java.util.UUID;
@@ -952,6 +954,275 @@ public class CteApi {
     try {
       byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(cteOsCreateRequest);
       localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Get CT-e e CT-e OS settings
+   * Configuração de CT-e e CT-e OS da empresa. CT-e e CT-e OS não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @return CteSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public CteSettingsGet200Response cteSettingsGet(@javax.annotation.Nonnull UUID companyId) throws ApiException {
+    return cteSettingsGet(companyId, null);
+  }
+
+  /**
+   * Get CT-e e CT-e OS settings
+   * Configuração de CT-e e CT-e OS da empresa. CT-e e CT-e OS não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param headers Optional headers to include in the request
+   * @return CteSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public CteSettingsGet200Response cteSettingsGet(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    ApiResponse<CteSettingsGet200Response> localVarResponse = cteSettingsGetWithHttpInfo(companyId, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Get CT-e e CT-e OS settings
+   * Configuração de CT-e e CT-e OS da empresa. CT-e e CT-e OS não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @return ApiResponse&lt;CteSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<CteSettingsGet200Response> cteSettingsGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId) throws ApiException {
+    return cteSettingsGetWithHttpInfo(companyId, null);
+  }
+
+  /**
+   * Get CT-e e CT-e OS settings
+   * Configuração de CT-e e CT-e OS da empresa. CT-e e CT-e OS não aparece no painel: ativação e configuração são só por esta rota. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;CteSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<CteSettingsGet200Response> cteSettingsGetWithHttpInfo(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = cteSettingsGetRequestBuilder(companyId, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("cteSettingsGet", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<CteSettingsGet200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        CteSettingsGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<CteSettingsGet200Response>() {});
+        
+
+        return new ApiResponse<CteSettingsGet200Response>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder cteSettingsGetRequestBuilder(@javax.annotation.Nonnull UUID companyId, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling cteSettingsGet");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/cte/settings"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Enable, disable or configure CT-e e CT-e OS
+   * Liga/desliga a emissão e ajusta a numeração e o RNTRC. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param cteSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @return CteSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public CteSettingsGet200Response cteSettingsUpdate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteSettingsPatch cteSettingsPatch, @javax.annotation.Nullable String confirmNumber) throws ApiException {
+    return cteSettingsUpdate(companyId, cteSettingsPatch, confirmNumber, null);
+  }
+
+  /**
+   * Enable, disable or configure CT-e e CT-e OS
+   * Liga/desliga a emissão e ajusta a numeração e o RNTRC. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param cteSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @param headers Optional headers to include in the request
+   * @return CteSettingsGet200Response
+   * @throws ApiException if fails to make API call
+   */
+  public CteSettingsGet200Response cteSettingsUpdate(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteSettingsPatch cteSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    ApiResponse<CteSettingsGet200Response> localVarResponse = cteSettingsUpdateWithHttpInfo(companyId, cteSettingsPatch, confirmNumber, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Enable, disable or configure CT-e e CT-e OS
+   * Liga/desliga a emissão e ajusta a numeração e o RNTRC. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param cteSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @return ApiResponse&lt;CteSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<CteSettingsGet200Response> cteSettingsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteSettingsPatch cteSettingsPatch, @javax.annotation.Nullable String confirmNumber) throws ApiException {
+    return cteSettingsUpdateWithHttpInfo(companyId, cteSettingsPatch, confirmNumber, null);
+  }
+
+  /**
+   * Enable, disable or configure CT-e e CT-e OS
+   * Liga/desliga a emissão e ajusta a numeração e o RNTRC. Só o titular ou um administrador da empresa. O próximo número só sobe; número menor na mesma série responde 409, salvo &#x60;?confirmNumber&#x3D;1&#x60;. Série nova grava o número informado. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param cteSettingsPatch  (required)
+   * @param confirmNumber &#x60;1&#x60; aceita voltar o próximo número na mesma série. (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;CteSettingsGet200Response&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<CteSettingsGet200Response> cteSettingsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteSettingsPatch cteSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = cteSettingsUpdateRequestBuilder(companyId, cteSettingsPatch, confirmNumber, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("cteSettingsUpdate", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<CteSettingsGet200Response>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        CteSettingsGet200Response responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<CteSettingsGet200Response>() {});
+        
+
+        return new ApiResponse<CteSettingsGet200Response>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder cteSettingsUpdateRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull CteSettingsPatch cteSettingsPatch, @javax.annotation.Nullable String confirmNumber, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling cteSettingsUpdate");
+    }
+    // verify the required parameter 'cteSettingsPatch' is set
+    if (cteSettingsPatch == null) {
+      throw new ApiException(400, "Missing the required parameter 'cteSettingsPatch' when calling cteSettingsUpdate");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/cte/settings"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "confirmNumber";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("confirmNumber", confirmNumber));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(cteSettingsPatch);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
     } catch (IOException e) {
       throw new ApiException(e);
     }
