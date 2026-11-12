@@ -165,7 +165,7 @@ public class CustomersApi {
 
   /**
    * Create customer
-   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
+   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60;) se já existir cliente com o mesmo CPF/CNPJ, ou 409 (&#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se o e-mail já existir e os documentos não forem distintos. O mesmo e-mail pode ser usado em clientes com CPF/CNPJ diferentes. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @throws ApiException if fails to make API call
@@ -176,7 +176,7 @@ public class CustomersApi {
 
   /**
    * Create customer
-   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
+   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60;) se já existir cliente com o mesmo CPF/CNPJ, ou 409 (&#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se o e-mail já existir e os documentos não forem distintos. O mesmo e-mail pode ser usado em clientes com CPF/CNPJ diferentes. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @param headers Optional headers to include in the request
@@ -188,7 +188,7 @@ public class CustomersApi {
 
   /**
    * Create customer
-   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
+   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60;) se já existir cliente com o mesmo CPF/CNPJ, ou 409 (&#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se o e-mail já existir e os documentos não forem distintos. O mesmo e-mail pode ser usado em clientes com CPF/CNPJ diferentes. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @return ApiResponse&lt;Void&gt;
@@ -200,7 +200,7 @@ public class CustomersApi {
 
   /**
    * Create customer
-   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60; / &#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se já existir cliente com o mesmo documento ou e-mail. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
+   * Cria um novo cliente. Retorna 409 (&#x60;CUSTOMER_DOCUMENT_EXISTS&#x60;) se já existir cliente com o mesmo CPF/CNPJ, ou 409 (&#x60;CUSTOMER_EMAIL_EXISTS&#x60;) se o e-mail já existir e os documentos não forem distintos. O mesmo e-mail pode ser usado em clientes com CPF/CNPJ diferentes. Para atualizar, use &#x60;PUT /companies/{companyId}/customers/{id}&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param requestBody  (required)
    * @param headers Optional headers to include in the request
