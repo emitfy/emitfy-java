@@ -18,6 +18,7 @@ import com.emitfy.generated.ApiResponse;
 import com.emitfy.generated.Configuration;
 import com.emitfy.generated.Pair;
 
+import java.io.File;
 import com.emitfy.generated.model.ReceivedNfesFetchByKeyRequest;
 import com.emitfy.generated.model.ReceivedNfesManifestRequest;
 import java.util.UUID;
@@ -165,8 +166,174 @@ public class ReceivedNfesApi {
   }
 
   /**
+   * Download received NF-e as .zip
+   * Gera um .zip com XML (&#x60;NFe_{chave}.xml&#x60;), DANFE (&#x60;DANFE_{chave}.pdf&#x60;) ou ambos. Use &#x60;ids&#x60; (até 500, separados por vírgula) ou os mesmos filtros da listagem. Cada chave de acesso entra uma vez. Limite: 1000 notas em XML, 300 com PDF. Notas só com resumo vão listadas em &#x60;notas-sem-xml.txt&#x60;.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param format  (optional, default to xml)
+   * @param ids  (optional)
+   * @param search  (optional)
+   * @param status  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @return File
+   * @throws ApiException if fails to make API call
+   */
+  public File receivedNfesDownload(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String format, @javax.annotation.Nullable String ids, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    return receivedNfesDownload(companyId, format, ids, search, status, startDate, endDate, null);
+  }
+
+  /**
+   * Download received NF-e as .zip
+   * Gera um .zip com XML (&#x60;NFe_{chave}.xml&#x60;), DANFE (&#x60;DANFE_{chave}.pdf&#x60;) ou ambos. Use &#x60;ids&#x60; (até 500, separados por vírgula) ou os mesmos filtros da listagem. Cada chave de acesso entra uma vez. Limite: 1000 notas em XML, 300 com PDF. Notas só com resumo vão listadas em &#x60;notas-sem-xml.txt&#x60;.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param format  (optional, default to xml)
+   * @param ids  (optional)
+   * @param search  (optional)
+   * @param status  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @param headers Optional headers to include in the request
+   * @return File
+   * @throws ApiException if fails to make API call
+   */
+  public File receivedNfesDownload(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String format, @javax.annotation.Nullable String ids, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    ApiResponse<File> localVarResponse = receivedNfesDownloadWithHttpInfo(companyId, format, ids, search, status, startDate, endDate, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Download received NF-e as .zip
+   * Gera um .zip com XML (&#x60;NFe_{chave}.xml&#x60;), DANFE (&#x60;DANFE_{chave}.pdf&#x60;) ou ambos. Use &#x60;ids&#x60; (até 500, separados por vírgula) ou os mesmos filtros da listagem. Cada chave de acesso entra uma vez. Limite: 1000 notas em XML, 300 com PDF. Notas só com resumo vão listadas em &#x60;notas-sem-xml.txt&#x60;.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param format  (optional, default to xml)
+   * @param ids  (optional)
+   * @param search  (optional)
+   * @param status  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @return ApiResponse&lt;File&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<File> receivedNfesDownloadWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String format, @javax.annotation.Nullable String ids, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    return receivedNfesDownloadWithHttpInfo(companyId, format, ids, search, status, startDate, endDate, null);
+  }
+
+  /**
+   * Download received NF-e as .zip
+   * Gera um .zip com XML (&#x60;NFe_{chave}.xml&#x60;), DANFE (&#x60;DANFE_{chave}.pdf&#x60;) ou ambos. Use &#x60;ids&#x60; (até 500, separados por vírgula) ou os mesmos filtros da listagem. Cada chave de acesso entra uma vez. Limite: 1000 notas em XML, 300 com PDF. Notas só com resumo vão listadas em &#x60;notas-sem-xml.txt&#x60;.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param format  (optional, default to xml)
+   * @param ids  (optional)
+   * @param search  (optional)
+   * @param status  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;File&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<File> receivedNfesDownloadWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String format, @javax.annotation.Nullable String ids, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = receivedNfesDownloadRequestBuilder(companyId, format, ids, search, status, startDate, endDate, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("receivedNfesDownload", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<File>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        // Handle file downloading.
+        File responseValue = downloadFileFromResponse(localVarResponse, localVarResponseBody);
+        
+
+        return new ApiResponse<File>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder receivedNfesDownloadRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String format, @javax.annotation.Nullable String ids, @javax.annotation.Nullable String search, @javax.annotation.Nullable String status, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling receivedNfesDownload");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/received-nfes/download"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "format";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("format", format));
+    localVarQueryParameterBaseName = "ids";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("ids", ids));
+    localVarQueryParameterBaseName = "search";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+    localVarQueryParameterBaseName = "status";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/zip");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
    * Fetch received NF-e by access key (DistDFe consChNFe)
-   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), o Emitfy registra a ciência da operação (&#x60;210210&#x60;) na mesma chamada; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param receivedNfesFetchByKeyRequest  (required)
    * @throws ApiException if fails to make API call
@@ -177,7 +344,7 @@ public class ReceivedNfesApi {
 
   /**
    * Fetch received NF-e by access key (DistDFe consChNFe)
-   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), o Emitfy registra a ciência da operação (&#x60;210210&#x60;) na mesma chamada; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param receivedNfesFetchByKeyRequest  (required)
    * @param headers Optional headers to include in the request
@@ -189,7 +356,7 @@ public class ReceivedNfesApi {
 
   /**
    * Fetch received NF-e by access key (DistDFe consChNFe)
-   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), o Emitfy registra a ciência da operação (&#x60;210210&#x60;) na mesma chamada; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param receivedNfesFetchByKeyRequest  (required)
    * @return ApiResponse&lt;Void&gt;
@@ -201,7 +368,7 @@ public class ReceivedNfesApi {
 
   /**
    * Fetch received NF-e by access key (DistDFe consChNFe)
-   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), a ciência da operação (&#x60;210210&#x60;) é enviada automaticamente; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
+   * Consulta síncrona de uma NF-e pela chave de acesso (uma chamada SEFAZ). Não altera o cursor NSU do sync. Valida só formato/DV da chave. Se a SEFAZ devolver apenas o resumo (&#x60;resNFe&#x60;), o Emitfy registra a ciência da operação (&#x60;210210&#x60;) na mesma chamada; o XML completo fica disponível numa próxima busca/sincronização. Conta no limite de consultas da SEFAZ.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param receivedNfesFetchByKeyRequest  (required)
    * @param headers Optional headers to include in the request
@@ -400,7 +567,7 @@ public class ReceivedNfesApi {
    * 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param limit  (optional)
+   * @param limit Itens por página (1–100). Padrão 20. (optional, default to 20)
    * @param search  (optional)
    * @param status  (optional)
    * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
@@ -416,7 +583,7 @@ public class ReceivedNfesApi {
    * 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param limit  (optional)
+   * @param limit Itens por página (1–100). Padrão 20. (optional, default to 20)
    * @param search  (optional)
    * @param status  (optional)
    * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
@@ -433,7 +600,7 @@ public class ReceivedNfesApi {
    * 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param limit  (optional)
+   * @param limit Itens por página (1–100). Padrão 20. (optional, default to 20)
    * @param search  (optional)
    * @param status  (optional)
    * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
@@ -450,7 +617,7 @@ public class ReceivedNfesApi {
    * 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param page  (optional, default to 1)
-   * @param limit  (optional)
+   * @param limit Itens por página (1–100). Padrão 20. (optional, default to 20)
    * @param search  (optional)
    * @param status  (optional)
    * @param startDate Início do período de emissão (&#x60;issuedOn&#x60;). &#x60;YYYY-MM-DD&#x60; &#x3D; dia civil de Brasília (00:00 BRT); também aceita ISO 8601 ou epoch ms (recortado ao dia em BRT). (optional)
@@ -676,8 +843,269 @@ public class ReceivedNfesApi {
   }
 
   /**
-   * Enqueue DistDFe sync
+   * Get received NF-e DANFE (PDF)
    * 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @return File
+   * @throws ApiException if fails to make API call
+   */
+  public File receivedNfesPdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return receivedNfesPdf(companyId, id, null);
+  }
+
+  /**
+   * Get received NF-e DANFE (PDF)
+   * 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return File
+   * @throws ApiException if fails to make API call
+   */
+  public File receivedNfesPdf(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    ApiResponse<File> localVarResponse = receivedNfesPdfWithHttpInfo(companyId, id, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Get received NF-e DANFE (PDF)
+   * 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @return ApiResponse&lt;File&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<File> receivedNfesPdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return receivedNfesPdfWithHttpInfo(companyId, id, null);
+  }
+
+  /**
+   * Get received NF-e DANFE (PDF)
+   * 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;File&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<File> receivedNfesPdfWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = receivedNfesPdfRequestBuilder(companyId, id, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("receivedNfesPdf", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<File>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        // Handle file downloading.
+        File responseValue = downloadFileFromResponse(localVarResponse, localVarResponseBody);
+        
+
+        return new ApiResponse<File>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder receivedNfesPdfRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling receivedNfesPdf");
+    }
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling receivedNfesPdf");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/received-nfes/{id}/pdf"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()))
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/pdf");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Received NF-e totals
+   * Totais das NF-e recebidas no filtro (&#x60;search&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;). Ignora &#x60;status&#x60;: devolve a contagem por manifestação.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param search  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @throws ApiException if fails to make API call
+   */
+  public void receivedNfesSummary(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String search, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    receivedNfesSummary(companyId, search, startDate, endDate, null);
+  }
+
+  /**
+   * Received NF-e totals
+   * Totais das NF-e recebidas no filtro (&#x60;search&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;). Ignora &#x60;status&#x60;: devolve a contagem por manifestação.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param search  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void receivedNfesSummary(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String search, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    receivedNfesSummaryWithHttpInfo(companyId, search, startDate, endDate, headers);
+  }
+
+  /**
+   * Received NF-e totals
+   * Totais das NF-e recebidas no filtro (&#x60;search&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;). Ignora &#x60;status&#x60;: devolve a contagem por manifestação.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param search  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> receivedNfesSummaryWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String search, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate) throws ApiException {
+    return receivedNfesSummaryWithHttpInfo(companyId, search, startDate, endDate, null);
+  }
+
+  /**
+   * Received NF-e totals
+   * Totais das NF-e recebidas no filtro (&#x60;search&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;). Ignora &#x60;status&#x60;: devolve a contagem por manifestação.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param search  (optional)
+   * @param startDate  (optional)
+   * @param endDate  (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> receivedNfesSummaryWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String search, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = receivedNfesSummaryRequestBuilder(companyId, search, startDate, endDate, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("receivedNfesSummary", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder receivedNfesSummaryRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nullable String search, @javax.annotation.Nullable String startDate, @javax.annotation.Nullable String endDate, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling receivedNfesSummary");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/received-nfes/summary"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "search";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+    localVarQueryParameterBaseName = "startDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+    localVarQueryParameterBaseName = "endDate";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Enqueue DistDFe sync
+   * Enfileira a consulta DistDFe na SEFAZ (com ciência da operação para resumos). Intervalo mínimo de 10 minutos entre sincronizações; dentro dele responde 200 com &#x60;skipped: true&#x60;, &#x60;skipReason: min_interval&#x60; e &#x60;availableAt&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @throws ApiException if fails to make API call
    */
@@ -687,7 +1115,7 @@ public class ReceivedNfesApi {
 
   /**
    * Enqueue DistDFe sync
-   * 
+   * Enfileira a consulta DistDFe na SEFAZ (com ciência da operação para resumos). Intervalo mínimo de 10 minutos entre sincronizações; dentro dele responde 200 com &#x60;skipped: true&#x60;, &#x60;skipReason: min_interval&#x60; e &#x60;availableAt&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @throws ApiException if fails to make API call
@@ -698,7 +1126,7 @@ public class ReceivedNfesApi {
 
   /**
    * Enqueue DistDFe sync
-   * 
+   * Enfileira a consulta DistDFe na SEFAZ (com ciência da operação para resumos). Intervalo mínimo de 10 minutos entre sincronizações; dentro dele responde 200 com &#x60;skipped: true&#x60;, &#x60;skipReason: min_interval&#x60; e &#x60;availableAt&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
@@ -709,7 +1137,7 @@ public class ReceivedNfesApi {
 
   /**
    * Enqueue DistDFe sync
-   * 
+   * Enfileira a consulta DistDFe na SEFAZ (com ciência da operação para resumos). Intervalo mínimo de 10 minutos entre sincronizações; dentro dele responde 200 com &#x60;skipped: true&#x60;, &#x60;skipReason: min_interval&#x60; e &#x60;availableAt&#x60;.
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param headers Optional headers to include in the request
    * @return ApiResponse&lt;Void&gt;
