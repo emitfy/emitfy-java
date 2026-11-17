@@ -19,6 +19,10 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeImportDeclaration;
+import com.emitfy.generated.model.NfeItemIcms;
+import com.emitfy.generated.model.NfeItemImportTax;
+import com.emitfy.generated.model.NfeItemIpi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -66,6 +70,9 @@ import com.emitfy.generated.ApiClient;
   ProductEmitItem.JSON_PROPERTY_IPI_CST,
   ProductEmitItem.JSON_PROPERTY_IPI_TAX_RATE,
   ProductEmitItem.JSON_PROPERTY_IPI_LEGAL_CODE,
+  ProductEmitItem.JSON_PROPERTY_ICMS,
+  ProductEmitItem.JSON_PROPERTY_IPI,
+  ProductEmitItem.JSON_PROPERTY_IMPORT_TAX,
   ProductEmitItem.JSON_PROPERTY_CEST,
   ProductEmitItem.JSON_PROPERTY_FCI,
   ProductEmitItem.JSON_PROPERTY_NVE,
@@ -211,6 +218,18 @@ public class ProductEmitItem {
   @javax.annotation.Nullable
   private String ipiLegalCode;
 
+  public static final String JSON_PROPERTY_ICMS = "icms";
+  @javax.annotation.Nullable
+  private NfeItemIcms icms;
+
+  public static final String JSON_PROPERTY_IPI = "ipi";
+  @javax.annotation.Nullable
+  private NfeItemIpi ipi;
+
+  public static final String JSON_PROPERTY_IMPORT_TAX = "importTax";
+  @javax.annotation.Nullable
+  private NfeItemImportTax importTax;
+
   public static final String JSON_PROPERTY_CEST = "cest";
   @javax.annotation.Nullable
   private String cest;
@@ -265,7 +284,7 @@ public class ProductEmitItem {
 
   public static final String JSON_PROPERTY_IMPORT_DECLARATIONS = "importDeclarations";
   @javax.annotation.Nullable
-  private List<Object> importDeclarations = new ArrayList<>();
+  private List<NfeImportDeclaration> importDeclarations = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRACES = "traces";
   @javax.annotation.Nullable
@@ -960,7 +979,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get ipiCst
+   * NF-e — CST do IPI nesta nota (atalho de &#x60;ipi.cst&#x60;; com &#x60;ipiTaxRate&#x60; → pIPI e &#x60;ipiLegalCode&#x60; → cEnq). Só destaca IPI quando vem na requisição (o cadastro nunca destaca sozinho). Divergir de &#x60;ipi.cst&#x60; → 422. 
    * @return ipiCst
    */
   @javax.annotation.Nullable
@@ -1023,6 +1042,78 @@ public class ProductEmitItem {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpiLegalCode(@javax.annotation.Nullable String ipiLegalCode) {
     this.ipiLegalCode = ipiLegalCode;
+  }
+
+
+  public ProductEmitItem icms(@javax.annotation.Nullable NfeItemIcms icms) {
+    this.icms = icms;
+    return this;
+  }
+
+  /**
+   * Get icms
+   * @return icms
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ICMS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeItemIcms getIcms() {
+    return icms;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ICMS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcms(@javax.annotation.Nullable NfeItemIcms icms) {
+    this.icms = icms;
+  }
+
+
+  public ProductEmitItem ipi(@javax.annotation.Nullable NfeItemIpi ipi) {
+    this.ipi = ipi;
+    return this;
+  }
+
+  /**
+   * Get ipi
+   * @return ipi
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeItemIpi getIpi() {
+    return ipi;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIpi(@javax.annotation.Nullable NfeItemIpi ipi) {
+    this.ipi = ipi;
+  }
+
+
+  public ProductEmitItem importTax(@javax.annotation.Nullable NfeItemImportTax importTax) {
+    this.importTax = importTax;
+    return this;
+  }
+
+  /**
+   * Get importTax
+   * @return importTax
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IMPORT_TAX, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeItemImportTax getImportTax() {
+    return importTax;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IMPORT_TAX, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setImportTax(@javax.annotation.Nullable NfeItemImportTax importTax) {
+    this.importTax = importTax;
   }
 
 
@@ -1351,12 +1442,12 @@ public class ProductEmitItem {
   }
 
 
-  public ProductEmitItem importDeclarations(@javax.annotation.Nullable List<Object> importDeclarations) {
+  public ProductEmitItem importDeclarations(@javax.annotation.Nullable List<NfeImportDeclaration> importDeclarations) {
     this.importDeclarations = importDeclarations;
     return this;
   }
 
-  public ProductEmitItem addImportDeclarationsItem(Object importDeclarationsItem) {
+  public ProductEmitItem addImportDeclarationsItem(NfeImportDeclaration importDeclarationsItem) {
     if (this.importDeclarations == null) {
       this.importDeclarations = new ArrayList<>();
     }
@@ -1365,20 +1456,20 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get importDeclarations
+   * NF-e — DI/DSI/DA/DUIMP do item (grupo DI, logo após indTot)
    * @return importDeclarations
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_IMPORT_DECLARATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getImportDeclarations() {
+  public List<NfeImportDeclaration> getImportDeclarations() {
     return importDeclarations;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_IMPORT_DECLARATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setImportDeclarations(@javax.annotation.Nullable List<Object> importDeclarations) {
+  public void setImportDeclarations(@javax.annotation.Nullable List<NfeImportDeclaration> importDeclarations) {
     this.importDeclarations = importDeclarations;
   }
 
@@ -1641,6 +1732,9 @@ public class ProductEmitItem {
         Objects.equals(this.ipiCst, productEmitItem.ipiCst) &&
         Objects.equals(this.ipiTaxRate, productEmitItem.ipiTaxRate) &&
         Objects.equals(this.ipiLegalCode, productEmitItem.ipiLegalCode) &&
+        Objects.equals(this.icms, productEmitItem.icms) &&
+        Objects.equals(this.ipi, productEmitItem.ipi) &&
+        Objects.equals(this.importTax, productEmitItem.importTax) &&
         Objects.equals(this.cest, productEmitItem.cest) &&
         Objects.equals(this.fci, productEmitItem.fci) &&
         Objects.equals(this.nve, productEmitItem.nve) &&
@@ -1667,7 +1761,7 @@ public class ProductEmitItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
+    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, icms, ipi, importTax, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
   }
 
   @Override
@@ -1704,6 +1798,9 @@ public class ProductEmitItem {
     sb.append("    ipiCst: ").append(toIndentedString(ipiCst)).append("\n");
     sb.append("    ipiTaxRate: ").append(toIndentedString(ipiTaxRate)).append("\n");
     sb.append("    ipiLegalCode: ").append(toIndentedString(ipiLegalCode)).append("\n");
+    sb.append("    icms: ").append(toIndentedString(icms)).append("\n");
+    sb.append("    ipi: ").append(toIndentedString(ipi)).append("\n");
+    sb.append("    importTax: ").append(toIndentedString(importTax)).append("\n");
     sb.append("    cest: ").append(toIndentedString(cest)).append("\n");
     sb.append("    fci: ").append(toIndentedString(fci)).append("\n");
     sb.append("    nve: ").append(toIndentedString(nve)).append("\n");
@@ -1920,6 +2017,21 @@ public class ProductEmitItem {
       joiner.add(String.format(java.util.Locale.ROOT, "%sipiLegalCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIpiLegalCode()))));
     }
 
+    // add `icms` to the URL query string
+    if (getIcms() != null) {
+      joiner.add(getIcms().toUrlQueryString(prefix + "icms" + suffix));
+    }
+
+    // add `ipi` to the URL query string
+    if (getIpi() != null) {
+      joiner.add(getIpi().toUrlQueryString(prefix + "ipi" + suffix));
+    }
+
+    // add `importTax` to the URL query string
+    if (getImportTax() != null) {
+      joiner.add(getImportTax().toUrlQueryString(prefix + "importTax" + suffix));
+    }
+
     // add `cest` to the URL query string
     if (getCest() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scest%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCest()))));
@@ -1992,9 +2104,10 @@ public class ProductEmitItem {
     // add `importDeclarations` to the URL query string
     if (getImportDeclarations() != null) {
       for (int i = 0; i < getImportDeclarations().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%simportDeclarations%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getImportDeclarations().get(i)))));
+        if (getImportDeclarations().get(i) != null) {
+          joiner.add(getImportDeclarations().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%simportDeclarations%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

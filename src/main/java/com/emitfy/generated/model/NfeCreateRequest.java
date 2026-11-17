@@ -64,6 +64,7 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequest.JSON_PROPERTY_PRESENCE_TYPE,
   NfeCreateRequest.JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE,
   NfeCreateRequest.JSON_PROPERTY_STATE_REGISTRATION_ID,
+  NfeCreateRequest.JSON_PROPERTY_ST_STATE_REGISTRATION_ID,
   NfeCreateRequest.JSON_PROPERTY_CFOP,
   NfeCreateRequest.JSON_PROPERTY_ISSUE_DATE,
   NfeCreateRequest.JSON_PROPERTY_IDE,
@@ -336,6 +337,10 @@ public class NfeCreateRequest {
   public static final String JSON_PROPERTY_STATE_REGISTRATION_ID = "stateRegistrationId";
   @javax.annotation.Nullable
   private UUID stateRegistrationId;
+
+  public static final String JSON_PROPERTY_ST_STATE_REGISTRATION_ID = "stStateRegistrationId";
+  @javax.annotation.Nullable
+  private UUID stStateRegistrationId;
 
   public static final String JSON_PROPERTY_CFOP = "cfop";
   @javax.annotation.Nullable
@@ -745,7 +750,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Inscrição estadual da empresa (multi-IE) usada como emit/IE. Precisa existir no cadastro e ser da UF do emitente; IE de outra UF (IEST) ainda não é suportada → 422. 
+   * Inscrição estadual da empresa (multi-IE) usada como emit/IE. Precisa existir no cadastro e ser da UF do emitente; IE de outra UF → 422 (use &#x60;stStateRegistrationId&#x60; para o IEST). 
    * @return stateRegistrationId
    */
   @javax.annotation.Nullable
@@ -760,6 +765,30 @@ public class NfeCreateRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStateRegistrationId(@javax.annotation.Nullable UUID stateRegistrationId) {
     this.stateRegistrationId = stateRegistrationId;
+  }
+
+
+  public NfeCreateRequest stStateRegistrationId(@javax.annotation.Nullable UUID stStateRegistrationId) {
+    this.stStateRegistrationId = stStateRegistrationId;
+    return this;
+  }
+
+  /**
+   * IEST — inscrição de substituto tributário da empresa na UF de destino (cadastrada em inscrições estaduais). Sai em emit/IEST, logo após a IE. Precisa ser da UF do destinatário e diferente da UF do emitente → senão 422. 
+   * @return stStateRegistrationId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ST_STATE_REGISTRATION_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public UUID getStStateRegistrationId() {
+    return stStateRegistrationId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ST_STATE_REGISTRATION_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStStateRegistrationId(@javax.annotation.Nullable UUID stStateRegistrationId) {
+    this.stStateRegistrationId = stStateRegistrationId;
   }
 
 
@@ -1262,6 +1291,7 @@ public class NfeCreateRequest {
         Objects.equals(this.presenceType, nfeCreateRequest.presenceType) &&
         Objects.equals(this.ibsConsumptionCityCode, nfeCreateRequest.ibsConsumptionCityCode) &&
         Objects.equals(this.stateRegistrationId, nfeCreateRequest.stateRegistrationId) &&
+        Objects.equals(this.stStateRegistrationId, nfeCreateRequest.stStateRegistrationId) &&
         Objects.equals(this.cfop, nfeCreateRequest.cfop) &&
         Objects.equals(this.issueDate, nfeCreateRequest.issueDate) &&
         Objects.equals(this.ide, nfeCreateRequest.ide) &&
@@ -1285,7 +1315,7 @@ public class NfeCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, recipient, discount, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
+    return Objects.hash(items, recipient, discount, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, stStateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
   }
 
   @Override
@@ -1306,6 +1336,7 @@ public class NfeCreateRequest {
     sb.append("    presenceType: ").append(toIndentedString(presenceType)).append("\n");
     sb.append("    ibsConsumptionCityCode: ").append(toIndentedString(ibsConsumptionCityCode)).append("\n");
     sb.append("    stateRegistrationId: ").append(toIndentedString(stateRegistrationId)).append("\n");
+    sb.append("    stStateRegistrationId: ").append(toIndentedString(stStateRegistrationId)).append("\n");
     sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
     sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
     sb.append("    ide: ").append(toIndentedString(ide)).append("\n");
@@ -1442,6 +1473,11 @@ public class NfeCreateRequest {
     // add `stateRegistrationId` to the URL query string
     if (getStateRegistrationId() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sstateRegistrationId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStateRegistrationId()))));
+    }
+
+    // add `stStateRegistrationId` to the URL query string
+    if (getStStateRegistrationId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstStateRegistrationId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStStateRegistrationId()))));
     }
 
     // add `cfop` to the URL query string
