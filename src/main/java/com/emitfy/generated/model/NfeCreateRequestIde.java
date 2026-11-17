@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeCreateRequestIdeReferencesInner;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,6 +39,7 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   NfeCreateRequestIde.JSON_PROPERTY_PURPOSE,
   NfeCreateRequestIde.JSON_PROPERTY_REFERENCED_KEYS,
+  NfeCreateRequestIde.JSON_PROPERTY_REFERENCES,
   NfeCreateRequestIde.JSON_PROPERTY_DEPARTURE_AT,
   NfeCreateRequestIde.JSON_PROPERTY_RANDOM_CODE,
   NfeCreateRequestIde.JSON_PROPERTY_DESTINATION_TYPE,
@@ -95,6 +97,10 @@ public class NfeCreateRequestIde {
   public static final String JSON_PROPERTY_REFERENCED_KEYS = "referencedKeys";
   @javax.annotation.Nullable
   private List<String> referencedKeys = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_REFERENCES = "references";
+  @javax.annotation.Nullable
+  private List<NfeCreateRequestIdeReferencesInner> references = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DEPARTURE_AT = "departureAt";
   @javax.annotation.Nullable
@@ -206,7 +212,7 @@ public class NfeCreateRequestIde {
   }
 
   /**
-   * Chaves referenciadas (NFref/refNFe); obrigatório quando purpose ≠ normal
+   * Chaves de NF-e referenciadas (NFref/refNFe). Com purpose ≠ normal, informe referencedKeys ou references
    * @return referencedKeys
    */
   @javax.annotation.Nullable
@@ -221,6 +227,38 @@ public class NfeCreateRequestIde {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReferencedKeys(@javax.annotation.Nullable List<String> referencedKeys) {
     this.referencedKeys = referencedKeys;
+  }
+
+
+  public NfeCreateRequestIde references(@javax.annotation.Nullable List<NfeCreateRequestIdeReferencesInner> references) {
+    this.references = references;
+    return this;
+  }
+
+  public NfeCreateRequestIde addReferencesItem(NfeCreateRequestIdeReferencesInner referencesItem) {
+    if (this.references == null) {
+      this.references = new ArrayList<>();
+    }
+    this.references.add(referencesItem);
+    return this;
+  }
+
+  /**
+   * Documentos referenciados (NFref) de qualquer tipo, discriminados por &#x60;type&#x60;: &#x60;nfe&#x60; (refNFe) e &#x60;cte&#x60; (refCTe) com &#x60;key&#x60; de 44 dígitos; &#x60;nf&#x60; (refNF, modelo 01/02) e &#x60;producer&#x60; (refNFP, nota de produtor modelo 01/04, com &#x60;stateRegistration&#x60;) com state (UF ou código IBGE), yearMonth (AAMM, AAAAMM ou AAAA-MM), taxId, model, series (0–999) e number; &#x60;ecf&#x60; (refECF, cupom fiscal modelo 2B/2C/2D) com ecfNumber (1–3 dígitos) e cooNumber (1–6 dígitos). 
+   * @return references
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_REFERENCES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfeCreateRequestIdeReferencesInner> getReferences() {
+    return references;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_REFERENCES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReferences(@javax.annotation.Nullable List<NfeCreateRequestIdeReferencesInner> references) {
+    this.references = references;
   }
 
 
@@ -430,6 +468,7 @@ public class NfeCreateRequestIde {
     NfeCreateRequestIde nfeCreateRequestIde = (NfeCreateRequestIde) o;
     return Objects.equals(this.purpose, nfeCreateRequestIde.purpose) &&
         Objects.equals(this.referencedKeys, nfeCreateRequestIde.referencedKeys) &&
+        Objects.equals(this.references, nfeCreateRequestIde.references) &&
         Objects.equals(this.departureAt, nfeCreateRequestIde.departureAt) &&
         Objects.equals(this.randomCode, nfeCreateRequestIde.randomCode) &&
         Objects.equals(this.destinationType, nfeCreateRequestIde.destinationType) &&
@@ -442,7 +481,7 @@ public class NfeCreateRequestIde {
 
   @Override
   public int hashCode() {
-    return Objects.hash(purpose, referencedKeys, departureAt, randomCode, destinationType, emissionType, process, versionProcess, contingencyStartedAt, contingencyReason);
+    return Objects.hash(purpose, referencedKeys, references, departureAt, randomCode, destinationType, emissionType, process, versionProcess, contingencyStartedAt, contingencyReason);
   }
 
   @Override
@@ -451,6 +490,7 @@ public class NfeCreateRequestIde {
     sb.append("class NfeCreateRequestIde {\n");
     sb.append("    purpose: ").append(toIndentedString(purpose)).append("\n");
     sb.append("    referencedKeys: ").append(toIndentedString(referencedKeys)).append("\n");
+    sb.append("    references: ").append(toIndentedString(references)).append("\n");
     sb.append("    departureAt: ").append(toIndentedString(departureAt)).append("\n");
     sb.append("    randomCode: ").append(toIndentedString(randomCode)).append("\n");
     sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
@@ -514,6 +554,16 @@ public class NfeCreateRequestIde {
         joiner.add(String.format(java.util.Locale.ROOT, "%sreferencedKeys%s%s=%s", prefix, suffix,
             "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
             ApiClient.urlEncode(ApiClient.valueToString(getReferencedKeys().get(i)))));
+      }
+    }
+
+    // add `references` to the URL query string
+    if (getReferences() != null) {
+      for (int i = 0; i < getReferences().size(); i++) {
+        if (getReferences().get(i) != null) {
+          joiner.add(getReferences().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sreferences%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

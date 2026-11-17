@@ -52,6 +52,7 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   NfeCreateRequest.JSON_PROPERTY_ITEMS,
   NfeCreateRequest.JSON_PROPERTY_RECIPIENT,
+  NfeCreateRequest.JSON_PROPERTY_DISCOUNT,
   NfeCreateRequest.JSON_PROPERTY_TRANSPORT,
   NfeCreateRequest.JSON_PROPERTY_PAYMENT_METHOD,
   NfeCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
@@ -92,6 +93,10 @@ public class NfeCreateRequest {
   public static final String JSON_PROPERTY_RECIPIENT = "recipient";
   @javax.annotation.Nonnull
   private NfeCreateRequestRecipient recipient;
+
+  public static final String JSON_PROPERTY_DISCOUNT = "discount";
+  @javax.annotation.Nullable
+  private BigDecimal discount;
 
   public static final String JSON_PROPERTY_TRANSPORT = "transport";
   @javax.annotation.Nullable
@@ -464,6 +469,31 @@ public class NfeCreateRequest {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRecipient(@javax.annotation.Nonnull NfeCreateRequestRecipient recipient) {
     this.recipient = recipient;
+  }
+
+
+  public NfeCreateRequest discount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
+    return this;
+  }
+
+  /**
+   * Desconto da nota (venda), rateado pelos itens em vDesc sobre o valor líquido e somado ao &#x60;items[].discount&#x60;. Não pode passar do total dos itens menos os descontos dos itens, nem ser usado junto com &#x60;totals.discount&#x60; (422). 
+   * minimum: 0
+   * @return discount
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getDiscount() {
+    return discount;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDiscount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
   }
 
 
@@ -1220,6 +1250,7 @@ public class NfeCreateRequest {
     NfeCreateRequest nfeCreateRequest = (NfeCreateRequest) o;
     return Objects.equals(this.items, nfeCreateRequest.items) &&
         Objects.equals(this.recipient, nfeCreateRequest.recipient) &&
+        Objects.equals(this.discount, nfeCreateRequest.discount) &&
         Objects.equals(this.transport, nfeCreateRequest.transport) &&
         Objects.equals(this.paymentMethod, nfeCreateRequest.paymentMethod) &&
         Objects.equals(this.externalId, nfeCreateRequest.externalId) &&
@@ -1254,7 +1285,7 @@ public class NfeCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, recipient, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
+    return Objects.hash(items, recipient, discount, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
   }
 
   @Override
@@ -1263,6 +1294,7 @@ public class NfeCreateRequest {
     sb.append("class NfeCreateRequest {\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
+    sb.append("    discount: ").append(toIndentedString(discount)).append("\n");
     sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
     sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
     sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
@@ -1350,6 +1382,11 @@ public class NfeCreateRequest {
     // add `recipient` to the URL query string
     if (getRecipient() != null) {
       joiner.add(getRecipient().toUrlQueryString(prefix + "recipient" + suffix));
+    }
+
+    // add `discount` to the URL query string
+    if (getDiscount() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdiscount%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDiscount()))));
     }
 
     // add `transport` to the URL query string

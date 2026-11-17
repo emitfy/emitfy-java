@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfeCreateRequestBillingDuplicatesInner;
+import com.emitfy.generated.model.NfeCreateRequestBillingInstallmentsInner;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -41,7 +42,8 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestBilling.JSON_PROPERTY_ORIGINAL_AMOUNT,
   NfeCreateRequestBilling.JSON_PROPERTY_DISCOUNT,
   NfeCreateRequestBilling.JSON_PROPERTY_NET_AMOUNT,
-  NfeCreateRequestBilling.JSON_PROPERTY_DUPLICATES
+  NfeCreateRequestBilling.JSON_PROPERTY_DUPLICATES,
+  NfeCreateRequestBilling.JSON_PROPERTY_INSTALLMENTS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestBilling {
@@ -64,6 +66,10 @@ public class NfeCreateRequestBilling {
   public static final String JSON_PROPERTY_DUPLICATES = "duplicates";
   @javax.annotation.Nullable
   private List<NfeCreateRequestBillingDuplicatesInner> duplicates = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_INSTALLMENTS = "installments";
+  @javax.annotation.Nullable
+  private List<NfeCreateRequestBillingInstallmentsInner> installments = new ArrayList<>();
 
   public NfeCreateRequestBilling() { 
   }
@@ -199,6 +205,38 @@ public class NfeCreateRequestBilling {
   }
 
 
+  public NfeCreateRequestBilling installments(@javax.annotation.Nullable List<NfeCreateRequestBillingInstallmentsInner> installments) {
+    this.installments = installments;
+    return this;
+  }
+
+  public NfeCreateRequestBilling addInstallmentsItem(NfeCreateRequestBillingInstallmentsInner installmentsItem) {
+    if (this.installments == null) {
+      this.installments = new ArrayList<>();
+    }
+    this.installments.add(installmentsItem);
+    return this;
+  }
+
+  /**
+   * Atalho das parcelas: gera &#x60;dup&#x60; numeradas 001, 002… e a fatura (nFat/vOrig/vLiq pelo vNF). Não combina com &#x60;duplicates&#x60;; a soma não pode passar do vNF (422). 
+   * @return installments
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INSTALLMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfeCreateRequestBillingInstallmentsInner> getInstallments() {
+    return installments;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_INSTALLMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInstallments(@javax.annotation.Nullable List<NfeCreateRequestBillingInstallmentsInner> installments) {
+    this.installments = installments;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_billing object is equal to o.
    */
@@ -215,12 +253,13 @@ public class NfeCreateRequestBilling {
         Objects.equals(this.originalAmount, nfeCreateRequestBilling.originalAmount) &&
         Objects.equals(this.discount, nfeCreateRequestBilling.discount) &&
         Objects.equals(this.netAmount, nfeCreateRequestBilling.netAmount) &&
-        Objects.equals(this.duplicates, nfeCreateRequestBilling.duplicates);
+        Objects.equals(this.duplicates, nfeCreateRequestBilling.duplicates) &&
+        Objects.equals(this.installments, nfeCreateRequestBilling.installments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoiceNumber, originalAmount, discount, netAmount, duplicates);
+    return Objects.hash(invoiceNumber, originalAmount, discount, netAmount, duplicates, installments);
   }
 
   @Override
@@ -232,6 +271,7 @@ public class NfeCreateRequestBilling {
     sb.append("    discount: ").append(toIndentedString(discount)).append("\n");
     sb.append("    netAmount: ").append(toIndentedString(netAmount)).append("\n");
     sb.append("    duplicates: ").append(toIndentedString(duplicates)).append("\n");
+    sb.append("    installments: ").append(toIndentedString(installments)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -301,6 +341,16 @@ public class NfeCreateRequestBilling {
       for (int i = 0; i < getDuplicates().size(); i++) {
         if (getDuplicates().get(i) != null) {
           joiner.add(getDuplicates().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sduplicates%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `installments` to the URL query string
+    if (getInstallments() != null) {
+      for (int i = 0; i < getInstallments().size(); i++) {
+        if (getInstallments().get(i) != null) {
+          joiner.add(getInstallments().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sinstallments%s%s", prefix, suffix,
           "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }

@@ -31,12 +31,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfeCreateRequestEntrega
+ * Local de entrega (TLocal). IE é obrigatória pela NT 2026.007 para contribuinte (aceita \&quot;ISENTO\&quot;); address exige street, number, district, city, state e cityCode (IBGE, 7 dígitos). Sem address.country, sai Brasil (1058). 
  */
 @JsonPropertyOrder({
   NfeCreateRequestEntrega.JSON_PROPERTY_TAX_ID,
   NfeCreateRequestEntrega.JSON_PROPERTY_NAME,
   NfeCreateRequestEntrega.JSON_PROPERTY_STATE_REGISTRATION,
+  NfeCreateRequestEntrega.JSON_PROPERTY_PHONE,
+  NfeCreateRequestEntrega.JSON_PROPERTY_EMAIL,
   NfeCreateRequestEntrega.JSON_PROPERTY_ADDRESS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
@@ -53,6 +55,14 @@ public class NfeCreateRequestEntrega {
   @javax.annotation.Nullable
   private String stateRegistration;
 
+  public static final String JSON_PROPERTY_PHONE = "phone";
+  @javax.annotation.Nullable
+  private String phone;
+
+  public static final String JSON_PROPERTY_EMAIL = "email";
+  @javax.annotation.Nullable
+  private String email;
+
   public static final String JSON_PROPERTY_ADDRESS = "address";
   @javax.annotation.Nullable
   private DfeAddressLayout address;
@@ -66,7 +76,7 @@ public class NfeCreateRequestEntrega {
   }
 
   /**
-   * Get taxId
+   * CPF ou CNPJ
    * @return taxId
    */
   @javax.annotation.Nullable
@@ -114,7 +124,7 @@ public class NfeCreateRequestEntrega {
   }
 
   /**
-   * Get stateRegistration
+   * IE do local (2 a 14 dígitos) ou ISENTO
    * @return stateRegistration
    */
   @javax.annotation.Nullable
@@ -129,6 +139,54 @@ public class NfeCreateRequestEntrega {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStateRegistration(@javax.annotation.Nullable String stateRegistration) {
     this.stateRegistration = stateRegistration;
+  }
+
+
+  public NfeCreateRequestEntrega phone(@javax.annotation.Nullable String phone) {
+    this.phone = phone;
+    return this;
+  }
+
+  /**
+   * fone (6 a 14 dígitos)
+   * @return phone
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PHONE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getPhone() {
+    return phone;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PHONE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPhone(@javax.annotation.Nullable String phone) {
+    this.phone = phone;
+  }
+
+
+  public NfeCreateRequestEntrega email(@javax.annotation.Nullable String email) {
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getEmail() {
+    return email;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmail(@javax.annotation.Nullable String email) {
+    this.email = email;
   }
 
 
@@ -171,12 +229,14 @@ public class NfeCreateRequestEntrega {
     return Objects.equals(this.taxId, nfeCreateRequestEntrega.taxId) &&
         Objects.equals(this.name, nfeCreateRequestEntrega.name) &&
         Objects.equals(this.stateRegistration, nfeCreateRequestEntrega.stateRegistration) &&
+        Objects.equals(this.phone, nfeCreateRequestEntrega.phone) &&
+        Objects.equals(this.email, nfeCreateRequestEntrega.email) &&
         Objects.equals(this.address, nfeCreateRequestEntrega.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taxId, name, stateRegistration, address);
+    return Objects.hash(taxId, name, stateRegistration, phone, email, address);
   }
 
   @Override
@@ -186,6 +246,8 @@ public class NfeCreateRequestEntrega {
     sb.append("    taxId: ").append(toIndentedString(taxId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    stateRegistration: ").append(toIndentedString(stateRegistration)).append("\n");
+    sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -244,6 +306,16 @@ public class NfeCreateRequestEntrega {
     // add `stateRegistration` to the URL query string
     if (getStateRegistration() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sstateRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStateRegistration()))));
+    }
+
+    // add `phone` to the URL query string
+    if (getPhone() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sphone%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPhone()))));
+    }
+
+    // add `email` to the URL query string
+    if (getEmail() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%semail%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
     }
 
     // add `address` to the URL query string

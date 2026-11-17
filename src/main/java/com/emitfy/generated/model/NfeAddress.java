@@ -40,7 +40,8 @@ import com.emitfy.generated.ApiClient;
   NfeAddress.JSON_PROPERTY_CITY,
   NfeAddress.JSON_PROPERTY_STATE,
   NfeAddress.JSON_PROPERTY_ZIPCODE,
-  NfeAddress.JSON_PROPERTY_CITY_CODE
+  NfeAddress.JSON_PROPERTY_CITY_CODE,
+  NfeAddress.JSON_PROPERTY_COUNTRY
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeAddress {
@@ -75,6 +76,10 @@ public class NfeAddress {
   public static final String JSON_PROPERTY_CITY_CODE = "cityCode";
   @javax.annotation.Nullable
   private String cityCode;
+
+  public static final String JSON_PROPERTY_COUNTRY = "country";
+  @javax.annotation.Nullable
+  private String country;
 
   public NfeAddress() { 
   }
@@ -271,6 +276,30 @@ public class NfeAddress {
   }
 
 
+  public NfeAddress country(@javax.annotation.Nullable String country) {
+    this.country = country;
+    return this;
+  }
+
+  /**
+   * País do endereço (ISO 3166 alfa-2/alfa-3, nome ou código BACEN). Fora do Brasil exige &#x60;recipient.foreignId&#x60; (NF-e para o exterior: cPais/xPais do país, cMun 9999999, UF EX). 
+   * @return country
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCountry() {
+    return country;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCountry(@javax.annotation.Nullable String country) {
+    this.country = country;
+  }
+
+
   /**
    * Return true if this NfeAddress object is equal to o.
    */
@@ -290,12 +319,13 @@ public class NfeAddress {
         Objects.equals(this.city, nfeAddress.city) &&
         Objects.equals(this.state, nfeAddress.state) &&
         Objects.equals(this.zipcode, nfeAddress.zipcode) &&
-        Objects.equals(this.cityCode, nfeAddress.cityCode);
+        Objects.equals(this.cityCode, nfeAddress.cityCode) &&
+        Objects.equals(this.country, nfeAddress.country);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(street, number, complement, district, city, state, zipcode, cityCode);
+    return Objects.hash(street, number, complement, district, city, state, zipcode, cityCode, country);
   }
 
   @Override
@@ -310,6 +340,7 @@ public class NfeAddress {
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    zipcode: ").append(toIndentedString(zipcode)).append("\n");
     sb.append("    cityCode: ").append(toIndentedString(cityCode)).append("\n");
+    sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -392,6 +423,11 @@ public class NfeAddress {
     // add `cityCode` to the URL query string
     if (getCityCode() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scityCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCityCode()))));
+    }
+
+    // add `country` to the URL query string
+    if (getCountry() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%scountry%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCountry()))));
     }
 
     return joiner.toString();

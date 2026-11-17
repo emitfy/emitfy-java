@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfeAddress;
+import com.emitfy.generated.model.NfeCreateRequestRecipientIeIndicator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,29 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * NfeCreateRequestRecipient
+ * Destinatário (dest). Informe &#x60;taxId&#x60; (CPF/CNPJ) ou, no exterior, &#x60;foreignId&#x60; (idEstrangeiro) com &#x60;address.country&#x60; fora do Brasil — nunca os dois. Os campos fiscais valem só para esta nota e prevalecem sobre o cadastro do cliente (IE informada, ISENTO ou não contribuinte). 
  */
 @JsonPropertyOrder({
   NfeCreateRequestRecipient.JSON_PROPERTY_TAX_ID,
+  NfeCreateRequestRecipient.JSON_PROPERTY_FOREIGN_ID,
   NfeCreateRequestRecipient.JSON_PROPERTY_NAME,
   NfeCreateRequestRecipient.JSON_PROPERTY_EMAIL,
   NfeCreateRequestRecipient.JSON_PROPERTY_PHONE,
+  NfeCreateRequestRecipient.JSON_PROPERTY_STATE_REGISTRATION,
+  NfeCreateRequestRecipient.JSON_PROPERTY_IE_INDICATOR,
+  NfeCreateRequestRecipient.JSON_PROPERTY_SUFRAMA,
+  NfeCreateRequestRecipient.JSON_PROPERTY_MUNICIPAL_REGISTRATION,
   NfeCreateRequestRecipient.JSON_PROPERTY_ADDRESS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestRecipient {
   public static final String JSON_PROPERTY_TAX_ID = "taxId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String taxId;
+
+  public static final String JSON_PROPERTY_FOREIGN_ID = "foreignId";
+  @javax.annotation.Nullable
+  private String foreignId;
 
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull
@@ -58,6 +68,22 @@ public class NfeCreateRequestRecipient {
   @javax.annotation.Nullable
   private String phone;
 
+  public static final String JSON_PROPERTY_STATE_REGISTRATION = "stateRegistration";
+  @javax.annotation.Nullable
+  private String stateRegistration;
+
+  public static final String JSON_PROPERTY_IE_INDICATOR = "ieIndicator";
+  @javax.annotation.Nullable
+  private NfeCreateRequestRecipientIeIndicator ieIndicator;
+
+  public static final String JSON_PROPERTY_SUFRAMA = "suframa";
+  @javax.annotation.Nullable
+  private String suframa;
+
+  public static final String JSON_PROPERTY_MUNICIPAL_REGISTRATION = "municipalRegistration";
+  @javax.annotation.Nullable
+  private String municipalRegistration;
+
   public static final String JSON_PROPERTY_ADDRESS = "address";
   @javax.annotation.Nullable
   private NfeAddress address;
@@ -65,27 +91,51 @@ public class NfeCreateRequestRecipient {
   public NfeCreateRequestRecipient() { 
   }
 
-  public NfeCreateRequestRecipient taxId(@javax.annotation.Nonnull String taxId) {
+  public NfeCreateRequestRecipient taxId(@javax.annotation.Nullable String taxId) {
     this.taxId = taxId;
     return this;
   }
 
   /**
-   * Get taxId
+   * CPF ou CNPJ (obrigatório sem foreignId)
    * @return taxId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TAX_ID, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTaxId() {
     return taxId;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TAX_ID, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaxId(@javax.annotation.Nonnull String taxId) {
+  @JsonProperty(value = JSON_PROPERTY_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaxId(@javax.annotation.Nullable String taxId) {
     this.taxId = taxId;
+  }
+
+
+  public NfeCreateRequestRecipient foreignId(@javax.annotation.Nullable String foreignId) {
+    this.foreignId = foreignId;
+    return this;
+  }
+
+  /**
+   * idEstrangeiro (passaporte/ID fiscal estrangeiro). Exige address.country ≠ Brasil; sem IE/SUFRAMA/IM (indIEDest 9)
+   * @return foreignId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FOREIGN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getForeignId() {
+    return foreignId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FOREIGN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setForeignId(@javax.annotation.Nullable String foreignId) {
+    this.foreignId = foreignId;
   }
 
 
@@ -143,7 +193,7 @@ public class NfeCreateRequestRecipient {
   }
 
   /**
-   * Get phone
+   * enderDest/fone (6 a 14 dígitos; máscara é removida)
    * @return phone
    */
   @javax.annotation.Nullable
@@ -158,6 +208,102 @@ public class NfeCreateRequestRecipient {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhone(@javax.annotation.Nullable String phone) {
     this.phone = phone;
+  }
+
+
+  public NfeCreateRequestRecipient stateRegistration(@javax.annotation.Nullable String stateRegistration) {
+    this.stateRegistration = stateRegistration;
+    return this;
+  }
+
+  /**
+   * IE do destinatário (2 a 14 dígitos; máscara é removida) ou \&quot;ISENTO\&quot; (equivale a ieIndicator 2)
+   * @return stateRegistration
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getStateRegistration() {
+    return stateRegistration;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_STATE_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStateRegistration(@javax.annotation.Nullable String stateRegistration) {
+    this.stateRegistration = stateRegistration;
+  }
+
+
+  public NfeCreateRequestRecipient ieIndicator(@javax.annotation.Nullable NfeCreateRequestRecipientIeIndicator ieIndicator) {
+    this.ieIndicator = ieIndicator;
+    return this;
+  }
+
+  /**
+   * Get ieIndicator
+   * @return ieIndicator
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IE_INDICATOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeCreateRequestRecipientIeIndicator getIeIndicator() {
+    return ieIndicator;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IE_INDICATOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIeIndicator(@javax.annotation.Nullable NfeCreateRequestRecipientIeIndicator ieIndicator) {
+    this.ieIndicator = ieIndicator;
+  }
+
+
+  public NfeCreateRequestRecipient suframa(@javax.annotation.Nullable String suframa) {
+    this.suframa = suframa;
+    return this;
+  }
+
+  /**
+   * dest/ISUF — inscrição SUFRAMA (8 ou 9 dígitos)
+   * @return suframa
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SUFRAMA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getSuframa() {
+    return suframa;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SUFRAMA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuframa(@javax.annotation.Nullable String suframa) {
+    this.suframa = suframa;
+  }
+
+
+  public NfeCreateRequestRecipient municipalRegistration(@javax.annotation.Nullable String municipalRegistration) {
+    this.municipalRegistration = municipalRegistration;
+    return this;
+  }
+
+  /**
+   * dest/IM (NF-e conjugada)
+   * @return municipalRegistration
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPAL_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getMunicipalRegistration() {
+    return municipalRegistration;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_MUNICIPAL_REGISTRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMunicipalRegistration(@javax.annotation.Nullable String municipalRegistration) {
+    this.municipalRegistration = municipalRegistration;
   }
 
 
@@ -198,15 +344,20 @@ public class NfeCreateRequestRecipient {
     }
     NfeCreateRequestRecipient nfeCreateRequestRecipient = (NfeCreateRequestRecipient) o;
     return Objects.equals(this.taxId, nfeCreateRequestRecipient.taxId) &&
+        Objects.equals(this.foreignId, nfeCreateRequestRecipient.foreignId) &&
         Objects.equals(this.name, nfeCreateRequestRecipient.name) &&
         Objects.equals(this.email, nfeCreateRequestRecipient.email) &&
         Objects.equals(this.phone, nfeCreateRequestRecipient.phone) &&
+        Objects.equals(this.stateRegistration, nfeCreateRequestRecipient.stateRegistration) &&
+        Objects.equals(this.ieIndicator, nfeCreateRequestRecipient.ieIndicator) &&
+        Objects.equals(this.suframa, nfeCreateRequestRecipient.suframa) &&
+        Objects.equals(this.municipalRegistration, nfeCreateRequestRecipient.municipalRegistration) &&
         Objects.equals(this.address, nfeCreateRequestRecipient.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taxId, name, email, phone, address);
+    return Objects.hash(taxId, foreignId, name, email, phone, stateRegistration, ieIndicator, suframa, municipalRegistration, address);
   }
 
   @Override
@@ -214,9 +365,14 @@ public class NfeCreateRequestRecipient {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfeCreateRequestRecipient {\n");
     sb.append("    taxId: ").append(toIndentedString(taxId)).append("\n");
+    sb.append("    foreignId: ").append(toIndentedString(foreignId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+    sb.append("    stateRegistration: ").append(toIndentedString(stateRegistration)).append("\n");
+    sb.append("    ieIndicator: ").append(toIndentedString(ieIndicator)).append("\n");
+    sb.append("    suframa: ").append(toIndentedString(suframa)).append("\n");
+    sb.append("    municipalRegistration: ").append(toIndentedString(municipalRegistration)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -267,6 +423,11 @@ public class NfeCreateRequestRecipient {
       joiner.add(String.format(java.util.Locale.ROOT, "%staxId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxId()))));
     }
 
+    // add `foreignId` to the URL query string
+    if (getForeignId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sforeignId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getForeignId()))));
+    }
+
     // add `name` to the URL query string
     if (getName() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sname%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getName()))));
@@ -280,6 +441,26 @@ public class NfeCreateRequestRecipient {
     // add `phone` to the URL query string
     if (getPhone() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sphone%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPhone()))));
+    }
+
+    // add `stateRegistration` to the URL query string
+    if (getStateRegistration() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstateRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStateRegistration()))));
+    }
+
+    // add `ieIndicator` to the URL query string
+    if (getIeIndicator() != null) {
+      joiner.add(getIeIndicator().toUrlQueryString(prefix + "ieIndicator" + suffix));
+    }
+
+    // add `suframa` to the URL query string
+    if (getSuframa() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%ssuframa%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSuframa()))));
+    }
+
+    // add `municipalRegistration` to the URL query string
+    if (getMunicipalRegistration() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%smunicipalRegistration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMunicipalRegistration()))));
     }
 
     // add `address` to the URL query string
