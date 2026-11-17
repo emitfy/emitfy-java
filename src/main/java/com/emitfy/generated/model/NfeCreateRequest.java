@@ -21,9 +21,14 @@ import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.DfeAutXml;
 import com.emitfy.generated.model.DfeTechResponsible;
+import com.emitfy.generated.model.NfeCreateRequestAdditional;
+import com.emitfy.generated.model.NfeCreateRequestBilling;
 import com.emitfy.generated.model.NfeCreateRequestEntrega;
+import com.emitfy.generated.model.NfeCreateRequestIde;
+import com.emitfy.generated.model.NfeCreateRequestPaymentsInner;
 import com.emitfy.generated.model.NfeCreateRequestRecipient;
 import com.emitfy.generated.model.NfeCreateRequestRetirada;
+import com.emitfy.generated.model.NfeCreateRequestTotals;
 import com.emitfy.generated.model.NfeCreateRequestTransport;
 import com.emitfy.generated.model.ProductEmitItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -48,6 +53,7 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequest.JSON_PROPERTY_ITEMS,
   NfeCreateRequest.JSON_PROPERTY_RECIPIENT,
   NfeCreateRequest.JSON_PROPERTY_TRANSPORT,
+  NfeCreateRequest.JSON_PROPERTY_PAYMENT_METHOD,
   NfeCreateRequest.JSON_PROPERTY_EXTERNAL_ID,
   NfeCreateRequest.JSON_PROPERTY_OPERATION_NATURE,
   NfeCreateRequest.JSON_PROPERTY_NATURE,
@@ -90,6 +96,57 @@ public class NfeCreateRequest {
   public static final String JSON_PROPERTY_TRANSPORT = "transport";
   @javax.annotation.Nullable
   private NfeCreateRequestTransport transport;
+
+  /**
+   * Atalho de forma de pagamento (um &#x60;detPag&#x60; com o valor total da nota). pix&#x3D;17, credit_card&#x3D;03, debit_card&#x3D;04, cash&#x3D;01, bank_slip&#x3D;15, bank_transfer&#x3D;18, no_payment&#x3D;90, other&#x3D;99. Com &#x60;payments[]&#x60;, os pagamentos detalhados prevalecem. 
+   */
+  public enum PaymentMethodEnum {
+    CREDIT_CARD(String.valueOf("credit_card")),
+    
+    DEBIT_CARD(String.valueOf("debit_card")),
+    
+    PIX(String.valueOf("pix")),
+    
+    BANK_TRANSFER(String.valueOf("bank_transfer")),
+    
+    CASH(String.valueOf("cash")),
+    
+    BANK_SLIP(String.valueOf("bank_slip")),
+    
+    OTHER(String.valueOf("other")),
+    
+    NO_PAYMENT(String.valueOf("no_payment"));
+
+    private String value;
+
+    PaymentMethodEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PaymentMethodEnum fromValue(String value) {
+      for (PaymentMethodEnum b : PaymentMethodEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PAYMENT_METHOD = "paymentMethod";
+  @javax.annotation.Nullable
+  private PaymentMethodEnum paymentMethod;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
   @javax.annotation.Nullable
@@ -143,7 +200,7 @@ public class NfeCreateRequest {
   private OperationTypeEnum operationType;
 
   /**
-   * Gets or Sets printType
+   * tpImp do XML e orientação do DANFE (1 retrato, 2 paisagem). Omitido: orientação das configurações. &#x60;nfeSimplified&#x60; (tpImp 3) ainda não é suportado → 422. 
    */
   public enum PrintTypeEnum {
     NFE_NORMAL_PORTRAIT(String.valueOf("nfeNormalPortrait")),
@@ -184,7 +241,7 @@ public class NfeCreateRequest {
   private PrintTypeEnum printType;
 
   /**
-   * Gets or Sets consumerType
+   * indFinal. Omitido: 0 quando o destinatário tem IE (indIEDest 1) e 1 para isento (2) ou não contribuinte (9). Não contribuinte (indIEDest 9) sempre sai com indFinal 1 (rejeição 696), mesmo com &#x60;normal&#x60;. 
    */
   public enum ConsumerTypeEnum {
     NORMAL(String.valueOf("normal")),
@@ -285,7 +342,7 @@ public class NfeCreateRequest {
 
   public static final String JSON_PROPERTY_IDE = "ide";
   @javax.annotation.Nullable
-  private Object ide;
+  private NfeCreateRequestIde ide;
 
   public static final String JSON_PROPERTY_AVULSA = "avulsa";
   @javax.annotation.Nullable
@@ -305,11 +362,11 @@ public class NfeCreateRequest {
 
   public static final String JSON_PROPERTY_BILLING = "billing";
   @javax.annotation.Nullable
-  private Object billing;
+  private NfeCreateRequestBilling billing;
 
   public static final String JSON_PROPERTY_PAYMENTS = "payments";
   @javax.annotation.Nullable
-  private List<Object> payments = new ArrayList<>();
+  private List<NfeCreateRequestPaymentsInner> payments = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CHANGE = "change";
   @javax.annotation.Nullable
@@ -321,7 +378,7 @@ public class NfeCreateRequest {
 
   public static final String JSON_PROPERTY_ADDITIONAL = "additional";
   @javax.annotation.Nullable
-  private Object additional;
+  private NfeCreateRequestAdditional additional;
 
   public static final String JSON_PROPERTY_EXPORT = "export";
   @javax.annotation.Nullable
@@ -349,7 +406,7 @@ public class NfeCreateRequest {
 
   public static final String JSON_PROPERTY_TOTALS = "totals";
   @javax.annotation.Nullable
-  private Object totals;
+  private NfeCreateRequestTotals totals;
 
   public NfeCreateRequest() { 
   }
@@ -431,6 +488,30 @@ public class NfeCreateRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransport(@javax.annotation.Nullable NfeCreateRequestTransport transport) {
     this.transport = transport;
+  }
+
+
+  public NfeCreateRequest paymentMethod(@javax.annotation.Nullable PaymentMethodEnum paymentMethod) {
+    this.paymentMethod = paymentMethod;
+    return this;
+  }
+
+  /**
+   * Atalho de forma de pagamento (um &#x60;detPag&#x60; com o valor total da nota). pix&#x3D;17, credit_card&#x3D;03, debit_card&#x3D;04, cash&#x3D;01, bank_slip&#x3D;15, bank_transfer&#x3D;18, no_payment&#x3D;90, other&#x3D;99. Com &#x60;payments[]&#x60;, os pagamentos detalhados prevalecem. 
+   * @return paymentMethod
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public PaymentMethodEnum getPaymentMethod() {
+    return paymentMethod;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPaymentMethod(@javax.annotation.Nullable PaymentMethodEnum paymentMethod) {
+    this.paymentMethod = paymentMethod;
   }
 
 
@@ -538,7 +619,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get printType
+   * tpImp do XML e orientação do DANFE (1 retrato, 2 paisagem). Omitido: orientação das configurações. &#x60;nfeSimplified&#x60; (tpImp 3) ainda não é suportado → 422. 
    * @return printType
    */
   @javax.annotation.Nullable
@@ -562,7 +643,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get consumerType
+   * indFinal. Omitido: 0 quando o destinatário tem IE (indIEDest 1) e 1 para isento (2) ou não contribuinte (9). Não contribuinte (indIEDest 9) sempre sai com indFinal 1 (rejeição 696), mesmo com &#x60;normal&#x60;. 
    * @return consumerType
    */
   @javax.annotation.Nullable
@@ -610,7 +691,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get ibsConsumptionCityCode
+   * Reservado (cMunFGIBS, reforma tributária). Ainda não suportado → 422
    * @return ibsConsumptionCityCode
    */
   @javax.annotation.Nullable
@@ -634,7 +715,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Inscrição estadual da empresa (multi-IE) usada na emissão
+   * Inscrição estadual da empresa (multi-IE) usada como emit/IE. Precisa existir no cadastro e ser da UF do emitente; IE de outra UF (IEST) ainda não é suportada → 422. 
    * @return stateRegistrationId
    */
   @javax.annotation.Nullable
@@ -700,26 +781,26 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest ide(@javax.annotation.Nullable Object ide) {
+  public NfeCreateRequest ide(@javax.annotation.Nullable NfeCreateRequestIde ide) {
     this.ide = ide;
     return this;
   }
 
   /**
-   * Grupo ide (campos avançados)
+   * Get ide
    * @return ide
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_IDE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getIde() {
+  public NfeCreateRequestIde getIde() {
     return ide;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_IDE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIde(@javax.annotation.Nullable Object ide) {
+  public void setIde(@javax.annotation.Nullable NfeCreateRequestIde ide) {
     this.ide = ide;
   }
 
@@ -828,7 +909,7 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest billing(@javax.annotation.Nullable Object billing) {
+  public NfeCreateRequest billing(@javax.annotation.Nullable NfeCreateRequestBilling billing) {
     this.billing = billing;
     return this;
   }
@@ -840,24 +921,24 @@ public class NfeCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_BILLING, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getBilling() {
+  public NfeCreateRequestBilling getBilling() {
     return billing;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_BILLING, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBilling(@javax.annotation.Nullable Object billing) {
+  public void setBilling(@javax.annotation.Nullable NfeCreateRequestBilling billing) {
     this.billing = billing;
   }
 
 
-  public NfeCreateRequest payments(@javax.annotation.Nullable List<Object> payments) {
+  public NfeCreateRequest payments(@javax.annotation.Nullable List<NfeCreateRequestPaymentsInner> payments) {
     this.payments = payments;
     return this;
   }
 
-  public NfeCreateRequest addPaymentsItem(Object paymentsItem) {
+  public NfeCreateRequest addPaymentsItem(NfeCreateRequestPaymentsInner paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<>();
     }
@@ -866,20 +947,20 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get payments
+   * Pagamentos detalhados (&#x60;pag/detPag&#x60;, um por item). A soma (exceto method 90) não pode ser menor que o vNF (422). Excedente vira troco (&#x60;vTroco&#x60;) automaticamente. Cartão (03/04) e PIX (17) levam o grupo &#x60;card&#x60; (tpIntegra 2). 
    * @return payments
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<Object> getPayments() {
+  public List<NfeCreateRequestPaymentsInner> getPayments() {
     return payments;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayments(@javax.annotation.Nullable List<Object> payments) {
+  public void setPayments(@javax.annotation.Nullable List<NfeCreateRequestPaymentsInner> payments) {
     this.payments = payments;
   }
 
@@ -890,7 +971,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Troco
+   * Troco (vTroco). Opcional; quando enviado precisa ser soma(payments) − vNF. Só com &#x60;payments&#x60;
    * minimum: 0
    * @return change
    */
@@ -933,7 +1014,7 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest additional(@javax.annotation.Nullable Object additional) {
+  public NfeCreateRequest additional(@javax.annotation.Nullable NfeCreateRequestAdditional additional) {
     this.additional = additional;
     return this;
   }
@@ -945,14 +1026,14 @@ public class NfeCreateRequest {
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getAdditional() {
+  public NfeCreateRequestAdditional getAdditional() {
     return additional;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_ADDITIONAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdditional(@javax.annotation.Nullable Object additional) {
+  public void setAdditional(@javax.annotation.Nullable NfeCreateRequestAdditional additional) {
     this.additional = additional;
   }
 
@@ -1035,7 +1116,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get techResponsible
+   * Na NF-e, csrtId/csrtHash ainda não são suportados → 422
    * @return techResponsible
    */
   @javax.annotation.Nullable
@@ -1101,26 +1182,26 @@ public class NfeCreateRequest {
   }
 
 
-  public NfeCreateRequest totals(@javax.annotation.Nullable Object totals) {
+  public NfeCreateRequest totals(@javax.annotation.Nullable NfeCreateRequestTotals totals) {
     this.totals = totals;
     return this;
   }
 
   /**
-   * Override de totais
+   * Get totals
    * @return totals
    */
   @javax.annotation.Nullable
   @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Object getTotals() {
+  public NfeCreateRequestTotals getTotals() {
     return totals;
   }
 
 
   @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotals(@javax.annotation.Nullable Object totals) {
+  public void setTotals(@javax.annotation.Nullable NfeCreateRequestTotals totals) {
     this.totals = totals;
   }
 
@@ -1140,6 +1221,7 @@ public class NfeCreateRequest {
     return Objects.equals(this.items, nfeCreateRequest.items) &&
         Objects.equals(this.recipient, nfeCreateRequest.recipient) &&
         Objects.equals(this.transport, nfeCreateRequest.transport) &&
+        Objects.equals(this.paymentMethod, nfeCreateRequest.paymentMethod) &&
         Objects.equals(this.externalId, nfeCreateRequest.externalId) &&
         Objects.equals(this.operationNature, nfeCreateRequest.operationNature) &&
         Objects.equals(this.nature, nfeCreateRequest.nature) &&
@@ -1172,7 +1254,7 @@ public class NfeCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, recipient, transport, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
+    return Objects.hash(items, recipient, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
   }
 
   @Override
@@ -1182,6 +1264,7 @@ public class NfeCreateRequest {
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
     sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
+    sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
     sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
     sb.append("    operationNature: ").append(toIndentedString(operationNature)).append("\n");
     sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
@@ -1274,6 +1357,11 @@ public class NfeCreateRequest {
       joiner.add(getTransport().toUrlQueryString(prefix + "transport" + suffix));
     }
 
+    // add `paymentMethod` to the URL query string
+    if (getPaymentMethod() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spaymentMethod%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPaymentMethod()))));
+    }
+
     // add `externalId` to the URL query string
     if (getExternalId() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sexternalId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
@@ -1331,7 +1419,7 @@ public class NfeCreateRequest {
 
     // add `ide` to the URL query string
     if (getIde() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%side%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIde()))));
+      joiner.add(getIde().toUrlQueryString(prefix + "ide" + suffix));
     }
 
     // add `avulsa` to the URL query string
@@ -1361,15 +1449,16 @@ public class NfeCreateRequest {
 
     // add `billing` to the URL query string
     if (getBilling() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sbilling%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getBilling()))));
+      joiner.add(getBilling().toUrlQueryString(prefix + "billing" + suffix));
     }
 
     // add `payments` to the URL query string
     if (getPayments() != null) {
       for (int i = 0; i < getPayments().size(); i++) {
-        joiner.add(String.format(java.util.Locale.ROOT, "%spayments%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
-            ApiClient.urlEncode(ApiClient.valueToString(getPayments().get(i)))));
+        if (getPayments().get(i) != null) {
+          joiner.add(getPayments().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%spayments%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 
@@ -1385,7 +1474,7 @@ public class NfeCreateRequest {
 
     // add `additional` to the URL query string
     if (getAdditional() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%sadditional%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAdditional()))));
+      joiner.add(getAdditional().toUrlQueryString(prefix + "additional" + suffix));
     }
 
     // add `export` to the URL query string
@@ -1420,7 +1509,7 @@ public class NfeCreateRequest {
 
     // add `totals` to the URL query string
     if (getTotals() != null) {
-      joiner.add(String.format(java.util.Locale.ROOT, "%stotals%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTotals()))));
+      joiner.add(getTotals().toUrlQueryString(prefix + "totals" + suffix));
     }
 
     return joiner.toString();

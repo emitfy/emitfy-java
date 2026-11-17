@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeCreateRequestTransportVolumesInner;
 import com.emitfy.generated.model.TransportCarrier;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,7 +27,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -37,7 +40,8 @@ import com.emitfy.generated.ApiClient;
 @JsonPropertyOrder({
   NfeCreateRequestTransport.JSON_PROPERTY_FREIGHT_MODALITY,
   NfeCreateRequestTransport.JSON_PROPERTY_VALUE,
-  NfeCreateRequestTransport.JSON_PROPERTY_CARRIER
+  NfeCreateRequestTransport.JSON_PROPERTY_CARRIER,
+  NfeCreateRequestTransport.JSON_PROPERTY_VOLUMES
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestTransport {
@@ -96,6 +100,10 @@ public class NfeCreateRequestTransport {
   @javax.annotation.Nullable
   private TransportCarrier carrier;
 
+  public static final String JSON_PROPERTY_VOLUMES = "volumes";
+  @javax.annotation.Nullable
+  private List<NfeCreateRequestTransportVolumesInner> volumes = new ArrayList<>();
+
   public NfeCreateRequestTransport() { 
   }
 
@@ -129,7 +137,7 @@ public class NfeCreateRequestTransport {
   }
 
   /**
-   * Valor do frete; compõe o total quando por conta do emitente
+   * Valor do frete; compõe o total quando por conta do emitente. Sem &#x60;freightModality&#x60;, um valor maior que zero assume frete por conta do remetente (CIF, modFrete 0). 
    * minimum: 0
    * @return value
    */
@@ -172,6 +180,38 @@ public class NfeCreateRequestTransport {
   }
 
 
+  public NfeCreateRequestTransport volumes(@javax.annotation.Nullable List<NfeCreateRequestTransportVolumesInner> volumes) {
+    this.volumes = volumes;
+    return this;
+  }
+
+  public NfeCreateRequestTransport addVolumesItem(NfeCreateRequestTransportVolumesInner volumesItem) {
+    if (this.volumes == null) {
+      this.volumes = new ArrayList<>();
+    }
+    this.volumes.add(volumesItem);
+    return this;
+  }
+
+  /**
+   * Volumes (&#x60;transp/vol&#x60;); exige &#x60;freightModality&#x60;. Aceita também os nomes do leiaute (qVol, esp, marca, nVol, pesoL, pesoB)
+   * @return volumes
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VOLUMES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfeCreateRequestTransportVolumesInner> getVolumes() {
+    return volumes;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_VOLUMES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVolumes(@javax.annotation.Nullable List<NfeCreateRequestTransportVolumesInner> volumes) {
+    this.volumes = volumes;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_transport object is equal to o.
    */
@@ -186,12 +226,13 @@ public class NfeCreateRequestTransport {
     NfeCreateRequestTransport nfeCreateRequestTransport = (NfeCreateRequestTransport) o;
     return Objects.equals(this.freightModality, nfeCreateRequestTransport.freightModality) &&
         Objects.equals(this.value, nfeCreateRequestTransport.value) &&
-        Objects.equals(this.carrier, nfeCreateRequestTransport.carrier);
+        Objects.equals(this.carrier, nfeCreateRequestTransport.carrier) &&
+        Objects.equals(this.volumes, nfeCreateRequestTransport.volumes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(freightModality, value, carrier);
+    return Objects.hash(freightModality, value, carrier, volumes);
   }
 
   @Override
@@ -201,6 +242,7 @@ public class NfeCreateRequestTransport {
     sb.append("    freightModality: ").append(toIndentedString(freightModality)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
+    sb.append("    volumes: ").append(toIndentedString(volumes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -258,6 +300,16 @@ public class NfeCreateRequestTransport {
     // add `carrier` to the URL query string
     if (getCarrier() != null) {
       joiner.add(getCarrier().toUrlQueryString(prefix + "carrier" + suffix));
+    }
+
+    // add `volumes` to the URL query string
+    if (getVolumes() != null) {
+      for (int i = 0; i < getVolumes().size(); i++) {
+        if (getVolumes().get(i) != null) {
+          joiner.add(getVolumes().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%svolumes%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
     }
 
     return joiner.toString();

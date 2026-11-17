@@ -1032,7 +1032,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get cest
+   * CEST (7 dígitos). Sai uma única vez no &#x60;prod&#x60;; prevalece sobre o do cadastro
    * @return cest
    */
   @javax.annotation.Nullable
@@ -1088,7 +1088,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get nve
+   * NF-e — Nomenclatura de Valor Aduaneiro (NVE, ex. AA0001), até 8 por item
    * @return nve
    */
   @javax.annotation.Nullable
@@ -1112,7 +1112,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get extipi
+   * NF-e — código EX da TIPI (EXTIPI), 2 ou 3 dígitos
    * @return extipi
    */
   @javax.annotation.Nullable
@@ -1185,7 +1185,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get freight
+   * vFrete do item (prevalece sobre o rateio)
    * minimum: 0
    * @return freight
    */
@@ -1210,7 +1210,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get insurance
+   * NF-e — vSeg do item; soma em ICMSTot/vSeg e no vNF
    * minimum: 0
    * @return insurance
    */
@@ -1235,7 +1235,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get discount
+   * NF-e — vDesc do item (não pode passar do valor do item); soma em ICMSTot/vDesc
    * minimum: 0
    * @return discount
    */
@@ -1260,7 +1260,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get other
+   * NF-e — vOutro (outras despesas acessórias) do item; soma em ICMSTot/vOutro e no vNF
    * minimum: 0
    * @return other
    */
