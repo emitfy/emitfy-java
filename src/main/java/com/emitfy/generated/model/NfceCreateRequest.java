@@ -284,7 +284,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Mesmo item da NF-e: &#x60;cest&#x60; (uma vez, antes do CFOP), &#x60;nve&#x60;, &#x60;extipi&#x60;, &#x60;discount&#x60;, &#x60;insurance&#x60;, &#x60;other&#x60;, &#x60;orderNumber&#x60;/&#x60;orderItem&#x60; e &#x60;additionalInfo&#x60; saem no prod/det e entram nos totais (vSeg/vDesc/vOutro). Grupos exclusivos da NF-e (&#x60;importDeclarations&#x60;, &#x60;exports&#x60;, &#x60;vehicle&#x60;, &#x60;weapons&#x60;, &#x60;taxReturn&#x60;, &#x60;icmsUfDest&#x60;, &#x60;icms&#x60;, &#x60;ipi&#x60;, &#x60;importTax&#x60;) retornam 422 — emita uma NF-e (modelo 55). 
+   * Mesmo item da NF-e: &#x60;cest&#x60; (uma vez, antes do CFOP), &#x60;nve&#x60;, &#x60;extipi&#x60;, &#x60;discount&#x60;, &#x60;insurance&#x60;, &#x60;other&#x60;, &#x60;orderNumber&#x60;/&#x60;orderItem&#x60; e &#x60;additionalInfo&#x60; saem no prod/det e entram nos totais (vSeg/vDesc/vOutro). Grupos exclusivos da NF-e (&#x60;importDeclarations&#x60;, &#x60;exports&#x60;, &#x60;vehicle&#x60;, &#x60;weapons&#x60;, &#x60;taxReturn&#x60;, &#x60;icmsUfDest&#x60;, &#x60;ipi&#x60;, &#x60;importTax&#x60;, &#x60;referencedDocument&#x60;, &#x60;icmsForecast&#x60;) retornam 422 — emita uma NF-e (modelo 55). &#x60;icms&#x60; é aceito para ICMS próprio e ST retido (CST 60 / CSOSN 500); ST de substituto (CST 10/30/70, CSOSN 201/202/203), partilha e repasse → 422. &#x60;ibsCbs&#x60; e &#x60;selectiveTax&#x60; seguem a tabela oficial (cClassTrib de NFC-e). 
    * @return items
    */
   @javax.annotation.Nonnull

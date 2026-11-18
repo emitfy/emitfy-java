@@ -38,6 +38,8 @@ import com.emitfy.generated.ApiClient;
  */
 @JsonPropertyOrder({
   NfeCreateRequestIde.JSON_PROPERTY_PURPOSE,
+  NfeCreateRequestIde.JSON_PROPERTY_CREDIT_TYPE,
+  NfeCreateRequestIde.JSON_PROPERTY_DEBIT_TYPE,
   NfeCreateRequestIde.JSON_PROPERTY_REFERENCED_KEYS,
   NfeCreateRequestIde.JSON_PROPERTY_REFERENCES,
   NfeCreateRequestIde.JSON_PROPERTY_DEPARTURE_AT,
@@ -52,7 +54,7 @@ import com.emitfy.generated.ApiClient;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestIde {
   /**
-   * finNFe 1–4
+   * finNFe 1–6. &#x60;credit&#x60; (5, nota de crédito): operationType incoming, &#x60;creditType&#x60; 01–06 e, nos tipos 01/03/04, exatamente uma referência. &#x60;debit&#x60; (6, nota de débito): saída, &#x60;debitType&#x60; 01–08. Nessas notas o Emitfy omite ICMS/IPI/II/PIS/COFINS (B25-80; exceções crédito 03/04/06 e débito 07; débito 06 mantém IPI e, até 2026, PIS/COFINS), exige &#x60;items[].ibsCbs&#x60; e recusa os grupos detalhados &#x60;icms&#x60;, &#x60;ipi&#x60;, &#x60;importTax&#x60; e &#x60;icmsUfDest&#x60;. 
    */
   public enum PurposeEnum {
     NORMAL(String.valueOf("normal")),
@@ -61,7 +63,11 @@ public class NfeCreateRequestIde {
     
     ADJUSTMENT(String.valueOf("adjustment")),
     
-    RETURN(String.valueOf("return"));
+    RETURN(String.valueOf("return")),
+    
+    CREDIT(String.valueOf("credit")),
+    
+    DEBIT(String.valueOf("debit"));
 
     private String value;
 
@@ -93,6 +99,14 @@ public class NfeCreateRequestIde {
   public static final String JSON_PROPERTY_PURPOSE = "purpose";
   @javax.annotation.Nullable
   private PurposeEnum purpose;
+
+  public static final String JSON_PROPERTY_CREDIT_TYPE = "creditType";
+  @javax.annotation.Nullable
+  private String creditType;
+
+  public static final String JSON_PROPERTY_DEBIT_TYPE = "debitType";
+  @javax.annotation.Nullable
+  private String debitType;
 
   public static final String JSON_PROPERTY_REFERENCED_KEYS = "referencedKeys";
   @javax.annotation.Nullable
@@ -180,7 +194,7 @@ public class NfeCreateRequestIde {
   }
 
   /**
-   * finNFe 1–4
+   * finNFe 1–6. &#x60;credit&#x60; (5, nota de crédito): operationType incoming, &#x60;creditType&#x60; 01–06 e, nos tipos 01/03/04, exatamente uma referência. &#x60;debit&#x60; (6, nota de débito): saída, &#x60;debitType&#x60; 01–08. Nessas notas o Emitfy omite ICMS/IPI/II/PIS/COFINS (B25-80; exceções crédito 03/04/06 e débito 07; débito 06 mantém IPI e, até 2026, PIS/COFINS), exige &#x60;items[].ibsCbs&#x60; e recusa os grupos detalhados &#x60;icms&#x60;, &#x60;ipi&#x60;, &#x60;importTax&#x60; e &#x60;icmsUfDest&#x60;. 
    * @return purpose
    */
   @javax.annotation.Nullable
@@ -195,6 +209,54 @@ public class NfeCreateRequestIde {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPurpose(@javax.annotation.Nullable PurposeEnum purpose) {
     this.purpose = purpose;
+  }
+
+
+  public NfeCreateRequestIde creditType(@javax.annotation.Nullable String creditType) {
+    this.creditType = creditType;
+    return this;
+  }
+
+  /**
+   * tpNFCredito (alias SEFAZ tpNFCredito)
+   * @return creditType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CREDIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCreditType() {
+    return creditType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CREDIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreditType(@javax.annotation.Nullable String creditType) {
+    this.creditType = creditType;
+  }
+
+
+  public NfeCreateRequestIde debitType(@javax.annotation.Nullable String debitType) {
+    this.debitType = debitType;
+    return this;
+  }
+
+  /**
+   * tpNFDebito (alias SEFAZ tpNFDebito)
+   * @return debitType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DEBIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getDebitType() {
+    return debitType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DEBIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDebitType(@javax.annotation.Nullable String debitType) {
+    this.debitType = debitType;
   }
 
 
@@ -467,6 +529,8 @@ public class NfeCreateRequestIde {
     }
     NfeCreateRequestIde nfeCreateRequestIde = (NfeCreateRequestIde) o;
     return Objects.equals(this.purpose, nfeCreateRequestIde.purpose) &&
+        Objects.equals(this.creditType, nfeCreateRequestIde.creditType) &&
+        Objects.equals(this.debitType, nfeCreateRequestIde.debitType) &&
         Objects.equals(this.referencedKeys, nfeCreateRequestIde.referencedKeys) &&
         Objects.equals(this.references, nfeCreateRequestIde.references) &&
         Objects.equals(this.departureAt, nfeCreateRequestIde.departureAt) &&
@@ -481,7 +545,7 @@ public class NfeCreateRequestIde {
 
   @Override
   public int hashCode() {
-    return Objects.hash(purpose, referencedKeys, references, departureAt, randomCode, destinationType, emissionType, process, versionProcess, contingencyStartedAt, contingencyReason);
+    return Objects.hash(purpose, creditType, debitType, referencedKeys, references, departureAt, randomCode, destinationType, emissionType, process, versionProcess, contingencyStartedAt, contingencyReason);
   }
 
   @Override
@@ -489,6 +553,8 @@ public class NfeCreateRequestIde {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfeCreateRequestIde {\n");
     sb.append("    purpose: ").append(toIndentedString(purpose)).append("\n");
+    sb.append("    creditType: ").append(toIndentedString(creditType)).append("\n");
+    sb.append("    debitType: ").append(toIndentedString(debitType)).append("\n");
     sb.append("    referencedKeys: ").append(toIndentedString(referencedKeys)).append("\n");
     sb.append("    references: ").append(toIndentedString(references)).append("\n");
     sb.append("    departureAt: ").append(toIndentedString(departureAt)).append("\n");
@@ -546,6 +612,16 @@ public class NfeCreateRequestIde {
     // add `purpose` to the URL query string
     if (getPurpose() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%spurpose%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPurpose()))));
+    }
+
+    // add `creditType` to the URL query string
+    if (getCreditType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%screditType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCreditType()))));
+    }
+
+    // add `debitType` to the URL query string
+    if (getDebitType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdebitType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDebitType()))));
     }
 
     // add `referencedKeys` to the URL query string

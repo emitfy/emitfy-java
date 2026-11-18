@@ -20,9 +20,13 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfeImportDeclaration;
+import com.emitfy.generated.model.NfeItemIbsCbs;
 import com.emitfy.generated.model.NfeItemIcms;
 import com.emitfy.generated.model.NfeItemImportTax;
 import com.emitfy.generated.model.NfeItemIpi;
+import com.emitfy.generated.model.NfeItemSelectiveTax;
+import com.emitfy.generated.model.ProductEmitItemIcmsForecast;
+import com.emitfy.generated.model.ProductEmitItemReferencedDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -73,6 +77,16 @@ import com.emitfy.generated.ApiClient;
   ProductEmitItem.JSON_PROPERTY_ICMS,
   ProductEmitItem.JSON_PROPERTY_IPI,
   ProductEmitItem.JSON_PROPERTY_IMPORT_TAX,
+  ProductEmitItem.JSON_PROPERTY_IBS_CBS,
+  ProductEmitItem.JSON_PROPERTY_SELECTIVE_TAX,
+  ProductEmitItem.JSON_PROPERTY_NET_UNIT_VALUE,
+  ProductEmitItem.JSON_PROPERTY_NET_AMOUNT,
+  ProductEmitItem.JSON_PROPERTY_SIMPLES_ACTIVITY,
+  ProductEmitItem.JSON_PROPERTY_USED_MOVABLE_GOOD,
+  ProductEmitItem.JSON_PROPERTY_ZFM_PRESUMED_CREDIT_TYPE,
+  ProductEmitItem.JSON_PROPERTY_REFERENCED_DOCUMENT,
+  ProductEmitItem.JSON_PROPERTY_ITEM_TOTAL,
+  ProductEmitItem.JSON_PROPERTY_ICMS_FORECAST,
   ProductEmitItem.JSON_PROPERTY_CEST,
   ProductEmitItem.JSON_PROPERTY_FCI,
   ProductEmitItem.JSON_PROPERTY_NVE,
@@ -229,6 +243,87 @@ public class ProductEmitItem {
   public static final String JSON_PROPERTY_IMPORT_TAX = "importTax";
   @javax.annotation.Nullable
   private NfeItemImportTax importTax;
+
+  public static final String JSON_PROPERTY_IBS_CBS = "ibsCbs";
+  @javax.annotation.Nullable
+  private NfeItemIbsCbs ibsCbs;
+
+  public static final String JSON_PROPERTY_SELECTIVE_TAX = "selectiveTax";
+  @javax.annotation.Nullable
+  private NfeItemSelectiveTax selectiveTax;
+
+  public static final String JSON_PROPERTY_NET_UNIT_VALUE = "netUnitValue";
+  @javax.annotation.Nullable
+  private BigDecimal netUnitValue;
+
+  public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
+  @javax.annotation.Nullable
+  private BigDecimal netAmount;
+
+  /**
+   * cAtivSN (NT 2026.005 — produção em 14/12/2026), só CRT 1/2/4
+   */
+  public enum SimplesActivityEnum {
+    _01(String.valueOf("01")),
+    
+    _02(String.valueOf("02")),
+    
+    _03(String.valueOf("03")),
+    
+    _04(String.valueOf("04")),
+    
+    _90(String.valueOf("90"));
+
+    private String value;
+
+    SimplesActivityEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SimplesActivityEnum fromValue(String value) {
+      for (SimplesActivityEnum b : SimplesActivityEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SIMPLES_ACTIVITY = "simplesActivity";
+  @javax.annotation.Nullable
+  private SimplesActivityEnum simplesActivity;
+
+  public static final String JSON_PROPERTY_USED_MOVABLE_GOOD = "usedMovableGood";
+  @javax.annotation.Nullable
+  private Boolean usedMovableGood;
+
+  public static final String JSON_PROPERTY_ZFM_PRESUMED_CREDIT_TYPE = "zfmPresumedCreditType";
+  @javax.annotation.Nullable
+  private String zfmPresumedCreditType;
+
+  public static final String JSON_PROPERTY_REFERENCED_DOCUMENT = "referencedDocument";
+  @javax.annotation.Nullable
+  private ProductEmitItemReferencedDocument referencedDocument;
+
+  public static final String JSON_PROPERTY_ITEM_TOTAL = "itemTotal";
+  @javax.annotation.Nullable
+  private BigDecimal itemTotal;
+
+  public static final String JSON_PROPERTY_ICMS_FORECAST = "icmsForecast";
+  @javax.annotation.Nullable
+  private ProductEmitItemIcmsForecast icmsForecast;
 
   public static final String JSON_PROPERTY_CEST = "cest";
   @javax.annotation.Nullable
@@ -1117,6 +1212,249 @@ public class ProductEmitItem {
   }
 
 
+  public ProductEmitItem ibsCbs(@javax.annotation.Nullable NfeItemIbsCbs ibsCbs) {
+    this.ibsCbs = ibsCbs;
+    return this;
+  }
+
+  /**
+   * Get ibsCbs
+   * @return ibsCbs
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeItemIbsCbs getIbsCbs() {
+    return ibsCbs;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIbsCbs(@javax.annotation.Nullable NfeItemIbsCbs ibsCbs) {
+    this.ibsCbs = ibsCbs;
+  }
+
+
+  public ProductEmitItem selectiveTax(@javax.annotation.Nullable NfeItemSelectiveTax selectiveTax) {
+    this.selectiveTax = selectiveTax;
+    return this;
+  }
+
+  /**
+   * Get selectiveTax
+   * @return selectiveTax
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SELECTIVE_TAX, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeItemSelectiveTax getSelectiveTax() {
+    return selectiveTax;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SELECTIVE_TAX, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSelectiveTax(@javax.annotation.Nullable NfeItemSelectiveTax selectiveTax) {
+    this.selectiveTax = selectiveTax;
+  }
+
+
+  public ProductEmitItem netUnitValue(@javax.annotation.Nullable BigDecimal netUnitValue) {
+    this.netUnitValue = netUnitValue;
+    return this;
+  }
+
+  /**
+   * vUnComLiq (NT 2026.008 — produção em 14/12/2026). Sai com vProdLiq &#x3D; netUnitValue × quantity (ou &#x60;netAmount&#x60;) e soma em vProdLiqTot. Se um item informar, todos informam. Antes da data de produção → 422. 
+   * minimum: 0
+   * @return netUnitValue
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NET_UNIT_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getNetUnitValue() {
+    return netUnitValue;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NET_UNIT_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNetUnitValue(@javax.annotation.Nullable BigDecimal netUnitValue) {
+    this.netUnitValue = netUnitValue;
+  }
+
+
+  public ProductEmitItem netAmount(@javax.annotation.Nullable BigDecimal netAmount) {
+    this.netAmount = netAmount;
+    return this;
+  }
+
+  /**
+   * vProdLiq informado (default netUnitValue × quantity)
+   * minimum: 0
+   * @return netAmount
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NET_AMOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getNetAmount() {
+    return netAmount;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_NET_AMOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNetAmount(@javax.annotation.Nullable BigDecimal netAmount) {
+    this.netAmount = netAmount;
+  }
+
+
+  public ProductEmitItem simplesActivity(@javax.annotation.Nullable SimplesActivityEnum simplesActivity) {
+    this.simplesActivity = simplesActivity;
+    return this;
+  }
+
+  /**
+   * cAtivSN (NT 2026.005 — produção em 14/12/2026), só CRT 1/2/4
+   * @return simplesActivity
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SIMPLES_ACTIVITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public SimplesActivityEnum getSimplesActivity() {
+    return simplesActivity;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SIMPLES_ACTIVITY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSimplesActivity(@javax.annotation.Nullable SimplesActivityEnum simplesActivity) {
+    this.simplesActivity = simplesActivity;
+  }
+
+
+  public ProductEmitItem usedMovableGood(@javax.annotation.Nullable Boolean usedMovableGood) {
+    this.usedMovableGood = usedMovableGood;
+    return this;
+  }
+
+  /**
+   * indBemMovelUsado (bem móvel usado)
+   * @return usedMovableGood
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_USED_MOVABLE_GOOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getUsedMovableGood() {
+    return usedMovableGood;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_USED_MOVABLE_GOOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsedMovableGood(@javax.annotation.Nullable Boolean usedMovableGood) {
+    this.usedMovableGood = usedMovableGood;
+  }
+
+
+  public ProductEmitItem zfmPresumedCreditType(@javax.annotation.Nullable String zfmPresumedCreditType) {
+    this.zfmPresumedCreditType = zfmPresumedCreditType;
+    return this;
+  }
+
+  /**
+   * tpCredPresIBSZFM
+   * @return zfmPresumedCreditType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ZFM_PRESUMED_CREDIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getZfmPresumedCreditType() {
+    return zfmPresumedCreditType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ZFM_PRESUMED_CREDIT_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setZfmPresumedCreditType(@javax.annotation.Nullable String zfmPresumedCreditType) {
+    this.zfmPresumedCreditType = zfmPresumedCreditType;
+  }
+
+
+  public ProductEmitItem referencedDocument(@javax.annotation.Nullable ProductEmitItemReferencedDocument referencedDocument) {
+    this.referencedDocument = referencedDocument;
+    return this;
+  }
+
+  /**
+   * Get referencedDocument
+   * @return referencedDocument
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_REFERENCED_DOCUMENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ProductEmitItemReferencedDocument getReferencedDocument() {
+    return referencedDocument;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_REFERENCED_DOCUMENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReferencedDocument(@javax.annotation.Nullable ProductEmitItemReferencedDocument referencedDocument) {
+    this.referencedDocument = referencedDocument;
+  }
+
+
+  public ProductEmitItem itemTotal(@javax.annotation.Nullable BigDecimal itemTotal) {
+    this.itemTotal = itemTotal;
+    return this;
+  }
+
+  /**
+   * vItem (valor total do item com IBS/CBS/IS). Se um item informar, todos informam; vNFTot &#x3D; soma.
+   * minimum: 0
+   * @return itemTotal
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ITEM_TOTAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getItemTotal() {
+    return itemTotal;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ITEM_TOTAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setItemTotal(@javax.annotation.Nullable BigDecimal itemTotal) {
+    this.itemTotal = itemTotal;
+  }
+
+
+  public ProductEmitItem icmsForecast(@javax.annotation.Nullable ProductEmitItemIcmsForecast icmsForecast) {
+    this.icmsForecast = icmsForecast;
+    return this;
+  }
+
+  /**
+   * Get icmsForecast
+   * @return icmsForecast
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ICMS_FORECAST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ProductEmitItemIcmsForecast getIcmsForecast() {
+    return icmsForecast;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ICMS_FORECAST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcmsForecast(@javax.annotation.Nullable ProductEmitItemIcmsForecast icmsForecast) {
+    this.icmsForecast = icmsForecast;
+  }
+
+
   public ProductEmitItem cest(@javax.annotation.Nullable String cest) {
     this.cest = cest;
     return this;
@@ -1735,6 +2073,16 @@ public class ProductEmitItem {
         Objects.equals(this.icms, productEmitItem.icms) &&
         Objects.equals(this.ipi, productEmitItem.ipi) &&
         Objects.equals(this.importTax, productEmitItem.importTax) &&
+        Objects.equals(this.ibsCbs, productEmitItem.ibsCbs) &&
+        Objects.equals(this.selectiveTax, productEmitItem.selectiveTax) &&
+        Objects.equals(this.netUnitValue, productEmitItem.netUnitValue) &&
+        Objects.equals(this.netAmount, productEmitItem.netAmount) &&
+        Objects.equals(this.simplesActivity, productEmitItem.simplesActivity) &&
+        Objects.equals(this.usedMovableGood, productEmitItem.usedMovableGood) &&
+        Objects.equals(this.zfmPresumedCreditType, productEmitItem.zfmPresumedCreditType) &&
+        Objects.equals(this.referencedDocument, productEmitItem.referencedDocument) &&
+        Objects.equals(this.itemTotal, productEmitItem.itemTotal) &&
+        Objects.equals(this.icmsForecast, productEmitItem.icmsForecast) &&
         Objects.equals(this.cest, productEmitItem.cest) &&
         Objects.equals(this.fci, productEmitItem.fci) &&
         Objects.equals(this.nve, productEmitItem.nve) &&
@@ -1761,7 +2109,7 @@ public class ProductEmitItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, icms, ipi, importTax, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
+    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, icms, ipi, importTax, ibsCbs, selectiveTax, netUnitValue, netAmount, simplesActivity, usedMovableGood, zfmPresumedCreditType, referencedDocument, itemTotal, icmsForecast, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
   }
 
   @Override
@@ -1801,6 +2149,16 @@ public class ProductEmitItem {
     sb.append("    icms: ").append(toIndentedString(icms)).append("\n");
     sb.append("    ipi: ").append(toIndentedString(ipi)).append("\n");
     sb.append("    importTax: ").append(toIndentedString(importTax)).append("\n");
+    sb.append("    ibsCbs: ").append(toIndentedString(ibsCbs)).append("\n");
+    sb.append("    selectiveTax: ").append(toIndentedString(selectiveTax)).append("\n");
+    sb.append("    netUnitValue: ").append(toIndentedString(netUnitValue)).append("\n");
+    sb.append("    netAmount: ").append(toIndentedString(netAmount)).append("\n");
+    sb.append("    simplesActivity: ").append(toIndentedString(simplesActivity)).append("\n");
+    sb.append("    usedMovableGood: ").append(toIndentedString(usedMovableGood)).append("\n");
+    sb.append("    zfmPresumedCreditType: ").append(toIndentedString(zfmPresumedCreditType)).append("\n");
+    sb.append("    referencedDocument: ").append(toIndentedString(referencedDocument)).append("\n");
+    sb.append("    itemTotal: ").append(toIndentedString(itemTotal)).append("\n");
+    sb.append("    icmsForecast: ").append(toIndentedString(icmsForecast)).append("\n");
     sb.append("    cest: ").append(toIndentedString(cest)).append("\n");
     sb.append("    fci: ").append(toIndentedString(fci)).append("\n");
     sb.append("    nve: ").append(toIndentedString(nve)).append("\n");
@@ -2030,6 +2388,56 @@ public class ProductEmitItem {
     // add `importTax` to the URL query string
     if (getImportTax() != null) {
       joiner.add(getImportTax().toUrlQueryString(prefix + "importTax" + suffix));
+    }
+
+    // add `ibsCbs` to the URL query string
+    if (getIbsCbs() != null) {
+      joiner.add(getIbsCbs().toUrlQueryString(prefix + "ibsCbs" + suffix));
+    }
+
+    // add `selectiveTax` to the URL query string
+    if (getSelectiveTax() != null) {
+      joiner.add(getSelectiveTax().toUrlQueryString(prefix + "selectiveTax" + suffix));
+    }
+
+    // add `netUnitValue` to the URL query string
+    if (getNetUnitValue() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snetUnitValue%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNetUnitValue()))));
+    }
+
+    // add `netAmount` to the URL query string
+    if (getNetAmount() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snetAmount%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNetAmount()))));
+    }
+
+    // add `simplesActivity` to the URL query string
+    if (getSimplesActivity() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%ssimplesActivity%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSimplesActivity()))));
+    }
+
+    // add `usedMovableGood` to the URL query string
+    if (getUsedMovableGood() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%susedMovableGood%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUsedMovableGood()))));
+    }
+
+    // add `zfmPresumedCreditType` to the URL query string
+    if (getZfmPresumedCreditType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%szfmPresumedCreditType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getZfmPresumedCreditType()))));
+    }
+
+    // add `referencedDocument` to the URL query string
+    if (getReferencedDocument() != null) {
+      joiner.add(getReferencedDocument().toUrlQueryString(prefix + "referencedDocument" + suffix));
+    }
+
+    // add `itemTotal` to the URL query string
+    if (getItemTotal() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sitemTotal%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getItemTotal()))));
+    }
+
+    // add `icmsForecast` to the URL query string
+    if (getIcmsForecast() != null) {
+      joiner.add(getIcmsForecast().toUrlQueryString(prefix + "icmsForecast" + suffix));
     }
 
     // add `cest` to the URL query string

@@ -24,6 +24,7 @@ import com.emitfy.generated.model.DfeTechResponsible;
 import com.emitfy.generated.model.NfeCreateRequestAdditional;
 import com.emitfy.generated.model.NfeCreateRequestBilling;
 import com.emitfy.generated.model.NfeCreateRequestEntrega;
+import com.emitfy.generated.model.NfeCreateRequestGovernmentPurchase;
 import com.emitfy.generated.model.NfeCreateRequestIde;
 import com.emitfy.generated.model.NfeCreateRequestPaymentsInner;
 import com.emitfy.generated.model.NfeCreateRequestRecipient;
@@ -63,6 +64,9 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequest.JSON_PROPERTY_CONSUMER_TYPE,
   NfeCreateRequest.JSON_PROPERTY_PRESENCE_TYPE,
   NfeCreateRequest.JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE,
+  NfeCreateRequest.JSON_PROPERTY_GOVERNMENT_PURCHASE,
+  NfeCreateRequest.JSON_PROPERTY_ADVANCE_PAYMENT_KEYS,
+  NfeCreateRequest.JSON_PROPERTY_IBS_CBS_REGIME,
   NfeCreateRequest.JSON_PROPERTY_STATE_REGISTRATION_ID,
   NfeCreateRequest.JSON_PROPERTY_ST_STATE_REGISTRATION_ID,
   NfeCreateRequest.JSON_PROPERTY_CFOP,
@@ -286,7 +290,7 @@ public class NfeCreateRequest {
   private ConsumerTypeEnum consumerType;
 
   /**
-   * Gets or Sets presenceType
+   * indPres (&#x60;outsideEstablishment&#x60; &#x3D; 5, operação presencial fora do estabelecimento)
    */
   public enum PresenceTypeEnum {
     PRESENTIAL(String.valueOf("presential")),
@@ -296,6 +300,8 @@ public class NfeCreateRequest {
     TELEPHONE(String.valueOf("telephone")),
     
     DELIVERY(String.valueOf("delivery")),
+    
+    OUTSIDE_ESTABLISHMENT(String.valueOf("outsideEstablishment")),
     
     OTHERS(String.valueOf("others"));
 
@@ -333,6 +339,57 @@ public class NfeCreateRequest {
   public static final String JSON_PROPERTY_IBS_CONSUMPTION_CITY_CODE = "ibsConsumptionCityCode";
   @javax.annotation.Nullable
   private String ibsConsumptionCityCode;
+
+  public static final String JSON_PROPERTY_GOVERNMENT_PURCHASE = "governmentPurchase";
+  @javax.annotation.Nullable
+  private NfeCreateRequestGovernmentPurchase governmentPurchase;
+
+  public static final String JSON_PROPERTY_ADVANCE_PAYMENT_KEYS = "advancePaymentKeys";
+  @javax.annotation.Nullable
+  private List<String> advancePaymentKeys = new ArrayList<>();
+
+  /**
+   * tpRegimeIBSCBS (NT 2026.005 — produção em 14/12/2026). Antes da data → 422
+   */
+  public enum IbsCbsRegimeEnum {
+    _1(String.valueOf("1")),
+    
+    _2(String.valueOf("2")),
+    
+    _3(String.valueOf("3")),
+    
+    _4(String.valueOf("4"));
+
+    private String value;
+
+    IbsCbsRegimeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static IbsCbsRegimeEnum fromValue(String value) {
+      for (IbsCbsRegimeEnum b : IbsCbsRegimeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_IBS_CBS_REGIME = "ibsCbsRegime";
+  @javax.annotation.Nullable
+  private IbsCbsRegimeEnum ibsCbsRegime;
 
   public static final String JSON_PROPERTY_STATE_REGISTRATION_ID = "stateRegistrationId";
   @javax.annotation.Nullable
@@ -702,7 +759,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get presenceType
+   * indPres (&#x60;outsideEstablishment&#x60; &#x3D; 5, operação presencial fora do estabelecimento)
    * @return presenceType
    */
   @javax.annotation.Nullable
@@ -726,7 +783,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Reservado (cMunFGIBS, reforma tributária). Ainda não suportado → 422
+   * cMunFGIBS (município de consumo do IBS, código IBGE). Só com presenceType outsideEstablishment (indPres 5)
    * @return ibsConsumptionCityCode
    */
   @javax.annotation.Nullable
@@ -741,6 +798,86 @@ public class NfeCreateRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIbsConsumptionCityCode(@javax.annotation.Nullable String ibsConsumptionCityCode) {
     this.ibsConsumptionCityCode = ibsConsumptionCityCode;
+  }
+
+
+  public NfeCreateRequest governmentPurchase(@javax.annotation.Nullable NfeCreateRequestGovernmentPurchase governmentPurchase) {
+    this.governmentPurchase = governmentPurchase;
+    return this;
+  }
+
+  /**
+   * Get governmentPurchase
+   * @return governmentPurchase
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_GOVERNMENT_PURCHASE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeCreateRequestGovernmentPurchase getGovernmentPurchase() {
+    return governmentPurchase;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_GOVERNMENT_PURCHASE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGovernmentPurchase(@javax.annotation.Nullable NfeCreateRequestGovernmentPurchase governmentPurchase) {
+    this.governmentPurchase = governmentPurchase;
+  }
+
+
+  public NfeCreateRequest advancePaymentKeys(@javax.annotation.Nullable List<String> advancePaymentKeys) {
+    this.advancePaymentKeys = advancePaymentKeys;
+    return this;
+  }
+
+  public NfeCreateRequest addAdvancePaymentKeysItem(String advancePaymentKeysItem) {
+    if (this.advancePaymentKeys == null) {
+      this.advancePaymentKeys = new ArrayList<>();
+    }
+    this.advancePaymentKeys.add(advancePaymentKeysItem);
+    return this;
+  }
+
+  /**
+   * gPagAntecipado — chaves das NF-e de pagamento antecipado (só NF-e)
+   * @return advancePaymentKeys
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ADVANCE_PAYMENT_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getAdvancePaymentKeys() {
+    return advancePaymentKeys;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ADVANCE_PAYMENT_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdvancePaymentKeys(@javax.annotation.Nullable List<String> advancePaymentKeys) {
+    this.advancePaymentKeys = advancePaymentKeys;
+  }
+
+
+  public NfeCreateRequest ibsCbsRegime(@javax.annotation.Nullable IbsCbsRegimeEnum ibsCbsRegime) {
+    this.ibsCbsRegime = ibsCbsRegime;
+    return this;
+  }
+
+  /**
+   * tpRegimeIBSCBS (NT 2026.005 — produção em 14/12/2026). Antes da data → 422
+   * @return ibsCbsRegime
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS_REGIME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public IbsCbsRegimeEnum getIbsCbsRegime() {
+    return ibsCbsRegime;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_IBS_CBS_REGIME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIbsCbsRegime(@javax.annotation.Nullable IbsCbsRegimeEnum ibsCbsRegime) {
+    this.ibsCbsRegime = ibsCbsRegime;
   }
 
 
@@ -1290,6 +1427,9 @@ public class NfeCreateRequest {
         Objects.equals(this.consumerType, nfeCreateRequest.consumerType) &&
         Objects.equals(this.presenceType, nfeCreateRequest.presenceType) &&
         Objects.equals(this.ibsConsumptionCityCode, nfeCreateRequest.ibsConsumptionCityCode) &&
+        Objects.equals(this.governmentPurchase, nfeCreateRequest.governmentPurchase) &&
+        Objects.equals(this.advancePaymentKeys, nfeCreateRequest.advancePaymentKeys) &&
+        Objects.equals(this.ibsCbsRegime, nfeCreateRequest.ibsCbsRegime) &&
         Objects.equals(this.stateRegistrationId, nfeCreateRequest.stateRegistrationId) &&
         Objects.equals(this.stStateRegistrationId, nfeCreateRequest.stStateRegistrationId) &&
         Objects.equals(this.cfop, nfeCreateRequest.cfop) &&
@@ -1315,7 +1455,7 @@ public class NfeCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, recipient, discount, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, stateRegistrationId, stStateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
+    return Objects.hash(items, recipient, discount, transport, paymentMethod, externalId, operationNature, nature, operationType, printType, consumerType, presenceType, ibsConsumptionCityCode, governmentPurchase, advancePaymentKeys, ibsCbsRegime, stateRegistrationId, stStateRegistrationId, cfop, issueDate, ide, avulsa, retirada, entrega, autXml, billing, payments, change, intermediary, additional, export, purchase, sugarcane, techResponsible, nffRequest, farming, totals);
   }
 
   @Override
@@ -1335,6 +1475,9 @@ public class NfeCreateRequest {
     sb.append("    consumerType: ").append(toIndentedString(consumerType)).append("\n");
     sb.append("    presenceType: ").append(toIndentedString(presenceType)).append("\n");
     sb.append("    ibsConsumptionCityCode: ").append(toIndentedString(ibsConsumptionCityCode)).append("\n");
+    sb.append("    governmentPurchase: ").append(toIndentedString(governmentPurchase)).append("\n");
+    sb.append("    advancePaymentKeys: ").append(toIndentedString(advancePaymentKeys)).append("\n");
+    sb.append("    ibsCbsRegime: ").append(toIndentedString(ibsCbsRegime)).append("\n");
     sb.append("    stateRegistrationId: ").append(toIndentedString(stateRegistrationId)).append("\n");
     sb.append("    stStateRegistrationId: ").append(toIndentedString(stStateRegistrationId)).append("\n");
     sb.append("    cfop: ").append(toIndentedString(cfop)).append("\n");
@@ -1468,6 +1611,25 @@ public class NfeCreateRequest {
     // add `ibsConsumptionCityCode` to the URL query string
     if (getIbsConsumptionCityCode() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sibsConsumptionCityCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsConsumptionCityCode()))));
+    }
+
+    // add `governmentPurchase` to the URL query string
+    if (getGovernmentPurchase() != null) {
+      joiner.add(getGovernmentPurchase().toUrlQueryString(prefix + "governmentPurchase" + suffix));
+    }
+
+    // add `advancePaymentKeys` to the URL query string
+    if (getAdvancePaymentKeys() != null) {
+      for (int i = 0; i < getAdvancePaymentKeys().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%sadvancePaymentKeys%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getAdvancePaymentKeys().get(i)))));
+      }
+    }
+
+    // add `ibsCbsRegime` to the URL query string
+    if (getIbsCbsRegime() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sibsCbsRegime%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIbsCbsRegime()))));
     }
 
     // add `stateRegistrationId` to the URL query string
