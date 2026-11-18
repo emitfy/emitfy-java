@@ -31,10 +31,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * Opcional (padrão consumidor final); todos os campos opcionais.
+ * Opcional (padrão consumidor final). CPF/CNPJ (&#x60;taxId&#x60;) ou estrangeiro (&#x60;foreignId&#x60;, idEstrangeiro; a operação continua interna). &#x60;address&#x60; é obrigatório na entrega a domicílio e precisa ser da UF do emitente. &#x60;stateRegistration&#x60;/&#x60;ieIndicator&#x60;/&#x60;suframa&#x60; → 422 (rejeições 729/730). 
  */
 @JsonPropertyOrder({
   NfceCreateRequestRecipient.JSON_PROPERTY_TAX_ID,
+  NfceCreateRequestRecipient.JSON_PROPERTY_FOREIGN_ID,
   NfceCreateRequestRecipient.JSON_PROPERTY_NAME,
   NfceCreateRequestRecipient.JSON_PROPERTY_EMAIL,
   NfceCreateRequestRecipient.JSON_PROPERTY_PHONE,
@@ -45,6 +46,10 @@ public class NfceCreateRequestRecipient {
   public static final String JSON_PROPERTY_TAX_ID = "taxId";
   @javax.annotation.Nullable
   private String taxId;
+
+  public static final String JSON_PROPERTY_FOREIGN_ID = "foreignId";
+  @javax.annotation.Nullable
+  private String foreignId;
 
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nullable
@@ -86,6 +91,30 @@ public class NfceCreateRequestRecipient {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaxId(@javax.annotation.Nullable String taxId) {
     this.taxId = taxId;
+  }
+
+
+  public NfceCreateRequestRecipient foreignId(@javax.annotation.Nullable String foreignId) {
+    this.foreignId = foreignId;
+    return this;
+  }
+
+  /**
+   * Get foreignId
+   * @return foreignId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FOREIGN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getForeignId() {
+    return foreignId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FOREIGN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setForeignId(@javax.annotation.Nullable String foreignId) {
+    this.foreignId = foreignId;
   }
 
 
@@ -198,6 +227,7 @@ public class NfceCreateRequestRecipient {
     }
     NfceCreateRequestRecipient nfceCreateRequestRecipient = (NfceCreateRequestRecipient) o;
     return Objects.equals(this.taxId, nfceCreateRequestRecipient.taxId) &&
+        Objects.equals(this.foreignId, nfceCreateRequestRecipient.foreignId) &&
         Objects.equals(this.name, nfceCreateRequestRecipient.name) &&
         Objects.equals(this.email, nfceCreateRequestRecipient.email) &&
         Objects.equals(this.phone, nfceCreateRequestRecipient.phone) &&
@@ -206,7 +236,7 @@ public class NfceCreateRequestRecipient {
 
   @Override
   public int hashCode() {
-    return Objects.hash(taxId, name, email, phone, address);
+    return Objects.hash(taxId, foreignId, name, email, phone, address);
   }
 
   @Override
@@ -214,6 +244,7 @@ public class NfceCreateRequestRecipient {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfceCreateRequestRecipient {\n");
     sb.append("    taxId: ").append(toIndentedString(taxId)).append("\n");
+    sb.append("    foreignId: ").append(toIndentedString(foreignId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
@@ -265,6 +296,11 @@ public class NfceCreateRequestRecipient {
     // add `taxId` to the URL query string
     if (getTaxId() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%staxId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTaxId()))));
+    }
+
+    // add `foreignId` to the URL query string
+    if (getForeignId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sforeignId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getForeignId()))));
     }
 
     // add `name` to the URL query string

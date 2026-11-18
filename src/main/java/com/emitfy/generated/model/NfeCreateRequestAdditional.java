@@ -194,7 +194,7 @@ public class NfeCreateRequestAdditional {
   }
 
   /**
-   * procRef — processo referenciado (só NF-e; NFC-e → 422)
+   * procRef — processo referenciado (NF-e e NFC-e)
    * @return processReferences
    */
   @javax.annotation.Nullable

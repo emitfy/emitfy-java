@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -40,7 +41,13 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestPaymentsInner.JSON_PROPERTY_DESCRIPTION,
   NfeCreateRequestPaymentsInner.JSON_PROPERTY_CARD_BRAND,
   NfeCreateRequestPaymentsInner.JSON_PROPERTY_AUTHORIZATION,
-  NfeCreateRequestPaymentsInner.JSON_PROPERTY_CARD_TAX_ID
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_CARD_TAX_ID,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_INTEGRATION,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_RECEIVER_TAX_ID,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_TERMINAL_ID,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_PAID_ON,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_PAYER_TAX_ID,
+  NfeCreateRequestPaymentsInner.JSON_PROPERTY_PAYER_STATE
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestPaymentsInner {
@@ -106,6 +113,30 @@ public class NfeCreateRequestPaymentsInner {
   public static final String JSON_PROPERTY_CARD_TAX_ID = "cardTaxId";
   @javax.annotation.Nullable
   private String cardTaxId;
+
+  public static final String JSON_PROPERTY_INTEGRATION = "integration";
+  @javax.annotation.Nullable
+  private String integration;
+
+  public static final String JSON_PROPERTY_RECEIVER_TAX_ID = "receiverTaxId";
+  @javax.annotation.Nullable
+  private String receiverTaxId;
+
+  public static final String JSON_PROPERTY_TERMINAL_ID = "terminalId";
+  @javax.annotation.Nullable
+  private String terminalId;
+
+  public static final String JSON_PROPERTY_PAID_ON = "paidOn";
+  @javax.annotation.Nullable
+  private LocalDate paidOn;
+
+  public static final String JSON_PROPERTY_PAYER_TAX_ID = "payerTaxId";
+  @javax.annotation.Nullable
+  private String payerTaxId;
+
+  public static final String JSON_PROPERTY_PAYER_STATE = "payerState";
+  @javax.annotation.Nullable
+  private String payerState;
 
   public NfeCreateRequestPaymentsInner() { 
   }
@@ -279,6 +310,150 @@ public class NfeCreateRequestPaymentsInner {
   }
 
 
+  public NfeCreateRequestPaymentsInner integration(@javax.annotation.Nullable String integration) {
+    this.integration = integration;
+    return this;
+  }
+
+  /**
+   * tpIntegra: 1/integrated/tef (TEF ou Pix dinâmico integrado) ou 2/notIntegrated/pos (padrão)
+   * @return integration
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INTEGRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getIntegration() {
+    return integration;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_INTEGRATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIntegration(@javax.annotation.Nullable String integration) {
+    this.integration = integration;
+  }
+
+
+  public NfeCreateRequestPaymentsInner receiverTaxId(@javax.annotation.Nullable String receiverTaxId) {
+    this.receiverTaxId = receiverTaxId;
+    return this;
+  }
+
+  /**
+   * CNPJReceb — CNPJ do beneficiário do pagamento (14 dígitos)
+   * @return receiverTaxId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RECEIVER_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getReceiverTaxId() {
+    return receiverTaxId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RECEIVER_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReceiverTaxId(@javax.annotation.Nullable String receiverTaxId) {
+    this.receiverTaxId = receiverTaxId;
+  }
+
+
+  public NfeCreateRequestPaymentsInner terminalId(@javax.annotation.Nullable String terminalId) {
+    this.terminalId = terminalId;
+    return this;
+  }
+
+  /**
+   * idTermPag — identificador do terminal/POS
+   * @return terminalId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TERMINAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTerminalId() {
+    return terminalId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TERMINAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTerminalId(@javax.annotation.Nullable String terminalId) {
+    this.terminalId = terminalId;
+  }
+
+
+  public NfeCreateRequestPaymentsInner paidOn(@javax.annotation.Nullable LocalDate paidOn) {
+    this.paidOn = paidOn;
+    return this;
+  }
+
+  /**
+   * dPag (AAAA-MM-DD)
+   * @return paidOn
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAID_ON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public LocalDate getPaidOn() {
+    return paidOn;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PAID_ON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPaidOn(@javax.annotation.Nullable LocalDate paidOn) {
+    this.paidOn = paidOn;
+  }
+
+
+  public NfeCreateRequestPaymentsInner payerTaxId(@javax.annotation.Nullable String payerTaxId) {
+    this.payerTaxId = payerTaxId;
+    return this;
+  }
+
+  /**
+   * CNPJPag — CNPJ do pagador/transacional (14 dígitos
+   * @return payerTaxId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAYER_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getPayerTaxId() {
+    return payerTaxId;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PAYER_TAX_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPayerTaxId(@javax.annotation.Nullable String payerTaxId) {
+    this.payerTaxId = payerTaxId;
+  }
+
+
+  public NfeCreateRequestPaymentsInner payerState(@javax.annotation.Nullable String payerState) {
+    this.payerState = payerState;
+    return this;
+  }
+
+  /**
+   * UFPag (junto com payerTaxId)
+   * @return payerState
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAYER_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getPayerState() {
+    return payerState;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PAYER_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPayerState(@javax.annotation.Nullable String payerState) {
+    this.payerState = payerState;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_payments_inner object is equal to o.
    */
@@ -297,12 +472,18 @@ public class NfeCreateRequestPaymentsInner {
         Objects.equals(this.description, nfeCreateRequestPaymentsInner.description) &&
         Objects.equals(this.cardBrand, nfeCreateRequestPaymentsInner.cardBrand) &&
         Objects.equals(this.authorization, nfeCreateRequestPaymentsInner.authorization) &&
-        Objects.equals(this.cardTaxId, nfeCreateRequestPaymentsInner.cardTaxId);
+        Objects.equals(this.cardTaxId, nfeCreateRequestPaymentsInner.cardTaxId) &&
+        Objects.equals(this.integration, nfeCreateRequestPaymentsInner.integration) &&
+        Objects.equals(this.receiverTaxId, nfeCreateRequestPaymentsInner.receiverTaxId) &&
+        Objects.equals(this.terminalId, nfeCreateRequestPaymentsInner.terminalId) &&
+        Objects.equals(this.paidOn, nfeCreateRequestPaymentsInner.paidOn) &&
+        Objects.equals(this.payerTaxId, nfeCreateRequestPaymentsInner.payerTaxId) &&
+        Objects.equals(this.payerState, nfeCreateRequestPaymentsInner.payerState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(method, amount, indicator, description, cardBrand, authorization, cardTaxId);
+    return Objects.hash(method, amount, indicator, description, cardBrand, authorization, cardTaxId, integration, receiverTaxId, terminalId, paidOn, payerTaxId, payerState);
   }
 
   @Override
@@ -316,6 +497,12 @@ public class NfeCreateRequestPaymentsInner {
     sb.append("    cardBrand: ").append(toIndentedString(cardBrand)).append("\n");
     sb.append("    authorization: ").append(toIndentedString(authorization)).append("\n");
     sb.append("    cardTaxId: ").append(toIndentedString(cardTaxId)).append("\n");
+    sb.append("    integration: ").append(toIndentedString(integration)).append("\n");
+    sb.append("    receiverTaxId: ").append(toIndentedString(receiverTaxId)).append("\n");
+    sb.append("    terminalId: ").append(toIndentedString(terminalId)).append("\n");
+    sb.append("    paidOn: ").append(toIndentedString(paidOn)).append("\n");
+    sb.append("    payerTaxId: ").append(toIndentedString(payerTaxId)).append("\n");
+    sb.append("    payerState: ").append(toIndentedString(payerState)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -393,6 +580,36 @@ public class NfeCreateRequestPaymentsInner {
     // add `cardTaxId` to the URL query string
     if (getCardTaxId() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scardTaxId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCardTaxId()))));
+    }
+
+    // add `integration` to the URL query string
+    if (getIntegration() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sintegration%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIntegration()))));
+    }
+
+    // add `receiverTaxId` to the URL query string
+    if (getReceiverTaxId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sreceiverTaxId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getReceiverTaxId()))));
+    }
+
+    // add `terminalId` to the URL query string
+    if (getTerminalId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sterminalId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTerminalId()))));
+    }
+
+    // add `paidOn` to the URL query string
+    if (getPaidOn() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spaidOn%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPaidOn()))));
+    }
+
+    // add `payerTaxId` to the URL query string
+    if (getPayerTaxId() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spayerTaxId%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPayerTaxId()))));
+    }
+
+    // add `payerState` to the URL query string
+    if (getPayerState() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spayerState%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPayerState()))));
     }
 
     return joiner.toString();

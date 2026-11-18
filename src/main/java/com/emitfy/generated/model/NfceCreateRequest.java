@@ -19,15 +19,21 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.DfeAutXml;
 import com.emitfy.generated.model.DfeTechResponsible;
 import com.emitfy.generated.model.NfceCreateRequestContingency;
+import com.emitfy.generated.model.NfceCreateRequestIntermediary;
+import com.emitfy.generated.model.NfceCreateRequestPaymentsInner;
 import com.emitfy.generated.model.NfceCreateRequestRecipient;
+import com.emitfy.generated.model.NfceCreateRequestTotals;
+import com.emitfy.generated.model.NfceCreateRequestTransport;
 import com.emitfy.generated.model.ProductEmitItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,10 +43,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.emitfy.generated.ApiClient;
 /**
- * Com &#x60;issueMode: offlineContingency&#x60; a validação exige &#x60;contingency&#x60;, &#x60;accessKey&#x60; (44 dígitos, modelo 65, tpEmis 9), &#x60;number&#x60;, &#x60;series&#x60; e &#x60;issuedAt&#x60; (ou &#x60;issueDate&#x60;). Falha → 422 &#x60;VALIDATION_ERROR&#x60;. 
+ * Com &#x60;issueMode: offlineContingency&#x60; a validação exige &#x60;contingency&#x60;, &#x60;accessKey&#x60; (44 dígitos, modelo 65, tpEmis 9), &#x60;number&#x60;, &#x60;series&#x60; e &#x60;issuedAt&#x60; (ou &#x60;issueDate&#x60;). Falha → 422 &#x60;VALIDATION_ERROR&#x60;. Leiaute NFC-e (fase 5): 422 só para o que o leiaute do modelo 65 não admite — indPres ≠ 1/4/5 (717), tPag 90 (899), frete/transportadora sem entrega a domicílio (753/754), retTransp/veículo/reboque/vagão/balsa (755–759), IE/SUFRAMA do consumidor (729/730) e endereço do consumidor em outra UF (707). 
  */
 @JsonPropertyOrder({
   NfceCreateRequest.JSON_PROPERTY_PAYMENT_METHOD,
+  NfceCreateRequest.JSON_PROPERTY_PAYMENTS,
+  NfceCreateRequest.JSON_PROPERTY_CHANGE,
+  NfceCreateRequest.JSON_PROPERTY_PRESENCE_TYPE,
+  NfceCreateRequest.JSON_PROPERTY_OPERATION_NATURE,
+  NfceCreateRequest.JSON_PROPERTY_DISCOUNT,
+  NfceCreateRequest.JSON_PROPERTY_TOTALS,
+  NfceCreateRequest.JSON_PROPERTY_TRANSPORT,
+  NfceCreateRequest.JSON_PROPERTY_INTERMEDIARY,
+  NfceCreateRequest.JSON_PROPERTY_AUT_XML,
   NfceCreateRequest.JSON_PROPERTY_ITEMS,
   NfceCreateRequest.JSON_PROPERTY_RECIPIENT,
   NfceCreateRequest.JSON_PROPERTY_NATURE,
@@ -61,7 +76,7 @@ import com.emitfy.generated.ApiClient;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfceCreateRequest {
   /**
-   * Gets or Sets paymentMethod
+   * Pagamento único com o total. Obrigatório quando não há &#x60;payments&#x60;
    */
   public enum PaymentMethodEnum {
     CREDIT_CARD(String.valueOf("credit_card")),
@@ -106,8 +121,81 @@ public class NfceCreateRequest {
   }
 
   public static final String JSON_PROPERTY_PAYMENT_METHOD = "paymentMethod";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private PaymentMethodEnum paymentMethod;
+
+  public static final String JSON_PROPERTY_PAYMENTS = "payments";
+  @javax.annotation.Nullable
+  private List<NfceCreateRequestPaymentsInner> payments = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CHANGE = "change";
+  @javax.annotation.Nullable
+  private BigDecimal change;
+
+  /**
+   * indPres na NFC-e: 1 presencial, 4 entrega a domicílio, 5 fora do estabelecimento (MOC B25b-20). internet/telephone/others (2/3/9) → 422 (rejeição 717): emita NF-e. 
+   */
+  public enum PresenceTypeEnum {
+    PRESENTIAL(String.valueOf("presential")),
+    
+    DELIVERY(String.valueOf("delivery")),
+    
+    OUTSIDE_ESTABLISHMENT(String.valueOf("outsideEstablishment"));
+
+    private String value;
+
+    PresenceTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PresenceTypeEnum fromValue(String value) {
+      for (PresenceTypeEnum b : PresenceTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PRESENCE_TYPE = "presenceType";
+  @javax.annotation.Nullable
+  private PresenceTypeEnum presenceType = PresenceTypeEnum.PRESENTIAL;
+
+  public static final String JSON_PROPERTY_OPERATION_NATURE = "operationNature";
+  @javax.annotation.Nullable
+  private String operationNature;
+
+  public static final String JSON_PROPERTY_DISCOUNT = "discount";
+  @javax.annotation.Nullable
+  private BigDecimal discount;
+
+  public static final String JSON_PROPERTY_TOTALS = "totals";
+  @javax.annotation.Nullable
+  private NfceCreateRequestTotals totals;
+
+  public static final String JSON_PROPERTY_TRANSPORT = "transport";
+  @javax.annotation.Nullable
+  private NfceCreateRequestTransport transport;
+
+  public static final String JSON_PROPERTY_INTERMEDIARY = "intermediary";
+  @javax.annotation.Nullable
+  private NfceCreateRequestIntermediary intermediary;
+
+  public static final String JSON_PROPERTY_AUT_XML = "autXml";
+  @javax.annotation.Nullable
+  private List<DfeAutXml> autXml = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ITEMS = "items";
   @javax.annotation.Nonnull
@@ -246,27 +334,261 @@ public class NfceCreateRequest {
   public NfceCreateRequest() { 
   }
 
-  public NfceCreateRequest paymentMethod(@javax.annotation.Nonnull PaymentMethodEnum paymentMethod) {
+  public NfceCreateRequest paymentMethod(@javax.annotation.Nullable PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
     return this;
   }
 
   /**
-   * Get paymentMethod
+   * Pagamento único com o total. Obrigatório quando não há &#x60;payments&#x60;
    * @return paymentMethod
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public PaymentMethodEnum getPaymentMethod() {
     return paymentMethod;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = true)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPaymentMethod(@javax.annotation.Nonnull PaymentMethodEnum paymentMethod) {
+  @JsonProperty(value = JSON_PROPERTY_PAYMENT_METHOD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPaymentMethod(@javax.annotation.Nullable PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
+  }
+
+
+  public NfceCreateRequest payments(@javax.annotation.Nullable List<NfceCreateRequestPaymentsInner> payments) {
+    this.payments = payments;
+    return this;
+  }
+
+  public NfceCreateRequest addPaymentsItem(NfceCreateRequestPaymentsInner paymentsItem) {
+    if (this.payments == null) {
+      this.payments = new ArrayList<>();
+    }
+    this.payments.add(paymentsItem);
+    return this;
+  }
+
+  /**
+   * Pagamentos detalhados (&#x60;pag/detPag&#x60;), mesmo formato da NF-e: vários meios, troco, cartão/TEF/POS (&#x60;integration&#x60; tpIntegra, &#x60;cardTaxId&#x60; CNPJ da credenciadora, &#x60;cardBrand&#x60; tBand, &#x60;authorization&#x60; cAut, &#x60;receiverTaxId&#x60; CNPJReceb, &#x60;terminalId&#x60; idTermPag), &#x60;paidOn&#x60;, &#x60;payerTaxId&#x60;/&#x60;payerState&#x60;. Pix dinâmico: method 17 + integration 1 + cardTaxId (CNPJ do PSP) + authorization (E2E/txid); Pix estático: method 20. Sem pagamento (90) → 422 (rejeição 899). 
+   * @return payments
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfceCreateRequestPaymentsInner> getPayments() {
+    return payments;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PAYMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPayments(@javax.annotation.Nullable List<NfceCreateRequestPaymentsInner> payments) {
+    this.payments = payments;
+  }
+
+
+  public NfceCreateRequest change(@javax.annotation.Nullable BigDecimal change) {
+    this.change = change;
+    return this;
+  }
+
+  /**
+   * Troco (vTroco) &#x3D; soma(payments) − vNF. Sem troco sai &#x60;&lt;vTroco&gt;0.00&lt;/vTroco&gt;&#x60;
+   * minimum: 0
+   * @return change
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CHANGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getChange() {
+    return change;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_CHANGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setChange(@javax.annotation.Nullable BigDecimal change) {
+    this.change = change;
+  }
+
+
+  public NfceCreateRequest presenceType(@javax.annotation.Nullable PresenceTypeEnum presenceType) {
+    this.presenceType = presenceType;
+    return this;
+  }
+
+  /**
+   * indPres na NFC-e: 1 presencial, 4 entrega a domicílio, 5 fora do estabelecimento (MOC B25b-20). internet/telephone/others (2/3/9) → 422 (rejeição 717): emita NF-e. 
+   * @return presenceType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PRESENCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public PresenceTypeEnum getPresenceType() {
+    return presenceType;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PRESENCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPresenceType(@javax.annotation.Nullable PresenceTypeEnum presenceType) {
+    this.presenceType = presenceType;
+  }
+
+
+  public NfceCreateRequest operationNature(@javax.annotation.Nullable String operationNature) {
+    this.operationNature = operationNature;
+    return this;
+  }
+
+  /**
+   * natOp (alias &#x60;nature&#x60;)
+   * @return operationNature
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_OPERATION_NATURE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getOperationNature() {
+    return operationNature;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_OPERATION_NATURE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOperationNature(@javax.annotation.Nullable String operationNature) {
+    this.operationNature = operationNature;
+  }
+
+
+  public NfceCreateRequest discount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
+    return this;
+  }
+
+  /**
+   * Desconto da nota (rateado em vDesc)
+   * minimum: 0
+   * @return discount
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public BigDecimal getDiscount() {
+    return discount;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_DISCOUNT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDiscount(@javax.annotation.Nullable BigDecimal discount) {
+    this.discount = discount;
+  }
+
+
+  public NfceCreateRequest totals(@javax.annotation.Nullable NfceCreateRequestTotals totals) {
+    this.totals = totals;
+    return this;
+  }
+
+  /**
+   * Get totals
+   * @return totals
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfceCreateRequestTotals getTotals() {
+    return totals;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TOTALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotals(@javax.annotation.Nullable NfceCreateRequestTotals totals) {
+    this.totals = totals;
+  }
+
+
+  public NfceCreateRequest transport(@javax.annotation.Nullable NfceCreateRequestTransport transport) {
+    this.transport = transport;
+    return this;
+  }
+
+  /**
+   * Get transport
+   * @return transport
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TRANSPORT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfceCreateRequestTransport getTransport() {
+    return transport;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TRANSPORT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTransport(@javax.annotation.Nullable NfceCreateRequestTransport transport) {
+    this.transport = transport;
+  }
+
+
+  public NfceCreateRequest intermediary(@javax.annotation.Nullable NfceCreateRequestIntermediary intermediary) {
+    this.intermediary = intermediary;
+    return this;
+  }
+
+  /**
+   * Get intermediary
+   * @return intermediary
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INTERMEDIARY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfceCreateRequestIntermediary getIntermediary() {
+    return intermediary;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_INTERMEDIARY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIntermediary(@javax.annotation.Nullable NfceCreateRequestIntermediary intermediary) {
+    this.intermediary = intermediary;
+  }
+
+
+  public NfceCreateRequest autXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
+    return this;
+  }
+
+  public NfceCreateRequest addAutXmlItem(DfeAutXml autXmlItem) {
+    if (this.autXml == null) {
+      this.autXml = new ArrayList<>();
+    }
+    this.autXml.add(autXmlItem);
+    return this;
+  }
+
+  /**
+   * Get autXml
+   * @return autXml
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<DfeAutXml> getAutXml() {
+    return autXml;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_AUT_XML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAutXml(@javax.annotation.Nullable List<DfeAutXml> autXml) {
+    this.autXml = autXml;
   }
 
 
@@ -332,7 +654,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Get nature
+   * Alias de operationNature (natOp)
    * @return nature
    */
   @javax.annotation.Nullable
@@ -356,7 +678,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Get cfop
+   * CFOP padrão dos itens sem CFOP próprio
    * @return cfop
    */
   @javax.annotation.Nullable
@@ -404,7 +726,7 @@ public class NfceCreateRequest {
   }
 
   /**
-   * Get additional
+   * complement (infCpl), fisco (infAdFisco), taxpayerNotes (obsCont), fiscoNotes (obsFisco), processReferences (procRef)
    * @return additional
    */
   @javax.annotation.Nullable
@@ -677,6 +999,15 @@ public class NfceCreateRequest {
     }
     NfceCreateRequest nfceCreateRequest = (NfceCreateRequest) o;
     return Objects.equals(this.paymentMethod, nfceCreateRequest.paymentMethod) &&
+        Objects.equals(this.payments, nfceCreateRequest.payments) &&
+        Objects.equals(this.change, nfceCreateRequest.change) &&
+        Objects.equals(this.presenceType, nfceCreateRequest.presenceType) &&
+        Objects.equals(this.operationNature, nfceCreateRequest.operationNature) &&
+        Objects.equals(this.discount, nfceCreateRequest.discount) &&
+        Objects.equals(this.totals, nfceCreateRequest.totals) &&
+        Objects.equals(this.transport, nfceCreateRequest.transport) &&
+        Objects.equals(this.intermediary, nfceCreateRequest.intermediary) &&
+        Objects.equals(this.autXml, nfceCreateRequest.autXml) &&
         Objects.equals(this.items, nfceCreateRequest.items) &&
         Objects.equals(this.recipient, nfceCreateRequest.recipient) &&
         Objects.equals(this.nature, nfceCreateRequest.nature) &&
@@ -697,7 +1028,7 @@ public class NfceCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(paymentMethod, items, recipient, nature, cfop, issueDate, additional, techResponsible, externalId, issueMode, contingency, accessKey, number, series, issuedAt, signedXml, transmit);
+    return Objects.hash(paymentMethod, payments, change, presenceType, operationNature, discount, totals, transport, intermediary, autXml, items, recipient, nature, cfop, issueDate, additional, techResponsible, externalId, issueMode, contingency, accessKey, number, series, issuedAt, signedXml, transmit);
   }
 
   @Override
@@ -705,6 +1036,15 @@ public class NfceCreateRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfceCreateRequest {\n");
     sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
+    sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
+    sb.append("    change: ").append(toIndentedString(change)).append("\n");
+    sb.append("    presenceType: ").append(toIndentedString(presenceType)).append("\n");
+    sb.append("    operationNature: ").append(toIndentedString(operationNature)).append("\n");
+    sb.append("    discount: ").append(toIndentedString(discount)).append("\n");
+    sb.append("    totals: ").append(toIndentedString(totals)).append("\n");
+    sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
+    sb.append("    intermediary: ").append(toIndentedString(intermediary)).append("\n");
+    sb.append("    autXml: ").append(toIndentedString(autXml)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
     sb.append("    nature: ").append(toIndentedString(nature)).append("\n");
@@ -768,6 +1108,61 @@ public class NfceCreateRequest {
     // add `paymentMethod` to the URL query string
     if (getPaymentMethod() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%spaymentMethod%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPaymentMethod()))));
+    }
+
+    // add `payments` to the URL query string
+    if (getPayments() != null) {
+      for (int i = 0; i < getPayments().size(); i++) {
+        if (getPayments().get(i) != null) {
+          joiner.add(getPayments().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%spayments%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `change` to the URL query string
+    if (getChange() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%schange%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getChange()))));
+    }
+
+    // add `presenceType` to the URL query string
+    if (getPresenceType() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spresenceType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPresenceType()))));
+    }
+
+    // add `operationNature` to the URL query string
+    if (getOperationNature() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%soperationNature%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOperationNature()))));
+    }
+
+    // add `discount` to the URL query string
+    if (getDiscount() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdiscount%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDiscount()))));
+    }
+
+    // add `totals` to the URL query string
+    if (getTotals() != null) {
+      joiner.add(getTotals().toUrlQueryString(prefix + "totals" + suffix));
+    }
+
+    // add `transport` to the URL query string
+    if (getTransport() != null) {
+      joiner.add(getTransport().toUrlQueryString(prefix + "transport" + suffix));
+    }
+
+    // add `intermediary` to the URL query string
+    if (getIntermediary() != null) {
+      joiner.add(getIntermediary().toUrlQueryString(prefix + "intermediary" + suffix));
+    }
+
+    // add `autXml` to the URL query string
+    if (getAutXml() != null) {
+      for (int i = 0; i < getAutXml().size(); i++) {
+        if (getAutXml().get(i) != null) {
+          joiner.add(getAutXml().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sautXml%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
     }
 
     // add `items` to the URL query string
