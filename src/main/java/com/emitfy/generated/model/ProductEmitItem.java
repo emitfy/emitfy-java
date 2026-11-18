@@ -26,6 +26,8 @@ import com.emitfy.generated.model.NfeItemImportTax;
 import com.emitfy.generated.model.NfeItemIpi;
 import com.emitfy.generated.model.NfeItemSelectiveTax;
 import com.emitfy.generated.model.ProductEmitItemIcmsForecast;
+import com.emitfy.generated.model.ProductEmitItemItemNotes;
+import com.emitfy.generated.model.ProductEmitItemPackaging;
 import com.emitfy.generated.model.ProductEmitItemReferencedDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -107,6 +109,9 @@ import com.emitfy.generated.ApiClient;
   ProductEmitItem.JSON_PROPERTY_MEDICINE,
   ProductEmitItem.JSON_PROPERTY_WEAPONS,
   ProductEmitItem.JSON_PROPERTY_FUEL,
+  ProductEmitItem.JSON_PROPERTY_RECOPI,
+  ProductEmitItem.JSON_PROPERTY_PACKAGING,
+  ProductEmitItem.JSON_PROPERTY_ITEM_NOTES,
   ProductEmitItem.JSON_PROPERTY_TAX_RETURN,
   ProductEmitItem.JSON_PROPERTY_ADDITIONAL_INFO
 })
@@ -404,6 +409,18 @@ public class ProductEmitItem {
   public static final String JSON_PROPERTY_FUEL = "fuel";
   @javax.annotation.Nullable
   private Object fuel;
+
+  public static final String JSON_PROPERTY_RECOPI = "recopi";
+  @javax.annotation.Nullable
+  private String recopi;
+
+  public static final String JSON_PROPERTY_PACKAGING = "packaging";
+  @javax.annotation.Nullable
+  private ProductEmitItemPackaging packaging;
+
+  public static final String JSON_PROPERTY_ITEM_NOTES = "itemNotes";
+  @javax.annotation.Nullable
+  private ProductEmitItemItemNotes itemNotes;
 
   public static final String JSON_PROPERTY_TAX_RETURN = "taxReturn";
   @javax.annotation.Nullable
@@ -1882,7 +1899,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get vehicle
+   * NF-e — veicProd. Os 24 campos são obrigatórios (chassi 17 caracteres). Exclusivo com medicine/weapons/fuel/recopi
    * @return vehicle
    */
   @javax.annotation.Nullable
@@ -1906,7 +1923,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get medicine
+   * med — anvisaCode (11 ou 13 dígitos ou &#x60;ISENTO&#x60; + reasonExemption) e maxConsumerPrice (vPMC) obrigatórios
    * @return medicine
    */
   @javax.annotation.Nullable
@@ -1938,7 +1955,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get weapons
+   * arma — kind (0 uso permitido, 1 uso restrito), serial, barrelSerial e description obrigatórios
    * @return weapons
    */
   @javax.annotation.Nullable
@@ -1962,7 +1979,7 @@ public class ProductEmitItem {
   }
 
   /**
-   * Get fuel
+   * comb — anpCode (9 dígitos), description e consumptionState obrigatórios; codif (até 21 dígitos), quantityTemp, CIDE (cideBase/cideRate/cideAmount juntos), &#x60;pump&#x60; (encerrante: nozzle, pump?, tank, startReading, endReading), &#x60;biodieselPercent&#x60; (pBio, &gt;0 a 100) e &#x60;origins&#x60; (origComb, até 30: imported, stateCode IBGE, percent). NFC-e aceita. 
    * @return fuel
    */
   @javax.annotation.Nullable
@@ -1977,6 +1994,78 @@ public class ProductEmitItem {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFuel(@javax.annotation.Nullable Object fuel) {
     this.fuel = fuel;
+  }
+
+
+  public ProductEmitItem recopi(@javax.annotation.Nullable String recopi) {
+    this.recopi = recopi;
+    return this;
+  }
+
+  /**
+   * NF-e — nRECOPI (papel imune). Exclusivo com vehicle/medicine/weapons/fuel. NFC-e → 422
+   * @return recopi
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RECOPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getRecopi() {
+    return recopi;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_RECOPI, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecopi(@javax.annotation.Nullable String recopi) {
+    this.recopi = recopi;
+  }
+
+
+  public ProductEmitItem packaging(@javax.annotation.Nullable ProductEmitItemPackaging packaging) {
+    this.packaging = packaging;
+    return this;
+  }
+
+  /**
+   * Get packaging
+   * @return packaging
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PACKAGING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ProductEmitItemPackaging getPackaging() {
+    return packaging;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PACKAGING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPackaging(@javax.annotation.Nullable ProductEmitItemPackaging packaging) {
+    this.packaging = packaging;
+  }
+
+
+  public ProductEmitItem itemNotes(@javax.annotation.Nullable ProductEmitItemItemNotes itemNotes) {
+    this.itemNotes = itemNotes;
+    return this;
+  }
+
+  /**
+   * Get itemNotes
+   * @return itemNotes
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ITEM_NOTES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public ProductEmitItemItemNotes getItemNotes() {
+    return itemNotes;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_ITEM_NOTES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setItemNotes(@javax.annotation.Nullable ProductEmitItemItemNotes itemNotes) {
+    this.itemNotes = itemNotes;
   }
 
 
@@ -2103,13 +2192,16 @@ public class ProductEmitItem {
         Objects.equals(this.medicine, productEmitItem.medicine) &&
         Objects.equals(this.weapons, productEmitItem.weapons) &&
         Objects.equals(this.fuel, productEmitItem.fuel) &&
+        Objects.equals(this.recopi, productEmitItem.recopi) &&
+        Objects.equals(this.packaging, productEmitItem.packaging) &&
+        Objects.equals(this.itemNotes, productEmitItem.itemNotes) &&
         Objects.equals(this.taxReturn, productEmitItem.taxReturn) &&
         Objects.equals(this.additionalInfo, productEmitItem.additionalInfo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, icms, ipi, importTax, ibsCbs, selectiveTax, netUnitValue, netAmount, simplesActivity, usedMovableGood, zfmPresumedCreditType, referencedDocument, itemTotal, icmsForecast, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, taxReturn, additionalInfo);
+    return Objects.hash(sku, name, category, description, fiscalDescription, guarantee, ncm, cfop, cfopInternal, cfopExternal, cfopExternalNonTaxpayer, cfopInternational, quantity, unitValue, unit, commercialUnit, taxableUnit, gtin, icmsOrigin, icmsCst, icmsTaxRate, icmsModBc, icmsTaxBenefitCode, pisCst, pisTaxRate, cofinsCst, cofinsTaxRate, ipiCst, ipiTaxRate, ipiLegalCode, icms, ipi, importTax, ibsCbs, selectiveTax, netUnitValue, netAmount, simplesActivity, usedMovableGood, zfmPresumedCreditType, referencedDocument, itemTotal, icmsForecast, cest, fci, nve, extipi, orderNumber, orderItem, freight, insurance, discount, other, taxClassification, ibsCst, cbsCst, importDeclarations, traces, exports, vehicle, medicine, weapons, fuel, recopi, packaging, itemNotes, taxReturn, additionalInfo);
   }
 
   @Override
@@ -2179,6 +2271,9 @@ public class ProductEmitItem {
     sb.append("    medicine: ").append(toIndentedString(medicine)).append("\n");
     sb.append("    weapons: ").append(toIndentedString(weapons)).append("\n");
     sb.append("    fuel: ").append(toIndentedString(fuel)).append("\n");
+    sb.append("    recopi: ").append(toIndentedString(recopi)).append("\n");
+    sb.append("    packaging: ").append(toIndentedString(packaging)).append("\n");
+    sb.append("    itemNotes: ").append(toIndentedString(itemNotes)).append("\n");
     sb.append("    taxReturn: ").append(toIndentedString(taxReturn)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("}");
@@ -2559,6 +2654,21 @@ public class ProductEmitItem {
     // add `fuel` to the URL query string
     if (getFuel() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sfuel%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFuel()))));
+    }
+
+    // add `recopi` to the URL query string
+    if (getRecopi() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%srecopi%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRecopi()))));
+    }
+
+    // add `packaging` to the URL query string
+    if (getPackaging() != null) {
+      joiner.add(getPackaging().toUrlQueryString(prefix + "packaging" + suffix));
+    }
+
+    // add `itemNotes` to the URL query string
+    if (getItemNotes() != null) {
+      joiner.add(getItemNotes().toUrlQueryString(prefix + "itemNotes" + suffix));
     }
 
     // add `taxReturn` to the URL query string

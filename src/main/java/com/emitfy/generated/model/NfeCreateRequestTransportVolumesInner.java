@@ -25,7 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -39,7 +41,8 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_BRAND,
   NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_NUMBERING,
   NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_NET_WEIGHT,
-  NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_GROSS_WEIGHT
+  NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_GROSS_WEIGHT,
+  NfeCreateRequestTransportVolumesInner.JSON_PROPERTY_SEALS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestTransportVolumesInner {
@@ -66,6 +69,10 @@ public class NfeCreateRequestTransportVolumesInner {
   public static final String JSON_PROPERTY_GROSS_WEIGHT = "grossWeight";
   @javax.annotation.Nullable
   private BigDecimal grossWeight;
+
+  public static final String JSON_PROPERTY_SEALS = "seals";
+  @javax.annotation.Nullable
+  private List<String> seals = new ArrayList<>();
 
   public NfeCreateRequestTransportVolumesInner() { 
   }
@@ -217,6 +224,38 @@ public class NfeCreateRequestTransportVolumesInner {
   }
 
 
+  public NfeCreateRequestTransportVolumesInner seals(@javax.annotation.Nullable List<String> seals) {
+    this.seals = seals;
+    return this;
+  }
+
+  public NfeCreateRequestTransportVolumesInner addSealsItem(String sealsItem) {
+    if (this.seals == null) {
+      this.seals = new ArrayList<>();
+    }
+    this.seals.add(sealsItem);
+    return this;
+  }
+
+  /**
+   * lacres/nLacre. Alias &#x60;lacres&#x60; (lista de textos ou de &#x60;{ nLacre }&#x60;)
+   * @return seals
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SEALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getSeals() {
+    return seals;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_SEALS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSeals(@javax.annotation.Nullable List<String> seals) {
+    this.seals = seals;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_transport_volumes_inner object is equal to o.
    */
@@ -234,12 +273,13 @@ public class NfeCreateRequestTransportVolumesInner {
         Objects.equals(this.brand, nfeCreateRequestTransportVolumesInner.brand) &&
         Objects.equals(this.numbering, nfeCreateRequestTransportVolumesInner.numbering) &&
         Objects.equals(this.netWeight, nfeCreateRequestTransportVolumesInner.netWeight) &&
-        Objects.equals(this.grossWeight, nfeCreateRequestTransportVolumesInner.grossWeight);
+        Objects.equals(this.grossWeight, nfeCreateRequestTransportVolumesInner.grossWeight) &&
+        Objects.equals(this.seals, nfeCreateRequestTransportVolumesInner.seals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(quantity, species, brand, numbering, netWeight, grossWeight);
+    return Objects.hash(quantity, species, brand, numbering, netWeight, grossWeight, seals);
   }
 
   @Override
@@ -252,6 +292,7 @@ public class NfeCreateRequestTransportVolumesInner {
     sb.append("    numbering: ").append(toIndentedString(numbering)).append("\n");
     sb.append("    netWeight: ").append(toIndentedString(netWeight)).append("\n");
     sb.append("    grossWeight: ").append(toIndentedString(grossWeight)).append("\n");
+    sb.append("    seals: ").append(toIndentedString(seals)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -324,6 +365,15 @@ public class NfeCreateRequestTransportVolumesInner {
     // add `grossWeight` to the URL query string
     if (getGrossWeight() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%sgrossWeight%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getGrossWeight()))));
+    }
+
+    // add `seals` to the URL query string
+    if (getSeals() != null) {
+      for (int i = 0; i < getSeals().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%sseals%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getSeals().get(i)))));
+      }
     }
 
     return joiner.toString();

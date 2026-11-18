@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import com.emitfy.generated.model.NfeCreateRequestTransportVolumesInner;
+import com.emitfy.generated.model.NfeCreateRequestTransportWithholding;
 import com.emitfy.generated.model.TransportCarrier;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,7 +42,11 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestTransport.JSON_PROPERTY_FREIGHT_MODALITY,
   NfeCreateRequestTransport.JSON_PROPERTY_VALUE,
   NfeCreateRequestTransport.JSON_PROPERTY_CARRIER,
-  NfeCreateRequestTransport.JSON_PROPERTY_VOLUMES
+  NfeCreateRequestTransport.JSON_PROPERTY_VOLUMES,
+  NfeCreateRequestTransport.JSON_PROPERTY_WITHHOLDING,
+  NfeCreateRequestTransport.JSON_PROPERTY_TRAILERS,
+  NfeCreateRequestTransport.JSON_PROPERTY_WAGON,
+  NfeCreateRequestTransport.JSON_PROPERTY_FERRY
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestTransport {
@@ -103,6 +108,22 @@ public class NfeCreateRequestTransport {
   public static final String JSON_PROPERTY_VOLUMES = "volumes";
   @javax.annotation.Nullable
   private List<NfeCreateRequestTransportVolumesInner> volumes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_WITHHOLDING = "withholding";
+  @javax.annotation.Nullable
+  private NfeCreateRequestTransportWithholding withholding;
+
+  public static final String JSON_PROPERTY_TRAILERS = "trailers";
+  @javax.annotation.Nullable
+  private List<Object> trailers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_WAGON = "wagon";
+  @javax.annotation.Nullable
+  private String wagon;
+
+  public static final String JSON_PROPERTY_FERRY = "ferry";
+  @javax.annotation.Nullable
+  private String ferry;
 
   public NfeCreateRequestTransport() { 
   }
@@ -212,6 +233,110 @@ public class NfeCreateRequestTransport {
   }
 
 
+  public NfeCreateRequestTransport withholding(@javax.annotation.Nullable NfeCreateRequestTransportWithholding withholding) {
+    this.withholding = withholding;
+    return this;
+  }
+
+  /**
+   * Get withholding
+   * @return withholding
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_WITHHOLDING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public NfeCreateRequestTransportWithholding getWithholding() {
+    return withholding;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_WITHHOLDING, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWithholding(@javax.annotation.Nullable NfeCreateRequestTransportWithholding withholding) {
+    this.withholding = withholding;
+  }
+
+
+  public NfeCreateRequestTransport trailers(@javax.annotation.Nullable List<Object> trailers) {
+    this.trailers = trailers;
+    return this;
+  }
+
+  public NfeCreateRequestTransport addTrailersItem(Object trailersItem) {
+    if (this.trailers == null) {
+      this.trailers = new ArrayList<>();
+    }
+    this.trailers.add(trailersItem);
+    return this;
+  }
+
+  /**
+   * reboque — { plate, state?, rntc? }. Exclusivo com wagon/ferry
+   * @return trailers
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TRAILERS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<Object> getTrailers() {
+    return trailers;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_TRAILERS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrailers(@javax.annotation.Nullable List<Object> trailers) {
+    this.trailers = trailers;
+  }
+
+
+  public NfeCreateRequestTransport wagon(@javax.annotation.Nullable String wagon) {
+    this.wagon = wagon;
+    return this;
+  }
+
+  /**
+   * vagao (ferroviário). Exclusivo com veículo/reboque/balsa
+   * @return wagon
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_WAGON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getWagon() {
+    return wagon;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_WAGON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWagon(@javax.annotation.Nullable String wagon) {
+    this.wagon = wagon;
+  }
+
+
+  public NfeCreateRequestTransport ferry(@javax.annotation.Nullable String ferry) {
+    this.ferry = ferry;
+    return this;
+  }
+
+  /**
+   * balsa (aquaviário). Exclusivo com veículo/reboque/vagão
+   * @return ferry
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FERRY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getFerry() {
+    return ferry;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_FERRY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFerry(@javax.annotation.Nullable String ferry) {
+    this.ferry = ferry;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_transport object is equal to o.
    */
@@ -227,12 +352,16 @@ public class NfeCreateRequestTransport {
     return Objects.equals(this.freightModality, nfeCreateRequestTransport.freightModality) &&
         Objects.equals(this.value, nfeCreateRequestTransport.value) &&
         Objects.equals(this.carrier, nfeCreateRequestTransport.carrier) &&
-        Objects.equals(this.volumes, nfeCreateRequestTransport.volumes);
+        Objects.equals(this.volumes, nfeCreateRequestTransport.volumes) &&
+        Objects.equals(this.withholding, nfeCreateRequestTransport.withholding) &&
+        Objects.equals(this.trailers, nfeCreateRequestTransport.trailers) &&
+        Objects.equals(this.wagon, nfeCreateRequestTransport.wagon) &&
+        Objects.equals(this.ferry, nfeCreateRequestTransport.ferry);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(freightModality, value, carrier, volumes);
+    return Objects.hash(freightModality, value, carrier, volumes, withholding, trailers, wagon, ferry);
   }
 
   @Override
@@ -243,6 +372,10 @@ public class NfeCreateRequestTransport {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
     sb.append("    volumes: ").append(toIndentedString(volumes)).append("\n");
+    sb.append("    withholding: ").append(toIndentedString(withholding)).append("\n");
+    sb.append("    trailers: ").append(toIndentedString(trailers)).append("\n");
+    sb.append("    wagon: ").append(toIndentedString(wagon)).append("\n");
+    sb.append("    ferry: ").append(toIndentedString(ferry)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -310,6 +443,30 @@ public class NfeCreateRequestTransport {
           "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
+    }
+
+    // add `withholding` to the URL query string
+    if (getWithholding() != null) {
+      joiner.add(getWithholding().toUrlQueryString(prefix + "withholding" + suffix));
+    }
+
+    // add `trailers` to the URL query string
+    if (getTrailers() != null) {
+      for (int i = 0; i < getTrailers().size(); i++) {
+        joiner.add(String.format(java.util.Locale.ROOT, "%strailers%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getTrailers().get(i)))));
+      }
+    }
+
+    // add `wagon` to the URL query string
+    if (getWagon() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%swagon%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getWagon()))));
+    }
+
+    // add `ferry` to the URL query string
+    if (getFerry() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sferry%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFerry()))));
     }
 
     return joiner.toString();

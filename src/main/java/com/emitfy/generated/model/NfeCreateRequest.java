@@ -1360,7 +1360,7 @@ public class NfeCreateRequest {
   }
 
   /**
-   * Get farming
+   * agropecuario (PL_010h) — &#x60;defensives&#x60; (até 20: number &#x3D; nReceituario, taxId &#x3D; CPF do responsável técnico) OU &#x60;transitGuide&#x60; (type 1–7, state, series?, number até 9 dígitos), nunca os dois. &#x60;amount&#x60; (qApl) não existe no leiaute → 422 
    * @return farming
    */
   @javax.annotation.Nullable

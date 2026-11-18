@@ -19,6 +19,7 @@ import java.util.StringJoiner;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import com.emitfy.generated.model.NfeCreateRequestAdditionalProcessReferencesInner;
 import com.emitfy.generated.model.NfeCreateRequestAdditionalTaxpayerNotesInner;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,7 +40,8 @@ import com.emitfy.generated.ApiClient;
   NfeCreateRequestAdditional.JSON_PROPERTY_COMPLEMENT,
   NfeCreateRequestAdditional.JSON_PROPERTY_FISCO,
   NfeCreateRequestAdditional.JSON_PROPERTY_TAXPAYER_NOTES,
-  NfeCreateRequestAdditional.JSON_PROPERTY_FISCO_NOTES
+  NfeCreateRequestAdditional.JSON_PROPERTY_FISCO_NOTES,
+  NfeCreateRequestAdditional.JSON_PROPERTY_PROCESS_REFERENCES
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCreateRequestAdditional {
@@ -58,6 +60,10 @@ public class NfeCreateRequestAdditional {
   public static final String JSON_PROPERTY_FISCO_NOTES = "fiscoNotes";
   @javax.annotation.Nullable
   private List<NfeCreateRequestAdditionalTaxpayerNotesInner> fiscoNotes = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PROCESS_REFERENCES = "processReferences";
+  @javax.annotation.Nullable
+  private List<NfeCreateRequestAdditionalProcessReferencesInner> processReferences = new ArrayList<>();
 
   public NfeCreateRequestAdditional() { 
   }
@@ -174,6 +180,38 @@ public class NfeCreateRequestAdditional {
   }
 
 
+  public NfeCreateRequestAdditional processReferences(@javax.annotation.Nullable List<NfeCreateRequestAdditionalProcessReferencesInner> processReferences) {
+    this.processReferences = processReferences;
+    return this;
+  }
+
+  public NfeCreateRequestAdditional addProcessReferencesItem(NfeCreateRequestAdditionalProcessReferencesInner processReferencesItem) {
+    if (this.processReferences == null) {
+      this.processReferences = new ArrayList<>();
+    }
+    this.processReferences.add(processReferencesItem);
+    return this;
+  }
+
+  /**
+   * procRef — processo referenciado (só NF-e; NFC-e → 422)
+   * @return processReferences
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PROCESS_REFERENCES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<NfeCreateRequestAdditionalProcessReferencesInner> getProcessReferences() {
+    return processReferences;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PROCESS_REFERENCES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProcessReferences(@javax.annotation.Nullable List<NfeCreateRequestAdditionalProcessReferencesInner> processReferences) {
+    this.processReferences = processReferences;
+  }
+
+
   /**
    * Return true if this nfeCreate_request_additional object is equal to o.
    */
@@ -189,12 +227,13 @@ public class NfeCreateRequestAdditional {
     return Objects.equals(this.complement, nfeCreateRequestAdditional.complement) &&
         Objects.equals(this.fisco, nfeCreateRequestAdditional.fisco) &&
         Objects.equals(this.taxpayerNotes, nfeCreateRequestAdditional.taxpayerNotes) &&
-        Objects.equals(this.fiscoNotes, nfeCreateRequestAdditional.fiscoNotes);
+        Objects.equals(this.fiscoNotes, nfeCreateRequestAdditional.fiscoNotes) &&
+        Objects.equals(this.processReferences, nfeCreateRequestAdditional.processReferences);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(complement, fisco, taxpayerNotes, fiscoNotes);
+    return Objects.hash(complement, fisco, taxpayerNotes, fiscoNotes, processReferences);
   }
 
   @Override
@@ -205,6 +244,7 @@ public class NfeCreateRequestAdditional {
     sb.append("    fisco: ").append(toIndentedString(fisco)).append("\n");
     sb.append("    taxpayerNotes: ").append(toIndentedString(taxpayerNotes)).append("\n");
     sb.append("    fiscoNotes: ").append(toIndentedString(fiscoNotes)).append("\n");
+    sb.append("    processReferences: ").append(toIndentedString(processReferences)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -274,6 +314,16 @@ public class NfeCreateRequestAdditional {
       for (int i = 0; i < getFiscoNotes().size(); i++) {
         if (getFiscoNotes().get(i) != null) {
           joiner.add(getFiscoNotes().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sfiscoNotes%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `processReferences` to the URL query string
+    if (getProcessReferences() != null) {
+      for (int i = 0; i < getProcessReferences().size(); i++) {
+        if (getProcessReferences().get(i) != null) {
+          joiner.add(getProcessReferences().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sprocessReferences%s%s", prefix, suffix,
           "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }

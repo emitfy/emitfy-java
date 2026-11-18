@@ -402,7 +402,7 @@ public class NfeCreateRequestIde {
   }
 
   /**
-   * Só &#x60;1&#x60;/&#x60;normal&#x60;. Contingência ainda não suportada → 422
+   * &#x60;1&#x60;/&#x60;normal&#x60;. &#x60;6&#x60;/&#x60;svcAn&#x60; (SVC-AN) e &#x60;7&#x60;/&#x60;svcRs&#x60; (SVC-RS) só com a flag &#x60;NFE_SVC_CONTINGENCY_ENABLED&#x60; (senão 422); a UF do emitente precisa usar aquele SVC. O XML sai com tpEmis/dhCont/xJust, mas a transmissão ao autorizador de contingência ainda não existe — a nota fica com erro de validação. 
    * @return emissionType
    */
   @javax.annotation.Nullable
@@ -474,7 +474,7 @@ public class NfeCreateRequestIde {
   }
 
   /**
-   * Contingência ainda não suportada → 422
+   * dhCont — obrigatório com emissionType 6/7; não pode estar no futuro
    * @return contingencyStartedAt
    */
   @javax.annotation.Nullable
@@ -498,7 +498,7 @@ public class NfeCreateRequestIde {
   }
 
   /**
-   * Contingência ainda não suportada → 422
+   * xJust — obrigatório com emissionType 6/7
    * @return contingencyReason
    */
   @javax.annotation.Nullable
