@@ -303,7 +303,7 @@ public class NfeApi {
 
   /**
    * Issue NF-e correction letter (CC-e)
-   * Carta de correção eletrônica de NF-e autorizada. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. 
+   * Carta de correção eletrônica (evento 110110) de NF-e autorizada. Pode ser enviada a qualquer momento após a autorização, no prazo legal de 30 dias (720 horas), no máximo 20 vezes. O texto é cumulativo e substitui a CC-e anterior. NFC-e e NFS-e não admitem CC-e. Depois de uma CC-e, o cancelamento da nota não é mais permitido. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. Aliases: &#x60;POST /v1/invoices/{id}/correction&#x60; e &#x60;POST /v1/companies/{companyId}/invoices/{id}/correction&#x60;. 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param nfeCorrectionRequest  (required)
@@ -316,7 +316,7 @@ public class NfeApi {
 
   /**
    * Issue NF-e correction letter (CC-e)
-   * Carta de correção eletrônica de NF-e autorizada. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. 
+   * Carta de correção eletrônica (evento 110110) de NF-e autorizada. Pode ser enviada a qualquer momento após a autorização, no prazo legal de 30 dias (720 horas), no máximo 20 vezes. O texto é cumulativo e substitui a CC-e anterior. NFC-e e NFS-e não admitem CC-e. Depois de uma CC-e, o cancelamento da nota não é mais permitido. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. Aliases: &#x60;POST /v1/invoices/{id}/correction&#x60; e &#x60;POST /v1/companies/{companyId}/invoices/{id}/correction&#x60;. 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param nfeCorrectionRequest  (required)
@@ -331,7 +331,7 @@ public class NfeApi {
 
   /**
    * Issue NF-e correction letter (CC-e)
-   * Carta de correção eletrônica de NF-e autorizada. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. 
+   * Carta de correção eletrônica (evento 110110) de NF-e autorizada. Pode ser enviada a qualquer momento após a autorização, no prazo legal de 30 dias (720 horas), no máximo 20 vezes. O texto é cumulativo e substitui a CC-e anterior. NFC-e e NFS-e não admitem CC-e. Depois de uma CC-e, o cancelamento da nota não é mais permitido. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. Aliases: &#x60;POST /v1/invoices/{id}/correction&#x60; e &#x60;POST /v1/companies/{companyId}/invoices/{id}/correction&#x60;. 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param nfeCorrectionRequest  (required)
@@ -344,7 +344,7 @@ public class NfeApi {
 
   /**
    * Issue NF-e correction letter (CC-e)
-   * Carta de correção eletrônica de NF-e autorizada. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. 
+   * Carta de correção eletrônica (evento 110110) de NF-e autorizada. Pode ser enviada a qualquer momento após a autorização, no prazo legal de 30 dias (720 horas), no máximo 20 vezes. O texto é cumulativo e substitui a CC-e anterior. NFC-e e NFS-e não admitem CC-e. Depois de uma CC-e, o cancelamento da nota não é mais permitido. Não reprocessa nota rejected — para retry use &#x60;POST .../invoices/{id}/emit&#x60;. Aliases: &#x60;POST /v1/invoices/{id}/correction&#x60; e &#x60;POST /v1/companies/{companyId}/invoices/{id}/correction&#x60;. 
    * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
    * @param id  (required)
    * @param nfeCorrectionRequest  (required)
@@ -431,6 +431,255 @@ public class NfeApi {
     } catch (IOException e) {
       throw new ApiException(e);
     }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Download CC-e event XML
+   * XML do evento 110110 armazenado após o registro na SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param sequence  (required)
+   * @return String
+   * @throws ApiException if fails to make API call
+   */
+  public String nfeCorrectionXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer sequence) throws ApiException {
+    return nfeCorrectionXml(companyId, id, sequence, null);
+  }
+
+  /**
+   * Download CC-e event XML
+   * XML do evento 110110 armazenado após o registro na SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param sequence  (required)
+   * @param headers Optional headers to include in the request
+   * @return String
+   * @throws ApiException if fails to make API call
+   */
+  public String nfeCorrectionXml(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer sequence, Map<String, String> headers) throws ApiException {
+    ApiResponse<String> localVarResponse = nfeCorrectionXmlWithHttpInfo(companyId, id, sequence, headers);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Download CC-e event XML
+   * XML do evento 110110 armazenado após o registro na SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param sequence  (required)
+   * @return ApiResponse&lt;String&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<String> nfeCorrectionXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer sequence) throws ApiException {
+    return nfeCorrectionXmlWithHttpInfo(companyId, id, sequence, null);
+  }
+
+  /**
+   * Download CC-e event XML
+   * XML do evento 110110 armazenado após o registro na SEFAZ.
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param sequence  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;String&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<String> nfeCorrectionXmlWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer sequence, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = nfeCorrectionXmlRequestBuilder(companyId, id, sequence, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("nfeCorrectionXml", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<String>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        String responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<String>() {});
+        
+
+        return new ApiResponse<String>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder nfeCorrectionXmlRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer sequence, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling nfeCorrectionXml");
+    }
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling nfeCorrectionXml");
+    }
+    // verify the required parameter 'sequence' is set
+    if (sequence == null) {
+      throw new ApiException(400, "Missing the required parameter 'sequence' when calling nfeCorrectionXml");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/nfe/{id}/corrections/{sequence}/xml"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()))
+        .replace("{id}", ApiClient.urlEncode(id.toString()))
+        .replace("{sequence}", ApiClient.urlEncode(sequence.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/xml");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * List NF-e correction letters (CC-e)
+   * Histórico de CC-e da NF-e, com nSeqEvento, protocolo, texto cumulativo e &#x60;xmlUrl&#x60; do evento. &#x60;pdfUrl&#x60; é sempre null. Aliases: &#x60;GET /v1/invoices/{id}/corrections&#x60; e &#x60;GET /v1/companies/{companyId}/invoices/{id}/corrections&#x60;. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void nfeCorrectionsList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    nfeCorrectionsList(companyId, id, null);
+  }
+
+  /**
+   * List NF-e correction letters (CC-e)
+   * Histórico de CC-e da NF-e, com nSeqEvento, protocolo, texto cumulativo e &#x60;xmlUrl&#x60; do evento. &#x60;pdfUrl&#x60; é sempre null. Aliases: &#x60;GET /v1/invoices/{id}/corrections&#x60; e &#x60;GET /v1/companies/{companyId}/invoices/{id}/corrections&#x60;. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void nfeCorrectionsList(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    nfeCorrectionsListWithHttpInfo(companyId, id, headers);
+  }
+
+  /**
+   * List NF-e correction letters (CC-e)
+   * Histórico de CC-e da NF-e, com nSeqEvento, protocolo, texto cumulativo e &#x60;xmlUrl&#x60; do evento. &#x60;pdfUrl&#x60; é sempre null. Aliases: &#x60;GET /v1/invoices/{id}/corrections&#x60; e &#x60;GET /v1/companies/{companyId}/invoices/{id}/corrections&#x60;. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> nfeCorrectionsListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id) throws ApiException {
+    return nfeCorrectionsListWithHttpInfo(companyId, id, null);
+  }
+
+  /**
+   * List NF-e correction letters (CC-e)
+   * Histórico de CC-e da NF-e, com nSeqEvento, protocolo, texto cumulativo e &#x60;xmlUrl&#x60; do evento. &#x60;pdfUrl&#x60; é sempre null. Aliases: &#x60;GET /v1/invoices/{id}/corrections&#x60; e &#x60;GET /v1/companies/{companyId}/invoices/{id}/corrections&#x60;. 
+   * @param companyId UUID da empresa na Emitfy (campo &#x60;id&#x60; de &#x60;GET /companies&#x60;). Não é o CNPJ — CNPJ no path retorna 400 &#x60;INVALID_COMPANY_ID&#x60;.  (required)
+   * @param id  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> nfeCorrectionsListWithHttpInfo(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = nfeCorrectionsListRequestBuilder(companyId, id, headers);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      InputStream localVarResponseBody = null;
+      try {
+        if (localVarResponse.statusCode()/ 100 != 2) {
+          throw getApiException("nfeCorrectionsList", localVarResponse);
+        }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
+        );
+      } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder nfeCorrectionsListRequestBuilder(@javax.annotation.Nonnull UUID companyId, @javax.annotation.Nonnull String id, Map<String, String> headers) throws ApiException {
+    // verify the required parameter 'companyId' is set
+    if (companyId == null) {
+      throw new ApiException(400, "Missing the required parameter 'companyId' when calling nfeCorrectionsList");
+    }
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling nfeCorrectionsList");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/companies/{companyId}/nfe/{id}/corrections"
+        .replace("{companyId}", ApiClient.urlEncode(companyId.toString()))
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }

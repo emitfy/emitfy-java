@@ -50,7 +50,7 @@ public class NfeCorrectionRequest {
   }
 
   /**
-   * Texto da CC-e (NF-e autorizada). Não reprocessa rejeição.
+   * Texto da nova correção (15–1000). É somado às CC-e anteriores (texto cumulativo, no máximo 1000 no total). Só NF-e autorizada, no prazo de 30 dias (720h), no máximo 20 por nota. Não reprocessa rejeição. 
    * @return correction
    */
   @javax.annotation.Nonnull

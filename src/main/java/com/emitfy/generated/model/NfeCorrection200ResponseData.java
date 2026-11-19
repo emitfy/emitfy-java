@@ -34,10 +34,14 @@ import com.emitfy.generated.ApiClient;
  */
 @JsonPropertyOrder({
   NfeCorrection200ResponseData.JSON_PROPERTY_CONFIRMED,
+  NfeCorrection200ResponseData.JSON_PROPERTY_STATUS,
+  NfeCorrection200ResponseData.JSON_PROPERTY_N_SEQ_EVENTO,
   NfeCorrection200ResponseData.JSON_PROPERTY_SEQUENCE,
   NfeCorrection200ResponseData.JSON_PROPERTY_PROTOCOL,
   NfeCorrection200ResponseData.JSON_PROPERTY_MESSAGE,
-  NfeCorrection200ResponseData.JSON_PROPERTY_CUMULATIVE_TEXT
+  NfeCorrection200ResponseData.JSON_PROPERTY_CUMULATIVE_TEXT,
+  NfeCorrection200ResponseData.JSON_PROPERTY_XML_URL,
+  NfeCorrection200ResponseData.JSON_PROPERTY_PDF_URL
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.24.0")
 public class NfeCorrection200ResponseData {
@@ -78,6 +82,47 @@ public class NfeCorrection200ResponseData {
   @javax.annotation.Nullable
   private ConfirmedEnum confirmed;
 
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    REGISTERED(String.valueOf("registered"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @javax.annotation.Nullable
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_N_SEQ_EVENTO = "nSeqEvento";
+  @javax.annotation.Nullable
+  private Integer nSeqEvento;
+
   public static final String JSON_PROPERTY_SEQUENCE = "sequence";
   @javax.annotation.Nullable
   private Integer sequence;
@@ -93,6 +138,14 @@ public class NfeCorrection200ResponseData {
   public static final String JSON_PROPERTY_CUMULATIVE_TEXT = "cumulativeText";
   @javax.annotation.Nullable
   private String cumulativeText;
+
+  public static final String JSON_PROPERTY_XML_URL = "xmlUrl";
+  @javax.annotation.Nullable
+  private String xmlUrl;
+
+  public static final String JSON_PROPERTY_PDF_URL = "pdfUrl";
+  @javax.annotation.Nullable
+  private String pdfUrl;
 
   public NfeCorrection200ResponseData() { 
   }
@@ -121,6 +174,56 @@ public class NfeCorrection200ResponseData {
   }
 
 
+  public NfeCorrection200ResponseData status(@javax.annotation.Nullable StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(@javax.annotation.Nullable StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public NfeCorrection200ResponseData nSeqEvento(@javax.annotation.Nullable Integer nSeqEvento) {
+    this.nSeqEvento = nSeqEvento;
+    return this;
+  }
+
+  /**
+   * Get nSeqEvento
+   * minimum: 1
+   * maximum: 20
+   * @return nSeqEvento
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_N_SEQ_EVENTO, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getnSeqEvento() {
+    return nSeqEvento;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_N_SEQ_EVENTO, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setnSeqEvento(@javax.annotation.Nullable Integer nSeqEvento) {
+    this.nSeqEvento = nSeqEvento;
+  }
+
+
   public NfeCorrection200ResponseData sequence(@javax.annotation.Nullable Integer sequence) {
     this.sequence = sequence;
     return this;
@@ -128,6 +231,8 @@ public class NfeCorrection200ResponseData {
 
   /**
    * Get sequence
+   * minimum: 1
+   * maximum: 20
    * @return sequence
    */
   @javax.annotation.Nullable
@@ -217,6 +322,54 @@ public class NfeCorrection200ResponseData {
   }
 
 
+  public NfeCorrection200ResponseData xmlUrl(@javax.annotation.Nullable String xmlUrl) {
+    this.xmlUrl = xmlUrl;
+    return this;
+  }
+
+  /**
+   * Caminho autenticado do XML do evento
+   * @return xmlUrl
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_XML_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getXmlUrl() {
+    return xmlUrl;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_XML_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setXmlUrl(@javax.annotation.Nullable String xmlUrl) {
+    this.xmlUrl = xmlUrl;
+  }
+
+
+  public NfeCorrection200ResponseData pdfUrl(@javax.annotation.Nullable String pdfUrl) {
+    this.pdfUrl = pdfUrl;
+    return this;
+  }
+
+  /**
+   * Sempre null — a CC-e não tem DANFE/PDF próprio
+   * @return pdfUrl
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PDF_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getPdfUrl() {
+    return pdfUrl;
+  }
+
+
+  @JsonProperty(value = JSON_PROPERTY_PDF_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPdfUrl(@javax.annotation.Nullable String pdfUrl) {
+    this.pdfUrl = pdfUrl;
+  }
+
+
   /**
    * Return true if this nfeCorrection_200_response_data object is equal to o.
    */
@@ -230,15 +383,19 @@ public class NfeCorrection200ResponseData {
     }
     NfeCorrection200ResponseData nfeCorrection200ResponseData = (NfeCorrection200ResponseData) o;
     return Objects.equals(this.confirmed, nfeCorrection200ResponseData.confirmed) &&
+        Objects.equals(this.status, nfeCorrection200ResponseData.status) &&
+        Objects.equals(this.nSeqEvento, nfeCorrection200ResponseData.nSeqEvento) &&
         Objects.equals(this.sequence, nfeCorrection200ResponseData.sequence) &&
         Objects.equals(this.protocol, nfeCorrection200ResponseData.protocol) &&
         Objects.equals(this.message, nfeCorrection200ResponseData.message) &&
-        Objects.equals(this.cumulativeText, nfeCorrection200ResponseData.cumulativeText);
+        Objects.equals(this.cumulativeText, nfeCorrection200ResponseData.cumulativeText) &&
+        Objects.equals(this.xmlUrl, nfeCorrection200ResponseData.xmlUrl) &&
+        Objects.equals(this.pdfUrl, nfeCorrection200ResponseData.pdfUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confirmed, sequence, protocol, message, cumulativeText);
+    return Objects.hash(confirmed, status, nSeqEvento, sequence, protocol, message, cumulativeText, xmlUrl, pdfUrl);
   }
 
   @Override
@@ -246,10 +403,14 @@ public class NfeCorrection200ResponseData {
     StringBuilder sb = new StringBuilder();
     sb.append("class NfeCorrection200ResponseData {\n");
     sb.append("    confirmed: ").append(toIndentedString(confirmed)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    nSeqEvento: ").append(toIndentedString(nSeqEvento)).append("\n");
     sb.append("    sequence: ").append(toIndentedString(sequence)).append("\n");
     sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    cumulativeText: ").append(toIndentedString(cumulativeText)).append("\n");
+    sb.append("    xmlUrl: ").append(toIndentedString(xmlUrl)).append("\n");
+    sb.append("    pdfUrl: ").append(toIndentedString(pdfUrl)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -299,6 +460,16 @@ public class NfeCorrection200ResponseData {
       joiner.add(String.format(java.util.Locale.ROOT, "%sconfirmed%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getConfirmed()))));
     }
 
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstatus%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
+    }
+
+    // add `nSeqEvento` to the URL query string
+    if (getnSeqEvento() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%snSeqEvento%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getnSeqEvento()))));
+    }
+
     // add `sequence` to the URL query string
     if (getSequence() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%ssequence%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getSequence()))));
@@ -317,6 +488,16 @@ public class NfeCorrection200ResponseData {
     // add `cumulativeText` to the URL query string
     if (getCumulativeText() != null) {
       joiner.add(String.format(java.util.Locale.ROOT, "%scumulativeText%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCumulativeText()))));
+    }
+
+    // add `xmlUrl` to the URL query string
+    if (getXmlUrl() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%sxmlUrl%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getXmlUrl()))));
+    }
+
+    // add `pdfUrl` to the URL query string
+    if (getPdfUrl() != null) {
+      joiner.add(String.format(java.util.Locale.ROOT, "%spdfUrl%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPdfUrl()))));
     }
 
     return joiner.toString();
